@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gram_X - Music Downloader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --secondary: #4b0082;
+            --accent: #00bfff;
+            --dark: #121212;
+            --light: #f8f8ff;
+            --gray: #2a2a2a;
+            --success: #00cc99;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark), var(--secondary));
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(30, 30, 40, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--accent), #ff00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        .profile-section {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+        
+        .profile-pic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--accent);
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-pic i {
+            font-size: 1.5rem;
+            color: var(--light);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .sidebar {
+            background: rgba(40, 40, 50, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            height: fit-content;
+        }
+        
+        .nav-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: linear-gradient(to right, var(--primary), transparent);
+        }
+        
+        .nav-item i {
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        
+        .search-container {
+            background: var(--gray);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 30px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        
+        .search-btn {
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: var(--light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+        }
+        
+        .content {
+            background: rgba(40, 40, 50, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .song-card {
+            background: rgba(50, 50, 60, 0.6);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .song-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .song-thumb {
+            width: 100%;
+            height: 180px;
+            background: var(--gray);
+            overflow: hidden;
+        }
+        
+        .song-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .song-info {
+            padding: 15px;
+        }
+        
+        .song-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .song-artist {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .song-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .download-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+        
+        .player-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 30%;
+        }
+        
+        .player-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .player-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .player-text {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        
+        .player-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .player-artist {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 40%;
+            justify-content: center;
+        }
+        
+        .control-btn {
+            background: transparent;
+            border: none;
+            color: var(--light);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            color: var(--accent);
+        }
+        
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .player-progress {
+            width: 30%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--light);
+            border-radius: 10px;
+            width: 30%;
+        }
+        
+        .time {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            background: var(--gray);
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .profile-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-option {
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-option:hover {
+            background: rgba(138, 43, 226, 0.2);
+        }
+        
+        .profile-option i {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .cancel-btn {
+            background: transparent;
+            color: var(--light);
+            border: 1px solid var(--light);
+        }
+        
+        .cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .save-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: var(--light);
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .player-info, .player-controls, .player-progress {
+                width: auto;
+            }
+            
+            .player {
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .songs-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .player {
+                padding: 10px;
+            }
+            
+            .player-info {
+                display: none;
+            }
+        }
+        
+        /* Animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Gram_X</div>
+            <div class="tagline">Download your favorite music</div>
+            <div class="profile-section">
+                <div class="profile-pic" id="profile-pic">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-music"></i>
+                    <span>My Library</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-download"></i>
+                    <span>Downloads</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Search for songs, artists, or albums...">
+                        <button class="search-btn">Search</button>
+                    </div>
+                    <div class="filters">
+                        <button class="filter-btn active">All</button>
+                        <button class="filter-btn">MP3</button>
+                        <button class="filter-btn">MP4</button>
+                        <button class="filter-btn">Trending</button>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Trending Now</h2>
+                <div class="songs-grid" id="songs-container">
+                    <!-- Songs will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="player">
+        <div class="player-info">
+            <div class="player-thumb">
+                <img src="" alt="" id="player-thumb">
+            </div>
+            <div class="player-text">
+                <div class="player-title" id="player-title">Select a song to play</div>
+                <div class="player-artist" id="player-artist">Artist</div>
+            </div>
+        </div>
+        
+        <div class="player-controls">
+            <button class="control-btn"><i class="fas fa-step-backward"></i></button>
+            <button class="control-btn play-btn"><i class="fas fa-play" id="play-icon"></i></button>
+            <button class="control-btn"><i class="fas fa-step-forward"></i></button>
+        </div>
+        
+        <div class="player-progress">
+            <div class="time" id="current-time">0:00</div>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div class="time" id="total-time">0:00</div>
+        </div>
+    </div>
+    
+    <div class="modal" id="profile-modal">
+        <div class="modal-content">
+            <h2 class="modal-title">Choose Profile Picture</h2>
+            <div class="profile-options">
+                <div class="profile-option" id="gallery-option">
+                    <i class="fas fa-image"></i>
+                    <span>Choose from Gallery</span>
+                </div>
+                <div class="profile-option" id="camera-option">
+                    <i class="fas fa-camera"></i>
+                    <span>Take Photo</span>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel-btn" id="cancel-btn">Cancel</button>
+                <button class="modal-btn save-btn" id="save-btn" disabled>Save</button>
+            </div>
+        </div>
+    </div>
+    
+    <input type="file" id="file-input" accept="image/*" style="display: none;">
+    <input type="file" id="camera-input" accept="image/*" capture="camera" style="display: none;">
+    
+    <script>
+        // DOM Elements
+        const profilePic = document.getElementById('profile-pic');
+        const profileModal = document.getElementById('profile-modal');
+        const galleryOption = document.getElementById('gallery-option');
+        const cameraOption = document.getElementById('camera-option');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const fileInput = document.getElementById('file-input');
+        const cameraInput = document.getElementById('camera-input');
+        const songsContainer = document.getElementById('songs-container');
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        // Sample data for demonstration
+        const sampleSongs = [
+            {
+                id: 1,
+                title: "Blinding Lights",
+                artist: "The Weeknd",
+                thumbnail: "https://i.ytimg.com/vi/4NRXx6U8ABQ/maxresdefault.jpg",
+                duration: "3:20",
+                url: "https://www.youtube.com/watch?v=4NRXx6U8ABQ"
+            },
+            {
+                id: 2,
+                title: "Shape of You",
+                artist: "Ed Sheeran",
+                thumbnail: "https://i.ytimg.com/vi/JGwWNGJdvx8/maxresdefault.jpg",
+                duration: "3:53",
+                url: "https://www.youtube.com/watch?v=JGwWNGJdvx8"
+            },
+            {
+                id: 3,
+                title: "Dance Monkey",
+                artist: "Tones and I",
+                thumbnail: "https://i.ytimg.com/vi/q0hyYWKXF0Q/maxresdefault.jpg",
+                duration: "3:29",
+                url: "https://www.youtube.com/watch?v=q0hyYWKXF0Q"
+            },
+            {
+                id: 4,
+                title: "Don't Start Now",
+                artist: "Dua Lipa",
+                thumbnail: "https://i.ytimg.com/vi/oygrmJFKYZY/maxresdefault.jpg",
+                duration: "3:03",
+                url: "https://www.youtube.com/watch?v=oygrmJFKYZY"
+            },
+            {
+                id: 5,
+                title: "Bad Guy",
+                artist: "Billie Eilish",
+                thumbnail: "https://i.ytimg.com/vi/DyDfgMOUjCI/maxresdefault.jpg",
+                duration: "3:14",
+                url: "https://www.youtube.com/watch?v=DyDfgMOUjCI"
+            },
+            {
+                id: 6,
+                title: "Watermelon Sugar",
+                artist: "Harry Styles",
+                thumbnail: "https://i.ytimg.com/vi/E07s5ZYygMg/maxresdefault.jpg",
+                duration: "2:54",
+                url: "https://www.youtube.com/watch?v=E07s5ZYygMg"
+            }
+        ];
+        
+        // Profile Picture Handling
+        profilePic.addEventListener('click', () => {
+            profileModal.classList.add('active');
+        });
+        
+        cancelBtn.addEventListener('click', () => {
+            profileModal.classList.remove('active');
+        });
+        
+        galleryOption.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        cameraOption.addEventListener('click', () => {
+            cameraInput.click();
+        });
+        
+        fileInput.addEventListener('change', handleFileSelect);
+        cameraInput.addEventListener('change', handleFileSelect);
+        
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePic.innerHTML = `<img src="${e.target.result}" alt="Profile Picture">`;
+                    saveBtn.disabled = false;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        saveBtn.addEventListener('click', () => {
+            // Save the profile picture (in a real app, this would save to server/local storage)
+            localStorage.setItem('profilePic', profilePic.innerHTML);
+            profileModal.classList.remove('active');
+            alert('Profile picture updated successfully!');
+        });
+        
+        // Load saved profile picture if exists
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedProfilePic = localStorage.getItem('profilePic');
+            if (savedProfilePic) {
+                profilePic.innerHTML = savedProfilePic;
+            }
+        });
+        
+        // Populate sample songs
+        function renderSongs(songs) {
+            songsContainer.innerHTML = '';
+            songs.forEach(song => {
+                const songCard = document.createElement('div');
+                songCard.className = 'song-card';
+                songCard.innerHTML = `
+                    <div class="song-thumb">
+                        <img src="${song.thumbnail}" alt="${song.title}">
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">${song.title}</div>
+                        <div class="song-artist">${song.artist}</div>
+                        <div class="song-actions">
+                            <div class="action-btn" onclick="playSong(${song.id})">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="action-btn download-btn" onclick="downloadSong('${song.url}', '${song.title}', '${song.artist}')">
+                                <i class="fas fa-download"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                songsContainer.appendChild(songCard);
+            });
+        }
+        
+        // Play song function
+        function playSong(songId) {
+            const song = sampleSongs.find(s => s.id === songId);
+            if (song) {
+                document.getElementById('player-thumb').src = song.thumbnail;
+                document.getElementById('player-title').textContent = song.title;
+                document.getElementById('player-artist').textContent = song.artist;
+                document.getElementById('play-icon').className = 'fas fa-pause';
+                
+                // In a real app, you would play the audio here
+                console.log(`Playing: ${song.title} by ${song.artist}`);
+            }
+        }
+        
+        // Download song function
+        function downloadSong(url, title, artist) {
+            // Show loading state
+            const downloadBtn = event.currentTarget;
+            const originalHtml = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
+            // Determine which API to use based on URL parameters or user selection
+            const format = document.querySelector('.filter-btn.active').textContent.toLowerCase();
+            let apiUrl = '';
+            
+            if (format === 'mp3') {
+                apiUrl = `https://apis.davidcyriltech.my.id/download/ytmp3?url=${encodeURIComponent(url)}`;
+            } else if (format === 'mp4') {
+                apiUrl = `https://apis.davidcyriltech.my.id/youtube/mp4?url=${encodeURIComponent(url)}`;
+            } else {
+                // Default to MP3
+                apiUrl = `https://apis.davidcyriltech.my.id/youtube/mp3?url=${encodeURIComponent(url)}`;
+            }
+            
+            // In a real implementation, you would fetch the download URL from the API
+            // and then trigger the download
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // This is a simulation - in a real app, you would use the actual API response
+                console.log(`Downloading from: ${apiUrl}`);
+                
+                // Create a fake download link (in a real app, this would be the actual download URL)
+                const a = document.createElement('a');
+                a.href = '#'; // Would be the actual download URL in a real implementation
+                a.download = `${title} - ${artist}.${format}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                // Revert button state
+                downloadBtn.innerHTML = originalHtml;
+                
+                // Show success message
+                alert(`Download started for: ${title} by ${artist}`);
+            }, 1500);
+        }
+        
+        // Search functionality
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                // In a real app, you would search through the API
+                // For this demo, we'll filter the sample songs
+                const filteredSongs = sampleSongs.filter(song => 
+                    song.title.toLowerCase().includes(query.toLowerCase()) || 
+                    song.artist.toLowerCase().includes(query.toLowerCase())
+                );
+                
+                if (filteredSongs.length > 0) {
+                    renderSongs(filteredSongs);
+                } else {
+                    songsContainer.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                            <i class="fas fa-search" style="font-size: 3rem; opacity: 0.5; margin-bottom: 15px;"></i>
+                            <h3>No results found for "${query}"</h3>
+                            <p>Try different keywords or check the spelling</p>
+                        </div>
+                    `;
+                }
+            }
+        }
+        
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // In a real app, you would filter content based on the selected filter
+                console.log(`Filter changed to: ${btn.textContent}`);
+            });
+        });
+        
+        // Initialize the app
+        renderSongs(sampleSongs);
+    </script>
+</body>
+</html>
