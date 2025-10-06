@@ -3,512 +3,447 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bera Subscriptions Portal</title>
+    <title>Chege Tech - Real Subscription Payments</title>
     <style>
+        :root {
+            --primary: #e50914;
+            --dark: #141414;
+            --darker: #0a0a0a;
+            --light: #ffffff;
+            --gray: #808080;
+            --success: #00a650;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-bg: #0a0a0a;
-            --secondary-bg: #111111;
-            --accent: #dc2626;
-            --accent-hover: #b91c1c;
-            --text: #ffffff;
-            --text-secondary: #a1a1aa;
-            --card-bg: #1a1a1a;
-            --border: #333333;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--primary-bg);
-            color: var(--text);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: var(--darker);
+            color: var(--light);
             line-height: 1.6;
-            min-height: 100vh;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
 
         header {
-            text-align: center;
-            padding: 40px 0;
-            background: var(--secondary-bg);
-            border-bottom: 2px solid var(--accent);
-            margin-bottom: 40px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .logo {
-            font-size: 2.5rem;
+            font-size: 28px;
             font-weight: bold;
-            color: var(--accent);
-            margin-bottom: 10px;
+            color: var(--primary);
         }
 
-        .tagline {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .services {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--light);
         }
 
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            gap: 30px;
             margin-bottom: 50px;
         }
 
         .service-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
+            background: var(--dark);
+            border-radius: 10px;
+            padding: 30px;
             text-align: center;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid #333;
         }
 
         .service-card:hover {
             transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
+            border-color: var(--primary);
         }
 
         .service-logo {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 15px;
-            background: var(--secondary-bg);
-            border-radius: 12px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: var(--darker);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 2rem;
             font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--accent);
         }
 
-        .service-name {
-            font-size: 1.3rem;
+        .netflix-logo { color: #e50914; border: 2px solid #e50914; }
+        .spotify-logo { color: #1db954; border: 2px solid #1db954; }
+        .youtube-logo { color: #ff0000; border: 2px solid #ff0000; }
+        .telegram-logo { color: #0088cc; border: 2px solid #0088cc; }
+        .showmax-logo { color: #00a8ff; border: 2px solid #00a8ff; }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .service-card .price {
+            font-size: 2rem;
+            color: var(--primary);
             margin-bottom: 20px;
-            color: var(--text);
-        }
-
-        .plans {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .plan-option {
-            flex: 1;
-            padding: 12px;
-            background: var(--secondary-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .plan-option.selected {
-            background: var(--accent);
-            border-color: var(--accent);
-            transform: scale(1.05);
-        }
-
-        .plan-name {
             font-weight: bold;
-            margin-bottom: 5px;
         }
 
-        .plan-price {
-            font-size: 1.1rem;
-            color: var(--text);
-        }
-
-        .pay-button {
-            width: 100%;
-            padding: 15px;
-            background: var(--accent);
+        .pay-btn {
+            background: var(--primary);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: background 0.3s;
+            width: 100%;
         }
 
-        .pay-button:hover:not(:disabled) {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
+        .pay-btn:hover {
+            background: #ff6b6b;
         }
 
-        .pay-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        .referral {
+            background: var(--dark);
+            padding: 60px 0;
+            text-align: center;
         }
 
-        .payment-modal {
+        .referral-box {
+            background: var(--darker);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #333;
+        }
+
+        .referral-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .referral-link {
+            background: var(--darker);
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-family: monospace;
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        footer {
+            background: var(--darker);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
             align-items: center;
             justify-content: center;
         }
 
         .modal-content {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            width: 90%;
+            background: var(--dark);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
             max-width: 400px;
-            border: 1px solid var(--border);
+            width: 90%;
+            border: 1px solid #333;
         }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-        }
-
-        .form-group input {
+        .phone-input {
             width: 100%;
-            padding: 12px;
-            background: var(--secondary-bg);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text);
+            padding: 15px;
+            margin: 20px 0;
+            background: var(--darker);
+            border: 1px solid #333;
+            border-radius: 5px;
+            color: white;
             font-size: 1rem;
         }
 
-        .loading-spinner {
+        .loading {
             display: none;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border);
-            border-left: 4px solid var(--accent);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .referral-popup {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--accent);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1001;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px 0;
-            margin-top: 50px;
-            border-top: 1px solid var(--border);
-            color: var(--text-secondary);
+            color: var(--primary);
+            margin: 10px 0;
         }
 
         @media (max-width: 768px) {
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .plans {
-                flex-direction: column;
-            }
-            
-            .container {
-                padding: 15px;
-            }
-            
-            header {
-                padding: 25px 0;
-            }
-            
-            .logo {
-                font-size: 2rem;
-            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .referral-stats { flex-direction: column; gap: 20px; }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <div class="logo">BERA SUBSCRIPTIONS</div>
-            <div class="tagline">Premium Services, Affordable Prices</div>
+            <nav class="navbar">
+                <div class="logo">CHEGE TECH</div>
+            </nav>
         </div>
     </header>
 
-    <div class="container">
-        <div class="services-grid" id="servicesGrid">
-            <!-- Services will be populated by JavaScript -->
-        </div>
-    </div>
-
-    <!-- Payment Modal -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Complete Payment</h3>
-                <button class="close-modal" onclick="closeModal()">&times;</button>
-            </div>
-            <form id="paymentForm">
-                <div class="form-group">
-                    <label for="phoneNumber">M-Pesa Phone Number</label>
-                    <input type="tel" id="phoneNumber" placeholder="07XX XXX XXX" required>
-                </div>
-                <div class="form-group">
-                    <label for="referralCode">Referral Code (Optional)</label>
-                    <input type="text" id="referralCode" placeholder="Enter referral code">
-                </div>
-                <button type="submit" class="pay-button" id="submitPayment">
-                    Pay Now - KSh <span id="paymentAmount">0</span>
-                </button>
-            </form>
-            <div class="loading-spinner" id="loadingSpinner">
-                <div class="spinner"></div>
-                <p>Processing Payment...</p>
-                <p style="font-size: 0.9rem; color: var(--text-secondary);">Check your phone for STK Push</p>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Real Subscription Payments</h1>
+                <p style="font-size: 1.5rem; margin-bottom: 30px; color: var(--gray);">
+                    Pay with M-PESA via PayHero - Instant Activation
+                </p>
+                <p style="color: var(--success); font-weight: bold;">
+                    ✅ REAL PAYMENTS - REAL PAYHERO INTEGRATION
+                </p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Referral Popup -->
-    <div class="referral-popup" id="referralPopup">
-        🎉 Referral bonus earned!
-    </div>
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Choose Your Subscription</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-logo netflix-logo">N</div>
+                    <h3>Netflix Premium</h3>
+                    <div class="price">100 KES/month</div>
+                    <button class="pay-btn" data-service="Netflix Premium">Pay 100 KES</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-logo spotify-logo">S</div>
+                    <h3>Spotify Premium</h3>
+                    <div class="price">100 KES/month</div>
+                    <button class="pay-btn" data-service="Spotify Premium">Pay 100 KES</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-logo youtube-logo">YT</div>
+                    <h3>YouTube Premium</h3>
+                    <div class="price">100 KES/month</div>
+                    <button class="pay-btn" data-service="YouTube Premium">Pay 100 KES</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-logo telegram-logo">TG</div>
+                    <h3>Telegram Premium</h3>
+                    <div class="price">100 KES/month</div>
+                    <button class="pay-btn" data-service="Telegram Premium">Pay 100 KES</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-logo showmax-logo">SM</div>
+                    <h3>Showmax Premium</h3>
+                    <div class="price">100 KES/month</div>
+                    <button class="pay-btn" data-service="Showmax Premium">Pay 100 KES</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="referral">
+        <div class="container">
+            <h2 class="section-title">Earn with Referrals</h2>
+            <div class="referral-box">
+                <p>Share your link and earn <strong>10 KES</strong> for every successful payment!</p>
+                
+                <div class="referral-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="referralCount">0</div>
+                        <div>Successful Referrals</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="earnings">0 KES</div>
+                        <div>Total Earnings</div>
+                    </div>
+                </div>
+
+                <div class="referral-link" id="referralLink">
+                    Generating your referral link...
+                </div>
+                <button class="copy-btn" onclick="copyReferralLink()">Copy Link</button>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <div class="container">
-            <p>Developed by Bruce Bera – Bera Tech</p>
-            <p style="margin-top: 10px; font-size: 0.9rem;">
-                Need help? WhatsApp: +254 743 982 206
+            <p style="color: var(--gray);">Developed by Bruce Chege — Chege Tech 2025</p>
+            <p style="color: var(--gray); font-size: 0.9rem; margin-top: 10px;">
+                Contact: beratech00@gmail.com | M-PESA: 254743982206
             </p>
         </div>
     </footer>
 
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <h2>Complete M-PESA Payment</h2>
+            <p id="selectedService">Service: </p>
+            <p>Amount: <strong>100 KES</strong></p>
+            <input type="tel" class="phone-input" id="phoneNumber" placeholder="2547XXXXXXXX" maxlength="12" value="254">
+            <div class="loading" id="loading">Processing payment... Please wait</div>
+            <button class="pay-btn" id="confirmPay">Initiate M-PESA Payment</button>
+            <button style="background: var(--gray); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px; width: 100%;" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
     <script>
-        // Services data
-        const services = [
-            {
-                name: 'Netflix',
-                plans: [
-                    { name: 'Monthly', price: 100 },
-                    { name: 'Yearly', price: 1000 }
-                ],
-                logo: '🎬'
-            },
-            {
-                name: 'Spotify',
-                plans: [
-                    { name: 'Monthly', price: 100 },
-                    { name: 'Yearly', price: 1000 }
-                ],
-                logo: '🎵'
-            },
-            {
-                name: 'YouTube Premium',
-                plans: [
-                    { name: 'Monthly', price: 100 },
-                    { name: 'Yearly', price: 1000 }
-                ],
-                logo: '📺'
-            },
-            {
-                name: 'Telegram Premium',
-                plans: [
-                    { name: 'Monthly', price: 100 },
-                    { name: 'Yearly', price: 1000 }
-                ],
-                logo: '✈️'
-            },
-            {
-                name: 'Showmax',
-                plans: [
-                    { name: 'Monthly', price: 100 },
-                    { name: 'Yearly', price: 1000 }
-                ],
-                logo: '🎭'
-            }
-        ];
-
-        // Global variables
-        let selectedService = null;
-        let selectedPlan = null;
-        let currentTransactionId = null;
-
-        // Initialize the page
-        function initializePage() {
-            renderServices();
-            checkReferral();
-            setupEventListeners();
-        }
-
-        // Render services grid
-        function renderServices() {
-            const grid = document.getElementById('servicesGrid');
-            grid.innerHTML = '';
-
-            services.forEach(service => {
-                const card = document.createElement('div');
-                card.className = 'service-card';
-                card.innerHTML = `
-                    <div class="service-logo">${service.logo}</div>
-                    <div class="service-name">${service.name}</div>
-                    <div class="plans">
-                        ${service.plans.map((plan, index) => `
-                            <div class="plan-option" data-plan="${plan.name}" data-price="${plan.price}">
-                                <div class="plan-name">${plan.name}</div>
-                                <div class="plan-price">KSh ${plan.price}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <button class="pay-button" onclick="openPaymentModal('${service.name}')">
-                        Subscribe Now
-                    </button>
-                `;
-                grid.appendChild(card);
-            });
-
-            // Add plan selection handlers
-            document.querySelectorAll('.plan-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    const parent = this.parentElement;
-                    parent.querySelectorAll('.plan-option').forEach(opt => opt.classList.remove('selected'));
-                    this.classList.add('selected');
-                });
-            });
-        }
-
-        // Check for referral parameter
-        function checkReferral() {
+        // Referral system
+        function getReferralCode() {
             const urlParams = new URLSearchParams(window.location.search);
-            const ref = urlParams.get('ref');
-            if (ref) {
-                localStorage.setItem('referral_code', ref);
-                showReferralPopup();
+            let ref = urlParams.get('ref');
+            return ref || 'default';
+        }
+
+        function generateReferralLink() {
+            const referralCode = getReferralCode();
+            if (referralCode === 'default') {
+                // Generate unique code for new user
+                const userCode = 'user_' + Math.random().toString(36).substr(2, 8);
+                return window.location.origin + '?ref=' + userCode;
+            }
+            return window.location.origin + '?ref=' + referralCode;
+        }
+
+        async function loadReferralStats() {
+            try {
+                const referralCode = getReferralCode();
+                const response = await fetch(`/api/referral-stats?ref=${referralCode}`);
+                const stats = await response.json();
+                
+                document.getElementById('referralCount').textContent = stats.referrals || 0;
+                document.getElementById('earnings').textContent = (stats.earnings || 0) + ' KES';
+                document.getElementById('referralLink').textContent = generateReferralLink();
+            } catch (error) {
+                console.error('Error loading stats:', error);
             }
         }
 
-        // Show referral popup
-        function showReferralPopup() {
-            const popup = document.getElementById('referralPopup');
-            popup.style.display = 'block';
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 3000);
+        function copyReferralLink() {
+            const link = document.getElementById('referralLink').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Referral link copied! Share it to earn 10 KES per payment.');
+            });
         }
 
-        // Open payment modal
-        function openPaymentModal(serviceName) {
-            selectedService = serviceName;
-            const card = event.target.closest('.service-card');
-            const selectedPlanElement = card.querySelector('.plan-option.selected');
-            
-            if (!selectedPlanElement) {
-                alert('Please select a plan first');
-                return;
+        // Payment system
+        let selectedService = '';
+
+        document.querySelectorAll('.pay-btn').forEach(button => {
+            if (button.id !== 'confirmPay') {
+                button.addEventListener('click', (e) => {
+                    selectedService = e.target.dataset.service;
+                    openModal();
+                });
             }
+        });
 
-            selectedPlan = selectedPlanElement.dataset.plan;
-            const amount = selectedPlanElement.dataset.price;
-
-            document.getElementById('paymentAmount').textContent = amount;
+        function openModal() {
+            document.getElementById('selectedService').textContent = `Service: ${selectedService}`;
             document.getElementById('paymentModal').style.display = 'flex';
+            document.getElementById('phoneNumber').focus();
         }
 
-        // Close modal
         function closeModal() {
             document.getElementById('paymentModal').style.display = 'none';
-            document.getElementById('loadingSpinner').style.display = 'none';
-            document.getElementById('paymentForm').style.display = 'block';
-            document.getElementById('paymentForm').reset();
+            document.getElementById('phoneNumber').value = '254';
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('confirmPay').disabled = false;
+            document.getElementById('confirmPay').textContent = 'Initiate M-PESA Payment';
         }
 
-        // Setup event listeners
-        function setupEventListeners() {
-            document.getElementById('paymentForm').addEventListener('submit', handlePayment);
+        // REAL payment processing
+        document.getElementById('confirmPay').addEventListener('click', async () => {
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            const payBtn = document.getElementById('confirmPay');
+            const loading = document.getElementById('loading');
             
-            // Close modal when clicking outside
-            document.getElementById('paymentModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
-                }
-            });
-        }
-
-        // Handle payment submission
-        async function handlePayment(e) {
-            e.preventDefault();
-            
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const referralCode = document.getElementById('referralCode').value || localStorage.getItem('referral_code');
-            const amount = document.getElementById('paymentAmount').textContent;
-
-            if (!phoneNumber.match(/^(07|01|2547|2541)\d{8}$/)) {
-                alert('Please enter a valid Kenyan phone number');
+            if (!phoneNumber || phoneNumber === '254') {
+                alert('Please enter your M-PESA phone number (format: 2547XXXXXXXX)');
                 return;
             }
 
-            // Show loading spinner
-            document.getElementById('paymentForm').style.display = 'none';
-            document.getElementById('loadingSpinner').style.display = 'block';
+            if (!phoneNumber.startsWith('254') || phoneNumber.length !== 12) {
+                alert('Please enter a valid M-PESA number starting with 254 followed by 9 digits (e.g., 254712345678)');
+                return;
+            }
+
+            payBtn.disabled = true;
+            payBtn.textContent = 'Processing...';
+            loading.style.display = 'block';
 
             try {
                 const response = await fetch('/api/pay', {
@@ -517,73 +452,50 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        phoneNumber: phoneNumber,
                         service: selectedService,
-                        plan: selectedPlan,
-                        phone: phoneNumber,
-                        amount: amount,
-                        referral_code: referralCode
+                        amount: 100,
+                        referralCode: getReferralCode()
                     })
                 });
 
                 const data = await response.json();
 
                 if (data.success) {
-                    currentTransactionId = data.txnid;
-                    await waitForPaymentConfirmation(data.txnid);
+                    alert('✅ M-PESA STK Push sent! Check your phone to enter M-PESA PIN.');
+                    
+                    // Redirect to WhatsApp after short delay
+                    setTimeout(() => {
+                        const whatsappUrl = `https://wa.me/254743982206?text=Hi%20I%20have%20paid%20for%20${encodeURIComponent(selectedService)}%20via%20Chege%20Tech.%20Transaction:%20${data.transactionId}`;
+                        window.location.href = whatsappUrl;
+                    }, 2000);
+                    
                 } else {
-                    throw new Error(data.error || 'Payment failed');
+                    throw new Error(data.message || 'Payment failed');
                 }
             } catch (error) {
                 console.error('Payment error:', error);
-                alert('Payment failed: ' + error.message);
+                alert('❌ Payment failed: ' + error.message);
+            } finally {
                 closeModal();
+                await loadReferralStats(); // Refresh stats
             }
-        }
+        });
 
-        // Wait for payment confirmation
-        async function waitForPaymentConfirmation(txnid) {
-            let attempts = 0;
-            const maxAttempts = 60; // Wait for 2 minutes maximum
+        // Auto-format phone number
+        document.getElementById('phoneNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (!value.startsWith('254')) {
+                value = '254' + value.replace(/^254/, '');
+            }
+            value = value.substr(0, 12);
+            e.target.value = value;
+        });
 
-            const checkStatus = async () => {
-                attempts++;
-                
-                try {
-                    const response = await fetch(`/api/payment-status/${txnid}`);
-                    const data = await response.json();
-
-                    if (data.status === 'completed') {
-                        // Payment successful - redirect to WhatsApp
-                        const transaction = data.transaction;
-                        const whatsappMessage = `Hi! I just paid for ${transaction.service} ${transaction.plan} (KSh ${transaction.amount}). Transaction ID: ${transaction.txnid}.`;
-                        const encodedMessage = encodeURIComponent(whatsappMessage);
-                        const whatsappUrl = `https://wa.me/254743982206?text=${encodedMessage}`;
-                        
-                        window.location.href = whatsappUrl;
-                        return;
-                    } else if (data.status === 'failed') {
-                        throw new Error('Payment was declined or failed');
-                    }
-
-                    // If not completed and attempts remain, check again
-                    if (attempts < maxAttempts) {
-                        setTimeout(checkStatus, 2000); // Check every 2 seconds
-                    } else {
-                        throw new Error('Payment timeout - please contact support');
-                    }
-                } catch (error) {
-                    console.error('Status check error:', error);
-                    alert('Payment verification failed: ' + error.message);
-                    closeModal();
-                }
-            };
-
-            // Start checking status
-            checkStatus();
-        }
-
-        // Initialize the page when loaded
-        document.addEventListener('DOMContentLoaded', initializePage);
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadReferralStats();
+        });
     </script>
 </body>
-</html>
+    </html>
