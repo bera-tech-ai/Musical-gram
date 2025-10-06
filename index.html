@@ -3,900 +3,891 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gram_X - Music Downloader</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Bera Subscriptions Portal</title>
     <style>
         :root {
-            --primary: #8a2be2;
-            --secondary: #4b0082;
-            --accent: #00bfff;
-            --dark: #121212;
-            --light: #f8f8ff;
-            --gray: #2a2a2a;
-            --success: #00cc99;
+            --primary-bg: #0D0D0D;
+            --secondary-bg: #1a1a1a;
+            --accent-red: #E50914;
+            --accent-red-dark: #b80710;
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
+            --card-bg: #2a2a2a;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, var(--dark), var(--secondary));
-            color: var(--light);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-white);
+            line-height: 1.6;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(30, 30, 40, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 0 20px;
         }
         
+        /* Header */
         header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            padding: 20px;
-            text-align: center;
-            position: relative;
+            background: var(--secondary-bg);
+            padding: 1rem 0;
+            border-bottom: 2px solid var(--accent-red);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, var(--accent), #ff00ff);
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-red);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-red);
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent-red), #ff6b6b);
             -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            -webkit-text-fill-color: transparent;
         }
         
-        .tagline {
-            font-size: 1rem;
-            opacity: 0.8;
-            margin-top: 5px;
-        }
-        
-        .profile-section {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .profile-pic {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--gray);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            overflow: hidden;
-            border: 2px solid var(--accent);
-            transition: all 0.3s ease;
-        }
-        
-        .profile-pic:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px var(--accent);
-        }
-        
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .profile-pic i {
-            font-size: 1.5rem;
-            color: var(--light);
-        }
-        
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 20px;
-            padding: 20px;
-        }
-        
-        .sidebar {
-            background: rgba(40, 40, 50, 0.6);
-            border-radius: 15px;
-            padding: 20px;
-            height: fit-content;
-        }
-        
-        .nav-item {
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .nav-item:hover, .nav-item.active {
-            background: linear-gradient(to right, var(--primary), transparent);
-        }
-        
-        .nav-item i {
+        .hero p {
             font-size: 1.2rem;
-            color: var(--accent);
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto 2rem;
         }
         
-        .search-container {
-            background: var(--gray);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
+        /* Services Grid */
+        .services {
+            padding: 4rem 0;
         }
         
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .search-input {
-            flex: 1;
-            padding: 12px 15px;
-            border-radius: 30px;
-            border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--light);
-            font-size: 1rem;
-        }
-        
-        .search-input:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px var(--accent);
-        }
-        
-        .search-btn {
-            padding: 12px 20px;
-            border-radius: 30px;
-            border: none;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--light);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .search-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
-        }
-        
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .filter-btn {
-            padding: 8px 15px;
-            border-radius: 20px;
-            border: 1px solid var(--primary);
-            background: transparent;
-            color: var(--light);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary);
-        }
-        
-        .content {
-            background: rgba(40, 40, 50, 0.6);
-            border-radius: 15px;
-            padding: 20px;
-        }
-        
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .songs-grid {
+        .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
         
-        .song-card {
-            background: rgba(50, 50, 60, 0.6);
+        .service-card {
+            background: var(--card-bg);
             border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #333;
         }
         
-        .song-card:hover {
+        .service-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
         }
         
-        .song-thumb {
-            width: 100%;
-            height: 180px;
-            background: var(--gray);
-            overflow: hidden;
-        }
-        
-        .song-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .song-info {
-            padding: 15px;
-        }
-        
-        .song-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .song-artist {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-bottom: 10px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .song-actions {
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .action-btn {
-            width: 35px;
-            height: 35px;
+        .service-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: var(--secondary-bg);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--light);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 2rem;
+            font-weight: bold;
         }
         
-        .action-btn:hover {
-            background: var(--primary);
-            transform: scale(1.1);
-        }
-        
-        .download-btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-        }
-        
-        .player {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 1000;
-        }
-        
-        .player-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            width: 30%;
-        }
-        
-        .player-thumb {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .player-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .player-text {
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        
-        .player-title {
-            font-weight: 600;
-            font-size: 1rem;
-        }
-        
-        .player-artist {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-        
-        .player-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            width: 40%;
-            justify-content: center;
-        }
-        
-        .control-btn {
-            background: transparent;
-            border: none;
-            color: var(--light);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .control-btn:hover {
-            color: var(--accent);
-        }
-        
-        .play-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--light);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .player-progress {
-            width: 30%;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .progress-bar {
-            flex: 1;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        
-        .progress {
-            height: 100%;
-            background: var(--light);
-            border-radius: 10px;
-            width: 30%;
-        }
-        
-        .time {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-        
-        /* Modal Styles */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        
-        .modal.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .modal-content {
-            background: var(--gray);
-            border-radius: 15px;
-            padding: 30px;
-            width: 90%;
-            max-width: 500px;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-        
-        .modal.active .modal-content {
-            transform: translateY(0);
-        }
-        
-        .modal-title {
+        .service-name {
             font-size: 1.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+        }
+        
+        .pricing {
+            margin: 1.5rem 0;
+        }
+        
+        .price-option {
+            background: var(--secondary-bg);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: 1px solid #444;
+        }
+        
+        .price-option:hover {
+            background: #333;
+        }
+        
+        .price-option.selected {
+            border-color: var(--accent-red);
+            background: rgba(229, 9, 20, 0.1);
+        }
+        
+        .price-amount {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent-red);
+        }
+        
+        .price-period {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .subscribe-btn {
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            font-weight: bold;
+        }
+        
+        .subscribe-btn:hover {
+            background: var(--accent-red-dark);
+        }
+        
+        .subscribe-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        /* Referral Section */
+        .referral-section {
+            background: var(--secondary-bg);
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+        
+        .referral-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
             text-align: center;
         }
         
-        .profile-options {
+        .referral-link-container {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
         
-        .profile-option {
-            padding: 15px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .referral-link {
+            flex: 1;
+            background: var(--secondary-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            border: 1px solid #444;
+            color: var(--text-white);
+            font-family: monospace;
         }
         
-        .profile-option:hover {
-            background: rgba(138, 43, 226, 0.2);
-        }
-        
-        .profile-option i {
-            font-size: 1.5rem;
-            color: var(--accent);
-        }
-        
-        .modal-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-        
-        .modal-btn {
-            padding: 10px 20px;
-            border-radius: 30px;
+        .copy-btn {
+            background: var(--accent-red);
+            color: white;
             border: none;
+            padding: 1rem;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            transition: background 0.3s;
         }
         
-        .cancel-btn {
-            background: transparent;
-            color: var(--light);
-            border: 1px solid var(--light);
+        .copy-btn:hover {
+            background: var(--accent-red-dark);
         }
         
-        .cancel-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .earnings-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-red);
+            margin: 1rem 0;
         }
         
-        .save-btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--light);
+        .withdraw-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.3s;
         }
         
-        .save-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        .withdraw-btn:hover {
+            background: #218838;
         }
         
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .main-content {
+        /* Payment Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .modal h2 {
+            margin-bottom: 1.5rem;
+            color: var(--accent-red);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-gray);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background: var(--secondary-bg);
+            color: var(--text-white);
+            font-size: 1rem;
+        }
+        
+        .close-modal {
+            background: #666;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            color: white;
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast.success {
+            background: #28a745;
+        }
+        
+        .toast.error {
+            background: var(--accent-red);
+        }
+        
+        .toast.info {
+            background: #17a2b8;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .spinner {
+            border: 4px solid #333;
+            border-top: 4px solid var(--accent-red);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary-bg);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid #333;
+            margin-top: 4rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-red);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .services-grid {
                 grid-template-columns: 1fr;
             }
             
-            .player-info, .player-controls, .player-progress {
-                width: auto;
+            .referral-link-container {
+                flex-direction: column;
             }
-            
-            .player {
-                flex-wrap: wrap;
-                justify-content: space-around;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .songs-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-            
-            .player {
-                padding: 10px;
-            }
-            
-            .player-info {
-                display: none;
-            }
-        }
-        
-        /* Animation */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">Gram_X</div>
-            <div class="tagline">Download your favorite music</div>
-            <div class="profile-section">
-                <div class="profile-pic" id="profile-pic">
-                    <i class="fas fa-user"></i>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">BERA</div>
+                <div class="nav-links">
+                    <a href="#services">Services</a>
+                    <a href="#referral">Refer & Earn</a>
+                    <a href="#admin" onclick="showAdminLogin()">Admin</a>
                 </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Premium Digital Subscriptions</h1>
+            <p>Access your favorite services at affordable prices. Pay securely with M-PESA and get instant activation.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2.5rem;">Choose Your Service</h2>
+            <div class="services-grid" id="servicesGrid">
+                <!-- Services will be loaded here -->
             </div>
-        </header>
-        
-        <div class="main-content">
-            <div class="sidebar">
-                <div class="nav-item active">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-search"></i>
-                    <span>Search</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-music"></i>
-                    <span>My Library</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-download"></i>
-                    <span>Downloads</span>
-                </div>
-                <div class="nav-item">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
-                </div>
-            </div>
-            
-            <div class="content">
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" class="search-input" placeholder="Search for songs, artists, or albums...">
-                        <button class="search-btn">Search</button>
-                    </div>
-                    <div class="filters">
-                        <button class="filter-btn active">All</button>
-                        <button class="filter-btn">MP3</button>
-                        <button class="filter-btn">MP4</button>
-                        <button class="filter-btn">Trending</button>
-                    </div>
+        </div>
+    </section>
+
+    <!-- Referral Section -->
+    <section id="referral" class="referral-section">
+        <div class="container">
+            <div class="referral-card">
+                <h2>Refer & Earn</h2>
+                <p>Share your referral link and earn KSh 10 for every successful subscription!</p>
+                
+                <div class="referral-link-container">
+                    <input type="text" id="referralLink" class="referral-link" readonly>
+                    <button onclick="copyReferralLink()" class="copy-btn">Copy</button>
                 </div>
                 
-                <h2 class="section-title">Trending Now</h2>
-                <div class="songs-grid" id="songs-container">
-                    <!-- Songs will be populated here -->
+                <button onclick="generateReferralLink()" class="subscribe-btn">Generate Referral Link</button>
+                
+                <div style="margin: 2rem 0;">
+                    <h3>Your Earnings</h3>
+                    <div class="earnings-display" id="earningsDisplay">KSh 0</div>
+                    <button onclick="requestPayout()" class="withdraw-btn" id="withdrawBtn" disabled>Withdraw Earnings</button>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="player">
-        <div class="player-info">
-            <div class="player-thumb">
-                <img src="" alt="" id="player-thumb">
-            </div>
-            <div class="player-text">
-                <div class="player-title" id="player-title">Select a song to play</div>
-                <div class="player-artist" id="player-artist">Artist</div>
-            </div>
-        </div>
-        
-        <div class="player-controls">
-            <button class="control-btn"><i class="fas fa-step-backward"></i></button>
-            <button class="control-btn play-btn"><i class="fas fa-play" id="play-icon"></i></button>
-            <button class="control-btn"><i class="fas fa-step-forward"></i></button>
-        </div>
-        
-        <div class="player-progress">
-            <div class="time" id="current-time">0:00</div>
-            <div class="progress-bar">
-                <div class="progress" id="progress"></div>
-            </div>
-            <div class="time" id="total-time">0:00</div>
-        </div>
-    </div>
-    
-    <div class="modal" id="profile-modal">
+    </section>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
         <div class="modal-content">
-            <h2 class="modal-title">Choose Profile Picture</h2>
-            <div class="profile-options">
-                <div class="profile-option" id="gallery-option">
-                    <i class="fas fa-image"></i>
-                    <span>Choose from Gallery</span>
+            <h2>Complete Payment</h2>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="phone">M-PESA Phone Number</label>
+                    <input type="tel" id="phone" placeholder="e.g., 0712345678" required>
                 </div>
-                <div class="profile-option" id="camera-option">
-                    <i class="fas fa-camera"></i>
-                    <span>Take Photo</span>
+                <div class="form-group">
+                    <label for="email">Email (Optional - for receipt)</label>
+                    <input type="email" id="email" placeholder="your@email.com">
                 </div>
-            </div>
-            <div class="modal-buttons">
-                <button class="modal-btn cancel-btn" id="cancel-btn">Cancel</button>
-                <button class="modal-btn save-btn" id="save-btn" disabled>Save</button>
-            </div>
+                <input type="hidden" id="selectedService">
+                <input type="hidden" id="selectedPlan">
+                <input type="hidden" id="selectedAmount">
+                <button type="submit" class="subscribe-btn" id="payButton">Pay with M-PESA</button>
+            </form>
+            <button onclick="closeModal()" class="close-modal">Cancel</button>
         </div>
     </div>
-    
-    <input type="file" id="file-input" accept="image/*" style="display: none;">
-    <input type="file" id="camera-input" accept="image/*" capture="camera" style="display: none;">
-    
+
+    <!-- Loading Animation -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Processing Payment...</p>
+        <p>Please check your phone for STK Push</p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#contact">Contact Support</a>
+            </div>
+            <p>&copy; 2024 Bera Subscriptions. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script>
-        // DOM Elements
-        const profilePic = document.getElementById('profile-pic');
-        const profileModal = document.getElementById('profile-modal');
-        const galleryOption = document.getElementById('gallery-option');
-        const cameraOption = document.getElementById('camera-option');
-        const cancelBtn = document.getElementById('cancel-btn');
-        const saveBtn = document.getElementById('save-btn');
-        const fileInput = document.getElementById('file-input');
-        const cameraInput = document.getElementById('camera-input');
-        const songsContainer = document.getElementById('songs-container');
-        const searchInput = document.querySelector('.search-input');
-        const searchBtn = document.querySelector('.search-btn');
-        
-        // Sample data for demonstration
-        const sampleSongs = [
+        // Services data
+        const services = [
             {
-                id: 1,
-                title: "Blinding Lights",
-                artist: "The Weeknd",
-                thumbnail: "https://i.ytimg.com/vi/4NRXx6U8ABQ/maxresdefault.jpg",
-                duration: "3:20",
-                url: "https://www.youtube.com/watch?v=4NRXx6U8ABQ"
+                id: 'youtube',
+                name: 'YouTube Premium',
+                logo: 'YT',
+                plans: [
+                    { period: 'monthly', amount: 100, text: '1 Month' },
+                    { period: 'yearly', amount: 1000, text: '1 Year' }
+                ]
             },
             {
-                id: 2,
-                title: "Shape of You",
-                artist: "Ed Sheeran",
-                thumbnail: "https://i.ytimg.com/vi/JGwWNGJdvx8/maxresdefault.jpg",
-                duration: "3:53",
-                url: "https://www.youtube.com/watch?v=JGwWNGJdvx8"
+                id: 'spotify',
+                name: 'Spotify',
+                logo: 'SP',
+                plans: [
+                    { period: 'monthly', amount: 100, text: '1 Month' },
+                    { period: 'yearly', amount: 1000, text: '1 Year' }
+                ]
             },
             {
-                id: 3,
-                title: "Dance Monkey",
-                artist: "Tones and I",
-                thumbnail: "https://i.ytimg.com/vi/q0hyYWKXF0Q/maxresdefault.jpg",
-                duration: "3:29",
-                url: "https://www.youtube.com/watch?v=q0hyYWKXF0Q"
+                id: 'netflix',
+                name: 'Netflix',
+                logo: 'NF',
+                plans: [
+                    { period: 'monthly', amount: 100, text: '1 Month' },
+                    { period: 'yearly', amount: 1000, text: '1 Year' }
+                ]
             },
             {
-                id: 4,
-                title: "Don't Start Now",
-                artist: "Dua Lipa",
-                thumbnail: "https://i.ytimg.com/vi/oygrmJFKYZY/maxresdefault.jpg",
-                duration: "3:03",
-                url: "https://www.youtube.com/watch?v=oygrmJFKYZY"
+                id: 'telegram',
+                name: 'Telegram Premium',
+                logo: 'TG',
+                plans: [
+                    { period: 'monthly', amount: 100, text: '1 Month' },
+                    { period: 'yearly', amount: 1000, text: '1 Year' }
+                ]
             },
             {
-                id: 5,
-                title: "Bad Guy",
-                artist: "Billie Eilish",
-                thumbnail: "https://i.ytimg.com/vi/DyDfgMOUjCI/maxresdefault.jpg",
-                duration: "3:14",
-                url: "https://www.youtube.com/watch?v=DyDfgMOUjCI"
-            },
-            {
-                id: 6,
-                title: "Watermelon Sugar",
-                artist: "Harry Styles",
-                thumbnail: "https://i.ytimg.com/vi/E07s5ZYygMg/maxresdefault.jpg",
-                duration: "2:54",
-                url: "https://www.youtube.com/watch?v=E07s5ZYygMg"
+                id: 'showmax',
+                name: 'Showmax',
+                logo: 'SM',
+                plans: [
+                    { period: 'monthly', amount: 100, text: '1 Month' },
+                    { period: 'yearly', amount: 1000, text: '1 Year' }
+                ]
             }
         ];
-        
-        // Profile Picture Handling
-        profilePic.addEventListener('click', () => {
-            profileModal.classList.add('active');
+
+        // State management
+        let currentReferralId = null;
+        let currentEarnings = 0;
+        let selectedService = null;
+        let selectedPlan = null;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadServices();
+            checkReferralFromURL();
+            loadReferralEarnings();
         });
-        
-        cancelBtn.addEventListener('click', () => {
-            profileModal.classList.remove('active');
-        });
-        
-        galleryOption.addEventListener('click', () => {
-            fileInput.click();
-        });
-        
-        cameraOption.addEventListener('click', () => {
-            cameraInput.click();
-        });
-        
-        fileInput.addEventListener('change', handleFileSelect);
-        cameraInput.addEventListener('change', handleFileSelect);
-        
-        function handleFileSelect(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    profilePic.innerHTML = `<img src="${e.target.result}" alt="Profile Picture">`;
-                    saveBtn.disabled = false;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-        
-        saveBtn.addEventListener('click', () => {
-            // Save the profile picture (in a real app, this would save to server/local storage)
-            localStorage.setItem('profilePic', profilePic.innerHTML);
-            profileModal.classList.remove('active');
-            alert('Profile picture updated successfully!');
-        });
-        
-        // Load saved profile picture if exists
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedProfilePic = localStorage.getItem('profilePic');
-            if (savedProfilePic) {
-                profilePic.innerHTML = savedProfilePic;
-            }
-        });
-        
-        // Populate sample songs
-        function renderSongs(songs) {
-            songsContainer.innerHTML = '';
-            songs.forEach(song => {
-                const songCard = document.createElement('div');
-                songCard.className = 'song-card';
-                songCard.innerHTML = `
-                    <div class="song-thumb">
-                        <img src="${song.thumbnail}" alt="${song.title}">
-                    </div>
-                    <div class="song-info">
-                        <div class="song-title">${song.title}</div>
-                        <div class="song-artist">${song.artist}</div>
-                        <div class="song-actions">
-                            <div class="action-btn" onclick="playSong(${song.id})">
-                                <i class="fas fa-play"></i>
+
+        // Load services into the grid
+        function loadServices() {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = '';
+
+            services.forEach(service => {
+                const card = document.createElement('div');
+                card.className = 'service-card';
+                card.innerHTML = `
+                    <div class="service-logo">${service.logo}</div>
+                    <h3 class="service-name">${service.name}</h3>
+                    <div class="pricing" id="pricing-${service.id}">
+                        ${service.plans.map(plan => `
+                            <div class="price-option" onclick="selectPlan('${service.id}', '${plan.period}')" data-service="${service.id}" data-plan="${plan.period}">
+                                <div class="price-amount">KSh ${plan.amount}</div>
+                                <div class="price-period">${plan.text}</div>
                             </div>
-                            <div class="action-btn download-btn" onclick="downloadSong('${song.url}', '${song.title}', '${song.artist}')">
-                                <i class="fas fa-download"></i>
-                            </div>
-                        </div>
+                        `).join('')}
                     </div>
+                    <button class="subscribe-btn" onclick="openPaymentModal('${service.id}')" disabled>Subscribe</button>
                 `;
-                songsContainer.appendChild(songCard);
+                grid.appendChild(card);
             });
         }
-        
-        // Play song function
-        function playSong(songId) {
-            const song = sampleSongs.find(s => s.id === songId);
-            if (song) {
-                document.getElementById('player-thumb').src = song.thumbnail;
-                document.getElementById('player-title').textContent = song.title;
-                document.getElementById('player-artist').textContent = song.artist;
-                document.getElementById('play-icon').className = 'fas fa-pause';
-                
-                // In a real app, you would play the audio here
-                console.log(`Playing: ${song.title} by ${song.artist}`);
-            }
+
+        // Select a plan
+        function selectPlan(serviceId, planType) {
+            // Remove selected class from all options
+            document.querySelectorAll('.price-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Add selected class to clicked option
+            const selectedOption = document.querySelector(`[data-service="${serviceId}"][data-plan="${planType}"]`);
+            selectedOption.classList.add('selected');
+
+            // Enable subscribe button for this service
+            const card = selectedOption.closest('.service-card');
+            const button = card.querySelector('.subscribe-btn');
+            button.disabled = false;
+
+            // Store selection
+            selectedService = serviceId;
+            selectedPlan = planType;
         }
-        
-        // Download song function
-        function downloadSong(url, title, artist) {
-            // Show loading state
-            const downloadBtn = event.currentTarget;
-            const originalHtml = downloadBtn.innerHTML;
-            downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            
-            // Determine which API to use based on URL parameters or user selection
-            const format = document.querySelector('.filter-btn.active').textContent.toLowerCase();
-            let apiUrl = '';
-            
-            if (format === 'mp3') {
-                apiUrl = `https://apis.davidcyriltech.my.id/download/ytmp3?url=${encodeURIComponent(url)}`;
-            } else if (format === 'mp4') {
-                apiUrl = `https://apis.davidcyriltech.my.id/youtube/mp4?url=${encodeURIComponent(url)}`;
-            } else {
-                // Default to MP3
-                apiUrl = `https://apis.davidcyriltech.my.id/youtube/mp3?url=${encodeURIComponent(url)}`;
-            }
-            
-            // In a real implementation, you would fetch the download URL from the API
-            // and then trigger the download
-            
-            // Simulate API call delay
-            setTimeout(() => {
-                // This is a simulation - in a real app, you would use the actual API response
-                console.log(`Downloading from: ${apiUrl}`);
-                
-                // Create a fake download link (in a real app, this would be the actual download URL)
-                const a = document.createElement('a');
-                a.href = '#'; // Would be the actual download URL in a real implementation
-                a.download = `${title} - ${artist}.${format}`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                
-                // Revert button state
-                downloadBtn.innerHTML = originalHtml;
-                
-                // Show success message
-                alert(`Download started for: ${title} by ${artist}`);
-            }, 1500);
+
+        // Open payment modal
+        function openPaymentModal(serviceId) {
+            if (!selectedService || !selectedPlan) return;
+
+            const service = services.find(s => s.id === serviceId);
+            const plan = service.plans.find(p => p.period === selectedPlan);
+
+            document.getElementById('selectedService').value = serviceId;
+            document.getElementById('selectedPlan').value = selectedPlan;
+            document.getElementById('selectedAmount').value = plan.amount;
+
+            document.getElementById('paymentModal').style.display = 'flex';
         }
-        
-        // Search functionality
-        searchBtn.addEventListener('click', performSearch);
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                performSearch();
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        // Handle payment form submission
+        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const service = document.getElementById('selectedService').value;
+            const plan = document.getElementById('selectedPlan').value;
+            const amount = document.getElementById('selectedAmount').value;
+
+            if (!phone) {
+                showToast('Please enter your phone number', 'error');
+                return;
             }
-        });
-        
-        function performSearch() {
-            const query = searchInput.value.trim();
-            if (query) {
-                // In a real app, you would search through the API
-                // For this demo, we'll filter the sample songs
-                const filteredSongs = sampleSongs.filter(song => 
-                    song.title.toLowerCase().includes(query.toLowerCase()) || 
-                    song.artist.toLowerCase().includes(query.toLowerCase())
-                );
-                
-                if (filteredSongs.length > 0) {
-                    renderSongs(filteredSongs);
+
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            closeModal();
+
+            try {
+                const response = await fetch('/api/pay', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        phone,
+                        service,
+                        plan,
+                        amount,
+                        referralId: currentReferralId,
+                        email
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast('Payment initiated! Check your phone for STK Push', 'success');
+                    // Poll for transaction status
+                    pollTransactionStatus(data.transactionId);
                 } else {
-                    songsContainer.innerHTML = `
-                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                            <i class="fas fa-search" style="font-size: 3rem; opacity: 0.5; margin-bottom: 15px;"></i>
-                            <h3>No results found for "${query}"</h3>
-                            <p>Try different keywords or check the spelling</p>
-                        </div>
-                    `;
+                    document.getElementById('loading').style.display = 'none';
+                    showToast(data.error || 'Payment failed. Please try again.', 'error');
                 }
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                console.error('Payment error:', error);
+                showToast('Network error. Please try again.', 'error');
+            }
+        });
+
+        // Poll transaction status
+        async function pollTransactionStatus(transactionId) {
+            let attempts = 0;
+            const maxAttempts = 30; // 3 minutes
+
+            const poll = async () => {
+                attempts++;
+                
+                try {
+                    const response = await fetch(`/api/transaction/${transactionId}`);
+                    const transaction = await response.json();
+
+                    if (transaction.status === 'success') {
+                        document.getElementById('loading').style.display = 'none';
+                        showToast('Payment successful!', 'success');
+                        
+                        // Redirect to WhatsApp
+                        const serviceName = services.find(s => s.id === transaction.service).name;
+                        const message = `Hi! I just paid KSh ${transaction.amount} for ${serviceName} ${transaction.plan}. Transaction ID: ${transaction.mpesaReceiptNumber || transaction.id}.`;
+                        const whatsappUrl = `https://wa.me/254743982206?text=${encodeURIComponent(message)}`;
+                        
+                        setTimeout(() => {
+                            window.open(whatsappUrl, '_blank');
+                        }, 2000);
+                        
+                        // Reload earnings if referral was used
+                        if (currentReferralId) {
+                            loadReferralEarnings();
+                        }
+                        
+                        return;
+                    } else if (transaction.status === 'failed') {
+                        document.getElementById('loading').style.display = 'none';
+                        showToast('Payment failed: ' + (transaction.errorMessage || 'Unknown error'), 'error');
+                        return;
+                    }
+
+                    // Continue polling if still pending
+                    if (attempts < maxAttempts) {
+                        setTimeout(poll, 6000); // Poll every 6 seconds
+                    } else {
+                        document.getElementById('loading').style.display = 'none';
+                        showToast('Payment timeout. Please check your phone or try again.', 'error');
+                    }
+                } catch (error) {
+                    console.error('Polling error:', error);
+                    if (attempts < maxAttempts) {
+                        setTimeout(poll, 6000);
+                    } else {
+                        document.getElementById('loading').style.display = 'none';
+                        showToast('Error checking payment status.', 'error');
+                    }
+                }
+            };
+
+            poll();
+        }
+
+        // Referral system functions
+        function checkReferralFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ref = urlParams.get('ref');
+            
+            if (ref) {
+                currentReferralId = ref;
+                showToast(`Referral detected: ${ref}`, 'info');
             }
         }
-        
-        // Filter buttons
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+
+        async function generateReferralLink() {
+            try {
+                const response = await fetch('/api/referral/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId: null }) // Let server generate ID
+                });
+
+                const data = await response.json();
                 
-                // In a real app, you would filter content based on the selected filter
-                console.log(`Filter changed to: ${btn.textContent}`);
-            });
-        });
-        
-        // Initialize the app
-        renderSongs(sampleSongs);
+                if (data.referralId) {
+                    currentReferralId = data.referralId;
+                    document.getElementById('referralLink').value = data.referralLink;
+                    showToast('Referral link generated!', 'success');
+                    loadReferralEarnings();
+                }
+            } catch (error) {
+                console.error('Error generating referral:', error);
+                showToast('Error generating referral link', 'error');
+            }
+        }
+
+        async function loadReferralEarnings() {
+            if (!currentReferralId) return;
+
+            try {
+                const response = await fetch(`/api/referral/${currentReferralId}`);
+                const data = await response.json();
+                
+                currentEarnings = data.earnings || 0;
+                document.getElementById('earningsDisplay').textContent = `KSh ${currentEarnings}`;
+                
+                const withdrawBtn = document.getElementById('withdrawBtn');
+                withdrawBtn.disabled = currentEarnings === 0;
+            } catch (error) {
+                console.error('Error loading earnings:', error);
+            }
+        }
+
+        async function requestPayout() {
+            if (!currentReferralId || currentEarnings === 0) return;
+
+            try {
+                const response = await fetch(`/api/payout/${currentReferralId}`, {
+                    method: 'POST'
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    window.open(data.whatsappUrl, '_blank');
+                    showToast('WhatsApp opened for withdrawal request', 'success');
+                }
+            } catch (error) {
+                console.error('Error requesting payout:', error);
+                showToast('Error requesting payout', 'error');
+            }
+        }
+
+        function copyReferralLink() {
+            const linkInput = document.getElementById('referralLink');
+            if (!linkInput.value) {
+                showToast('Generate a referral link first', 'error');
+                return;
+            }
+
+            linkInput.select();
+            document.execCommand('copy');
+            showToast('Referral link copied!', 'success');
+        }
+
+        // Toast notification system
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
+
+        // Admin login (basic implementation)
+        function showAdminLogin() {
+            const username = prompt('Admin Username:');
+            const password = prompt('Admin Password:');
+            
+            if (username && password) {
+                fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showToast('Admin login successful!', 'success');
+                        // In a full implementation, you'd redirect to admin dashboard
+                        setTimeout(() => {
+                            alert('Admin dashboard would open here. Check server logs for transaction data.');
+                        }, 1000);
+                    } else {
+                        showToast('Invalid admin credentials', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Login error:', error);
+                    showToast('Login failed', 'error');
+                });
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
