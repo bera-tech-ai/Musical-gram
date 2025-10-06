@@ -1,804 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chege Tech - Affordable Streaming Subscriptions in Kenya</title>
-    <meta name="description" content="Get Netflix, Spotify, YouTube Premium and more with M-PESA payments. Affordable monthly subscriptions starting at KES 100.">
-    <meta property="og:title" content="Chege Tech - Streaming Subscriptions">
-    <meta property="og:description" content="Affordable digital subscriptions with M-PESA payments">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://chegetech.onrender.com">
-    <style>
-        :root {
-            --primary: #E50914;
-            --background: #0D0D0D;
-            --surface: #1A1A1A;
-            --text: #FFFFFF;
-            --text-secondary: #B3B3B3;
-            --accent: #E50914;
-            --success: #00A650;
-            --warning: #FFA500;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: var(--background);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--background) 0%, #1A1A1A 100%);
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-text {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--primary), #FF6B6B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 10px var(--primary); }
-            to { text-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary); }
-        }
-
-        .tagline {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        /* Main Content */
-        main {
-            margin-top: 100px;
-            padding: 2rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
-            border-radius: 20px;
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at top right, var(--primary) 0%, transparent 50%);
-            opacity: 0.1;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--text), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-        }
-
-        .notification-banner {
-            background: linear-gradient(45deg, var(--primary), #FF6B6B);
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 2rem auto;
-            max-width: 600px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-
-        /* Subscription Grid */
-        .subscriptions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .subscription-card {
-            background: var(--surface);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .subscription-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(45deg, var(--primary), #FF6B6B);
-        }
-
-        .subscription-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(229, 9, 20, 0.3);
-        }
-
-        .service-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1rem;
-            background: var(--background);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .service-name {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-
-        .price {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .pay-button {
-            background: linear-gradient(45deg, var(--primary), #FF6B6B);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .pay-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(229, 9, 20, 0.4);
-        }
-
-        /* Referral Section */
-        .referral-section {
-            background: var(--surface);
-            padding: 3rem;
-            border-radius: 20px;
-            margin: 4rem 0;
-            text-align: center;
-        }
-
-        .referral-link-container {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .referral-link {
-            background: var(--background);
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            border: 2px solid var(--primary);
-            color: var(--text);
-            font-family: monospace;
-            flex: 1;
-            max-width: 400px;
-        }
-
-        .copy-button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .copy-button:hover {
-            background: #FF6B6B;
-            transform: scale(1.05);
-        }
-
-        .earnings-dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .earnings-card {
-            background: var(--background);
-            padding: 1.5rem;
-            border-radius: 15px;
-            text-align: center;
-        }
-
-        .earnings-amount {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--success);
-        }
-
-        /* Testimonials */
-        .testimonials {
-            margin: 4rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .testimonial-slider {
-            display: flex;
-            animation: slide 30s linear infinite;
-        }
-
-        .testimonial {
-            background: var(--surface);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 0 1rem;
-            min-width: 300px;
-            flex-shrink: 0;
-        }
-
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            margin: 4rem 0;
-        }
-
-        .faq-item {
-            background: var(--surface);
-            margin: 1rem 0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 1.5rem;
-            background: var(--background);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-        }
-
-        .faq-answer {
-            padding: 0 1.5rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item.active .faq-answer {
-            padding: 1.5rem;
-            max-height: 500px;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--surface);
-            padding: 3rem 2rem;
-            text-align: center;
-            margin-top: 4rem;
-            border-top: 2px solid var(--primary);
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: var(--surface);
-            padding: 3rem;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 2rem;
-            cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--background);
-            border-radius: 10px;
-            background: var(--background);
-            color: var(--text);
-            font-size: 1rem;
-        }
-
-        .form-group input:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-
-        /* WhatsApp Button */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            text-decoration: none;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
-        }
-
-        /* Loading Animation */
-        .loader {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid var(--background);
-            border-top: 5px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .subscriptions-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
-
-            .referral-link-container {
-                flex-direction: column;
-            }
-
-            .referral-link {
-                max-width: 100%;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chege Tech Subscriptions</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      margin: 0;
+      background-color: #0d0d0d;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    header {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border-bottom: 1px solid #222;
+    }
+    header h1 {
+      font-size: 2rem;
+      color: #e50914;
+      letter-spacing: 1px;
+    }
+    header p {
+      color: #aaa;
+      font-size: 0.95rem;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    .card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      text-align: center;
+      padding: 1.5rem;
+      transition: 0.3s;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
+    }
+    .card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .card h3 {
+      margin: 0.5rem 0;
+      color: #fff;
+    }
+    .card p {
+      color: #bbb;
+      font-size: 0.9rem;
+    }
+    .card button {
+      background: #e50914;
+      border: none;
+      color: white;
+      padding: 0.7rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      transition: 0.3s;
+    }
+    .card button:hover {
+      background: #ff0a16;
+    }
+    .referral {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    .referral input {
+      width: 80%;
+      max-width: 400px;
+      padding: 0.6rem;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 0.8rem;
+      text-align: center;
+    }
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 1rem;
+      color: #777;
+      font-size: 0.9rem;
+      border-top: 1px solid #222;
+    }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25d366;
+      border-radius: 50%;
+      padding: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .whatsapp-float img {
+      width: 32px;
+      height: 32px;
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-text">CHEGE TECH</div>
-                <div class="tagline">Affordable Subscriptions for Everyone</div>
-            </div>
-        </div>
-    </header>
+  <header>
+    <h1>Chege Tech Subscriptions</h1>
+    <p>Affordable Plans for Everyone — Pay Easily via M-Pesa</p>
+  </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>Stream Smarter, Pay Less</h1>
-            <p>Get all your favorite streaming subscriptions in one place with affordable M-PESA payments</p>
-            
-            <div class="notification-banner">
-                🎉 Special Offer: Get 10% off on yearly plans! Limited time only.
-            </div>
-        </section>
+  <div class="container" id="subscriptions"></div>
 
-        <!-- Subscription Plans -->
-        <section class="subscriptions-section">
-            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2.5rem;">Choose Your Subscription</h2>
-            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">
-                All plans start at KES 100/month. Pay with M-PESA and get instant activation!
-            </p>
+  <div class="referral">
+    <h3>💰 Earn with Referrals</h3>
+    <p>Share your link & earn 10 KES per referral</p>
+    <input id="refLink" readonly />
+    <br />
+    <button onclick="copyReferral()">Copy Referral Link</button>
+  </div>
 
-            <div class="subscriptions-grid" id="subscriptionsGrid">
-                <!-- Subscription cards will be generated by JavaScript -->
-            </div>
-        </section>
+  <footer>
+    © 2025 Chege Tech. Developed by Bruce Chege.
+  </footer>
 
-        <!-- Referral Section -->
-        <section class="referral-section">
-            <h2>Earn with Our Referral Program</h2>
-            <p>Share your referral link and earn KES 10 for every successful payment</p>
-            
-            <div class="referral-link-container">
-                <input type="text" class="referral-link" id="referralLink" readonly value="https://chegetech.onrender.com/?ref=user123">
-                <button class="copy-button" onclick="copyReferralLink()">Copy Link</button>
-            </div>
+  <a href="https://wa.me/254743982206" target="_blank" class="whatsapp-float">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+  </a>
 
-            <div class="earnings-dashboard">
-                <div class="earnings-card">
-                    <div class="earnings-amount" id="totalEarnings">KES 0</div>
-                    <div>Total Earnings</div>
-                </div>
-                <div class="earnings-card">
-                    <div class="earnings-amount" id="totalReferrals">0</div>
-                    <div>Successful Referrals</div>
-                </div>
-            </div>
-        </section>
+  <script>
+    const subscriptions = [
+      { name: "Netflix", img: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg", price: 100 },
+      { name: "Spotify", img: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg", price: 100 },
+      { name: "YouTube Premium", img: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png", price: 100 },
+      { name: "Showmax", img: "https://upload.wikimedia.org/wikipedia/commons/0/08/Showmax_logo.svg", price: 100 },
+      { name: "Telegram Premium", img: "https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg", price: 100 },
+      { name: "Disney+", img: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg", price: 100 },
+      { name: "Amazon Prime Video", img: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png", price: 100 }
+    ];
 
-        <!-- Testimonials -->
-        <section class="testimonials">
-            <h2 style="text-align: center; margin-bottom: 2rem;">What Our Customers Say</h2>
-            <div class="testimonial-slider">
-                <div class="testimonial">
-                    <p>"Chege Tech saved me so much money! Got Netflix and Spotify for less than I used to pay for just one."</p>
-                    <strong>- Sarah M., Nairobi</strong>
-                </div>
-                <div class="testimonial">
-                    <p>"The M-PESA payment is so convenient. Activated my YouTube Premium in minutes!"</p>
-                    <strong>- John K., Mombasa</strong>
-                </div>
-                <div class="testimonial">
-                    <p>"Best subscription service in Kenya. Customer support on WhatsApp is amazing!"</p>
-                    <strong>- Mike O., Kisumu</strong>
-                </div>
-            </div>
-        </section>
+    const container = document.getElementById("subscriptions");
 
-        <!-- FAQ Section -->
-        <section class="faq-section">
-            <h2 style="text-align: center; margin-bottom: 2rem;">Frequently Asked Questions</h2>
-            
-            <div class="faq-item" onclick="toggleFAQ(this)">
-                <div class="faq-question">
-                    Is it safe to use Chege Tech?
-                    <span>+</span>
-                </div>
-                <div class="faq-answer">
-                    Yes! We use secure M-PESA payments through PayHero and never store your personal payment information.
-                </div>
-            </div>
+    subscriptions.forEach(sub => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${sub.img}" alt="${sub.name}" />
+        <h3>${sub.name}</h3>
+        <p>Monthly Plan — KES ${sub.price}</p>
+        <button onclick="initiatePayment('${sub.name}', ${sub.price})">Subscribe</button>
+      `;
+      container.appendChild(card);
+    });
 
-            <div class="faq-item" onclick="toggleFAQ(this)">
-                <div class="faq-question">
-                    How long does activation take?
-                    <span>+</span>
-                </div>
-                <div class="faq-answer">
-                    Most activations are instant. After payment confirmation on WhatsApp, you'll receive your login details within 5-15 minutes.
-                </div>
-            </div>
+    // Referral Link
+    const ref = new URLSearchParams(window.location.search).get("ref");
+    const myRef = window.location.origin + "/?ref=" + Math.random().toString(36).substring(2, 10);
+    document.getElementById("refLink").value = myRef;
 
-            <div class="faq-item" onclick="toggleFAQ(this)">
-                <div class="faq-question">
-                    Can I get a yearly subscription?
-                    <span>+</span>
-                </div>
-                <div class="faq-answer">
-                    Yes! Yearly plans are available at KES 1000, saving you KES 200 compared to monthly payments.
-                </div>
-            </div>
+    function copyReferral() {
+      const refInput = document.getElementById("refLink");
+      refInput.select();
+      document.execCommand("copy");
+      alert("Referral link copied!");
+    }
 
-            <div class="faq-item" onclick="toggleFAQ(this)">
-                <div class="faq-question">
-                    What if I have issues with my subscription?
-                    <span>+</span>
-                </div>
-                <div class="faq-answer">
-                    Contact us immediately on WhatsApp. We provide 24/7 support and guarantee replacement for any issues.
-                </div>
-            </div>
-        </section>
-    </main>
+    // Payment Initiation
+    async function initiatePayment(service, amount) {
+      const phone = prompt("Enter your M-Pesa number (e.g., 07XXXXXXXX):");
+      if (!phone) return alert("Payment cancelled.");
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Chege Tech. Developed by Bruce Chege. All Rights Reserved.</p>
-        <p style="margin-top: 1rem; color: var(--text-secondary);">
-            Email: beratech00@gmail.com | WhatsApp: +254 743 982 206
-        </p>
-    </footer>
-
-    <!-- Payment Modal -->
-    <div class="modal" id="paymentModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal()">&times;</button>
-            <h2 style="margin-bottom: 2rem;">Complete Your Payment</h2>
-            
-            <form id="paymentForm">
-                <div class="form-group">
-                    <label for="serviceName">Service</label>
-                    <input type="text" id="serviceName" readonly>
-                </div>
-
-                <div class="form-group">
-                    <label for="phoneNumber">M-PESA Phone Number</label>
-                    <input type="tel" id="phoneNumber" placeholder="e.g., 0712345678" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="billingPeriod">Billing Period</label>
-                    <select id="billingPeriod" onchange="updateAmount()">
-                        <option value="monthly">Monthly - KES 100</option>
-                        <option value="yearly">Yearly - KES 1000</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="amount">Amount (KES)</label>
-                    <input type="number" id="amount" value="100" readonly>
-                </div>
-
-                <button type="submit" class="pay-button">Pay with M-PESA</button>
-            </form>
-
-            <div class="loader" id="paymentLoader">
-                <div class="spinner"></div>
-                <p>Processing payment... Please wait</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- WhatsApp Float -->
-    <a href="https://wa.me/254743982206" class="whatsapp-float" target="_blank">
-        💬
-    </a>
-
-    <script>
-        // Subscription data
-        const subscriptions = [
-            { name: 'Netflix', emoji: '🎬' },
-            { name: 'Spotify', emoji: '🎵' },
-            { name: 'YouTube Premium', emoji: '📺' },
-            { name: 'Telegram Premium', emoji: '✈️' },
-            { name: 'Showmax', emoji: '🎭' },
-            { name: 'Apple Music', emoji: '🎧' },
-            { name: 'Amazon Prime Video', emoji: '📦' },
-            { name: 'Canva Pro', emoji: '🎨' },
-            { name: 'Microsoft 365', emoji: '💼' },
-            { name: 'Deezer', emoji: '🎼' },
-            { name: 'Disney+', emoji: '🐭' },
-            { name: 'Crunchyroll', emoji: '🇯🇵' }
-        ];
-
-        // Initialize subscriptions grid
-        function initializeSubscriptions() {
-            const grid = document.getElementById('subscriptionsGrid');
-            grid.innerHTML = subscriptions.map(sub => `
-                <div class="subscription-card">
-                    <div class="service-logo">${sub.emoji}</div>
-                    <div class="service-name">${sub.name}</div>
-                    <div class="price">KES 100<span style="font-size: 1rem; color: var(--text-secondary);">/month</span></div>
-                    <button class="pay-button" onclick="openPaymentModal('${sub.name}')">Pay Now</button>
-                </div>
-            `).join('');
-        }
-
-        // Modal functions
-        let currentService = '';
-
-        function openPaymentModal(service) {
-            currentService = service;
-            document.getElementById('serviceName').value = service;
-            document.getElementById('paymentModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('paymentModal').style.display = 'none';
-            document.getElementById('paymentLoader').style.display = 'none';
-            document.getElementById('paymentForm').style.display = 'block';
-        }
-
-        function updateAmount() {
-            const period = document.getElementById('billingPeriod').value;
-            const amount = period === 'yearly' ? 1000 : 100;
-            document.getElementById('amount').value = amount;
-        }
-
-        // Payment processing
-        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const phone = document.getElementById('phoneNumber').value;
-            const amount = document.getElementById('amount').value;
-            const service = currentService;
-
-            // Show loader
-            document.getElementById('paymentLoader').style.display = 'block';
-            document.getElementById('paymentForm').style.display = 'none';
-
-            try {
-                const response = await fetch('/api/pay', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        phone: phone,
-                        amount: amount,
-                        service: service,
-                        referralCode: getReferralCode()
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    // Redirect to WhatsApp
-                    setTimeout(() => {
-                        window.location.href = data.whatsappUrl;
-                    }, 2000);
-                } else {
-                    alert('Payment failed: ' + data.message);
-                    closeModal();
-                }
-            } catch (error) {
-                console.error('Payment error:', error);
-                alert('Payment processing error. Please try again.');
-                closeModal();
-            }
+      try {
+        const res = await fetch("/api/pay", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ service, amount, phone, ref })
         });
-
-        // Referral system
-        function getReferralCode() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('ref') || 'default';
+        const data = await res.json();
+        if (data.success) {
+          alert("Payment initiated. Check your M-Pesa for the prompt!");
+        } else {
+          alert("Error: " + data.message);
         }
-
-        function copyReferralLink() {
-            const link = document.getElementById('referralLink');
-            link.select();
-            document.execCommand('copy');
-            alert('Referral link copied to clipboard!');
-        }
-
-        // Load referral stats
-        async function loadReferralStats() {
-            const code = getReferralCode();
-            if (code && code !== 'default') {
-                try {
-                    const response = await fetch(`/api/referral/${code}`);
-                    const stats = await response.json();
-                    document.getElementById('totalEarnings').textContent = `KES ${stats.earnings}`;
-                    document.getElementById('totalReferrals').textContent = stats.payments;
-                } catch (error) {
-                    console.error('Error loading referral stats:', error);
-                }
-            }
-        }
-
-        // FAQ toggle
-        function toggleFAQ(element) {
-            element.classList.toggle('active');
-        }
-
-        // Welcome popup
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                if (!localStorage.getItem('welcomeShown')) {
-                    alert('🎉 Welcome to Chege Tech! Get 10% off your first yearly subscription with code: WELCOME10');
-                    localStorage.setItem('welcomeShown', 'true');
-                }
-            }, 1000);
-        });
-
-        // Initialize
-        initializeSubscriptions();
-        loadReferralStats();
-    </script>
+      } catch (err) {
+        alert("Something went wrong, please try again.");
+      }
+    }
+  </script>
 </body>
-    </html>
+      </html>
