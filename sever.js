@@ -1,158 +1,305 @@
-// server.js
-import express from "express";
-import axios from "axios";
-import dotenv from "dotenv";
-import sqlite3 from "sqlite3";
-import { open } from "sqlite";
-import path from "path";
-import { fileURLToPath } from "url";
-
-dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const crypto = require('crypto');
+const { v4: uuidv4 } = require('uuid');
+require('dotenv').config();
 
 const app = express();
-app.use(express.json());
-app.use(express.static(__dirname));
-
 const PORT = process.env.PORT || 5000;
 
-// ✅ Connect to SQLite (stores transactions & referrals)
-let db;
-(async () => {
-  db = await open({
-    filename: "./chege_subscriptions.db",
-    driver: sqlite3.Database,
-  });
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
-  await db.exec(`
-    CREATE TABLE IF NOT EXISTS transactions (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      service TEXT,
-      amount INTEGER,
-      phone TEXT,
-      ref TEXT,
-      status TEXT,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-  `);
+// In-memory storage (replace with database in production)
+const transactions = new Map();
+const referrals = new Map();
 
-  await db.exec(`
-    CREATE TABLE IF NOT EXISTS referrals (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      ref_code TEXT,
-      earnings INTEGER DEFAULT 0
-    );
-  `);
-})();
+// PayHero API Helper Functions
+class PayHeroAPI {
+    constructor() {
+        this.apiKey = process.env.PAYHERO_API_KEY;
+        this.apiSecret = process.env.PAYHERO_API_SECRET;
+        this.merchantId = process.env.PAYHERO_MERCHANT_ID;
+        this.baseURL = process.env.PAYHERO_BASE_URL;
+    }
 
-// ✅ Route — Payment initiation via PayHero
-app.post("/api/pay", async (req, res) => {
-  const { service, amount, phone, ref } = req.body;
-  if (!service || !amount || !phone)
-    return res.json({ success: false, message: "Missing payment details." });
+    generateSignature(timestamp, method, endpoint, body = '') {
+        const message = `${timestamp}${method}${endpoint}${body}`;
+        return crypto
+            .createHmac('sha256', this.apiSecret)
+            .update(message)
+            .digest('hex');
+    }
 
-  try {
-    const payload = {
-      amount,
-      account_number: "ChegeTechSubs",
-      phone_number: phone,
-      narrative: `Subscription for ${service}`,
-      callback_url: `${process.env.BASE_URL}/api/callback`,
-    };
+    async makeRequest(endpoint, method = 'GET', data = null) {
+        try {
+            const timestamp = Date.now().toString();
+            const signature = this.generateSignature(
+                timestamp, 
+                method, 
+                endpoint, 
+                data ? JSON.stringify(data) : ''
+            );
 
-    const headers = {
-      "Content-Type": "application/json",
-      "X-API-KEY": process.env.PAYHERO_API_KEY,
-      "X-API-SECRET": process.env.PAYHERO_API_SECRET,
-      "X-MERCHANT-ID": process.env.PAYHERO_MERCHANT_ID,
-    };
+            const headers = {
+                'Authorization': `Bearer ${this.apiKey}`,
+                'Content-Type': 'application/json',
+                'X-Timestamp': timestamp,
+                'X-Signature': signature,
+                'X-Merchant-ID': this.merchantId
+            };
 
-    const response = await axios.post(
-      `${process.env.PAYHERO_BASE_URL}/mobile-money/mpesa/stk/push`,
-      payload,
-      { headers }
-    );
+            const fetch = await import('node-fetch');
+            const response = await fetch.default(`${this.baseURL}${endpoint}`, {
+                method,
+                headers,
+                body: data ? JSON.stringify(data) : null
+            });
 
-    if (response.data.status === true) {
-      await db.run(
-        "INSERT INTO transactions (service, amount, phone, ref, status) VALUES (?, ?, ?, ?, ?)",
-        [service, amount, phone, ref || "none", "pending"]
-      );
+            const result = await response.json();
+            return result;
+        } catch (error) {
+            console.error('PayHero API Error:', error);
+            throw new Error('Payment service temporarily unavailable');
+        }
+    }
 
-      res.json({
+    async initiateSTKPush(phone, amount, reference) {
+        const endpoint = '/stkpush';
+        const payload = {
+            merchant_id: this.merchantId,
+            phone: phone,
+            amount: amount,
+            transaction_reference: reference,
+            callback_url: `${process.env.BASE_URL}/api/callback`,
+            description: `ChegeTech Premium Subscription - ${reference}`
+        };
+
+        return await this.makeRequest(endpoint, 'POST', payload);
+    }
+
+    async checkTransactionStatus(checkoutRequestID) {
+        const endpoint = `/transaction/status/${checkoutRequestID}`;
+        return await this.makeRequest(endpoint, 'GET');
+    }
+}
+
+const payhero = new PayHeroAPI();
+
+// Routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// STK Push Endpoint
+app.post('/api/payhero/stkpush', async (req, res) => {
+    try {
+        const { phone, plan, referralCode } = req.body;
+        
+        // Validate input
+        if (!phone || !/^2547\d{8}$/.test(phone)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide a valid M-Pesa number (2547XXXXXXXX)'
+            });
+        }
+
+        if (!plan) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please select a subscription plan'
+            });
+        }
+
+        const amount = 100; // Fixed amount for all plans
+        const transactionRef = `CHTECH${Date.now()}${Math.random().toString(36).substr(2, 5)}`.toUpperCase();
+
+        // Store transaction details
+        transactions.set(transactionRef, {
+            phone,
+            plan,
+            amount,
+            status: 'pending',
+            timestamp: new Date(),
+            referralCode
+        });
+
+        // Initiate STK Push with PayHero
+        const stkResponse = await payhero.initiateSTKPush(phone, amount, transactionRef);
+
+        if (stkResponse.success) {
+            // Update transaction with checkout ID
+            const transaction = transactions.get(transactionRef);
+            transaction.checkoutRequestID = stkResponse.checkout_request_id;
+            transactions.set(transactionRef, transaction);
+
+            res.json({
+                success: true,
+                message: 'Payment request sent to your phone. Please enter your M-Pesa PIN to complete payment.',
+                transactionRef,
+                checkoutRequestID: stkResponse.checkout_request_id
+            });
+        } else {
+            res.status(400).json({
+                success: false,
+                message: stkResponse.message || 'Failed to initiate payment'
+            });
+        }
+    } catch (error) {
+        console.error('STK Push Error:', error);
+        res.status(500).json({
+            success: false,
+            message: error.message || 'Internal server error'
+        });
+    }
+});
+
+// Payment Callback Endpoint
+app.post('/api/callback', async (req, res) => {
+    try {
+        const callbackData = req.body;
+        
+        console.log('Payment Callback Received:', JSON.stringify(callbackData, null, 2));
+
+        // Extract transaction details from callback
+        const {
+            transaction_reference: transactionRef,
+            status,
+            checkout_request_id: checkoutRequestID,
+            mpesa_receipt_number: receiptNumber
+        } = callbackData;
+
+        // Update transaction status
+        if (transactions.has(transactionRef)) {
+            const transaction = transactions.get(transactionRef);
+            transaction.status = status.toLowerCase();
+            transaction.receiptNumber = receiptNumber;
+            transaction.completedAt = new Date();
+
+            transactions.set(transactionRef, transaction);
+
+            // Handle referral if payment successful
+            if (status.toLowerCase() === 'completed' && transaction.referralCode) {
+                await handleReferral(transaction.referralCode, transactionRef);
+            }
+
+            console.log(`Transaction ${transactionRef} updated to status: ${status}`);
+        }
+
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.error('Callback Error:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
+// Transaction Status Check
+app.get('/api/transaction/:transactionRef/status', async (req, res) => {
+    try {
+        const { transactionRef } = req.params;
+        
+        if (!transactions.has(transactionRef)) {
+            return res.status(404).json({
+                success: false,
+                message: 'Transaction not found'
+            });
+        }
+
+        const transaction = transactions.get(transactionRef);
+        
+        // If still pending, check with PayHero
+        if (transaction.status === 'pending' && transaction.checkoutRequestID) {
+            try {
+                const statusResponse = await payhero.checkTransactionStatus(transaction.checkoutRequestID);
+                
+                if (statusResponse.status && statusResponse.status !== 'pending') {
+                    transaction.status = statusResponse.status.toLowerCase();
+                    transactions.set(transactionRef, transaction);
+                }
+            } catch (error) {
+                console.error('Status check error:', error);
+            }
+        }
+
+        res.json({
+            success: true,
+            status: transaction.status,
+            receiptNumber: transaction.receiptNumber,
+            plan: transaction.plan
+        });
+    } catch (error) {
+        console.error('Status Check Error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to check transaction status'
+        });
+    }
+});
+
+// Referral System
+app.post('/api/referral/generate', (req, res) => {
+    const { userId } = req.body;
+    const referralCode = `REF${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
+    
+    referrals.set(referralCode, {
+        userId,
+        code: referralCode,
+        createdAt: new Date(),
+        referredUsers: [],
+        earnings: 0
+    });
+
+    res.json({
         success: true,
-        message: "Payment initiated successfully.",
-      });
+        referralCode,
+        referralLink: `${process.env.BASE_URL}?ref=${referralCode}`
+    });
+});
+
+app.get('/api/referral/:code', (req, res) => {
+    const { code } = req.params;
+    
+    if (referrals.has(code)) {
+        res.json({
+            success: true,
+            referral: referrals.get(code)
+        });
     } else {
-      res.json({ success: false, message: response.data.message });
+        res.status(404).json({
+            success: false,
+            message: 'Invalid referral code'
+        });
+    });
+});
+
+async function handleReferral(referralCode, transactionRef) {
+    if (referrals.has(referralCode)) {
+        const referral = referrals.get(referralCode);
+        referral.referredUsers.push(transactionRef);
+        referral.earnings += 20; // KES 20 per referral
+        referral.lastEarningDate = new Date();
+        
+        referrals.set(referralCode, referral);
+        console.log(`Referral ${referralCode} earned KES 20 from transaction ${transactionRef}`);
     }
-  } catch (error) {
-    console.error("PayHero error:", error.response?.data || error.message);
-    res.json({ success: false, message: "Failed to initiate payment." });
-  }
+}
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+    res.json({
+        success: true,
+        message: 'ChegeTech Premium Platform is running',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV
+    });
 });
 
-// ✅ PayHero Callback
-app.post("/api/callback", async (req, res) => {
-  try {
-    const { status, amount, narrative, phone_number } = req.body;
-
-    if (status === "SUCCESS") {
-      await db.run(
-        "UPDATE transactions SET status = ? WHERE phone = ? AND amount = ? AND status = 'pending'",
-        ["success", phone_number, amount]
-      );
-
-      // Referral reward
-      const refRow = await db.get("SELECT * FROM referrals WHERE ref_code = ?", [
-        narrative,
-      ]);
-      if (refRow) {
-        await db.run(
-          "UPDATE referrals SET earnings = earnings + 10 WHERE ref_code = ?",
-          [narrative]
-        );
-      }
-
-      // Redirect user to WhatsApp for confirmation
-      return res.redirect("https://wa.me/254743982206");
-    } else {
-      await db.run(
-        "UPDATE transactions SET status = ? WHERE phone = ? AND amount = ? AND status = 'pending'",
-        ["failed", phone_number, amount]
-      );
-      return res.sendStatus(200);
-    }
-  } catch (error) {
-    console.error("Callback error:", error.message);
-    res.sendStatus(500);
-  }
+app.listen(PORT, () => {
+    console.log(`🚀 ChegeTech Premium Platform running on port ${PORT}`);
+    console.log(`📍 Environment: ${process.env.NODE_ENV}`);
+    console.log(`🌐 Base URL: ${process.env.BASE_URL}`);
 });
-
-// ✅ Referral link creation
-app.get("/api/referral/:code", async (req, res) => {
-  const { code } = req.params;
-  if (!code) return res.json({ success: false });
-  await db.run(
-    "INSERT OR IGNORE INTO referrals (ref_code, earnings) VALUES (?, 0)",
-    [code]
-  );
-  res.json({ success: true, message: "Referral link registered." });
-});
-
-// ✅ View referral earnings
-app.get("/api/referrals", async (req, res) => {
-  const rows = await db.all("SELECT * FROM referrals");
-  res.json(rows);
-});
-
-// ✅ Fallback route to serve index.html
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
-
-app.listen(PORT, () =>
-  console.log(`🚀 Chege Tech Subscriptions running on port ${PORT}`)
-);
