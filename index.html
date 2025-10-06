@@ -5,262 +5,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bera Subscriptions Portal</title>
     <style>
-        :root {
-            --primary-bg: #0D0D0D;
-            --secondary-bg: #1a1a1a;
-            --accent-red: #E50914;
-            --accent-red-dark: #b80710;
-            --text-white: #ffffff;
-            --text-gray: #b3b3b3;
-            --card-bg: #2a2a2a;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            background: var(--primary-bg);
-            color: var(--text-white);
-            line-height: 1.6;
+
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #111111;
+            --accent: #dc2626;
+            --accent-hover: #b91c1c;
+            --text: #ffffff;
+            --text-secondary: #a1a1aa;
+            --card-bg: #1a1a1a;
+            --border: #333333;
         }
-        
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
         }
-        
-        /* Header */
+
         header {
-            background: var(--secondary-bg);
-            padding: 1rem 0;
-            border-bottom: 2px solid var(--accent-red);
-        }
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--accent-red);
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        
-        .nav-links a {
-            color: var(--text-white);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent-red);
-        }
-        
-        /* Hero Section */
-        .hero {
             text-align: center;
-            padding: 4rem 0;
-            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+            padding: 40px 0;
+            background: var(--secondary-bg);
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 40px;
         }
-        
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--accent-red), #ff6b6b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 10px;
         }
-        
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-gray);
-            max-width: 600px;
-            margin: 0 auto 2rem;
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
         }
-        
-        /* Services Grid */
-        .services {
-            padding: 4rem 0;
-        }
-        
+
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
         }
-        
+
         .service-card {
             background: var(--card-bg);
-            border-radius: 10px;
-            padding: 2rem;
+            border-radius: 12px;
+            padding: 25px;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #333;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        
+
         .service-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
         }
-        
+
         .service-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1rem;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
             background: var(--secondary-bg);
-            border-radius: 50%;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
             font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent);
         }
-        
+
         .service-name {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-white);
-        }
-        
-        .pricing {
-            margin: 1.5rem 0;
-        }
-        
-        .price-option {
-            background: var(--secondary-bg);
-            padding: 1rem;
-            margin: 0.5rem 0;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-            border: 1px solid #444;
-        }
-        
-        .price-option:hover {
-            background: #333;
-        }
-        
-        .price-option.selected {
-            border-color: var(--accent-red);
-            background: rgba(229, 9, 20, 0.1);
-        }
-        
-        .price-amount {
             font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .plans {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .plan-option {
+            flex: 1;
+            padding: 12px;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .plan-option.selected {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .plan-name {
             font-weight: bold;
-            color: var(--accent-red);
+            margin-bottom: 5px;
         }
-        
-        .price-period {
-            color: var(--text-gray);
-            font-size: 0.9rem;
+
+        .plan-price {
+            font-size: 1.1rem;
+            color: var(--text);
         }
-        
-        .subscribe-btn {
-            background: var(--accent-red);
+
+        .pay-button {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent);
             color: white;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 1.1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-            width: 100%;
             font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        
-        .subscribe-btn:hover {
-            background: var(--accent-red-dark);
+
+        .pay-button:hover:not(:disabled) {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
         }
-        
-        .subscribe-btn:disabled {
-            background: #666;
+
+        .pay-button:disabled {
+            opacity: 0.6;
             cursor: not-allowed;
         }
-        
-        /* Referral Section */
-        .referral-section {
-            background: var(--secondary-bg);
-            padding: 4rem 0;
-            margin: 4rem 0;
-        }
-        
-        .referral-card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 10px;
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .referral-link-container {
-            display: flex;
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .referral-link {
-            flex: 1;
-            background: var(--secondary-bg);
-            padding: 1rem;
-            border-radius: 5px;
-            border: 1px solid #444;
-            color: var(--text-white);
-            font-family: monospace;
-        }
-        
-        .copy-btn {
-            background: var(--accent-red);
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .copy-btn:hover {
-            background: var(--accent-red-dark);
-        }
-        
-        .earnings-display {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--accent-red);
-            margin: 1rem 0;
-        }
-        
-        .withdraw-btn {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: background 0.3s;
-        }
-        
-        .withdraw-btn:hover {
-            background: #218838;
-        }
-        
-        /* Payment Modal */
-        .modal {
+
+        .payment-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -268,251 +166,180 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
             z-index: 1000;
             align-items: center;
             justify-content: center;
         }
-        
+
         .modal-content {
             background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 10px;
-            max-width: 500px;
+            padding: 30px;
+            border-radius: 12px;
             width: 90%;
-            text-align: center;
+            max-width: 400px;
+            border: 1px solid var(--border);
         }
-        
-        .modal h2 {
-            margin-bottom: 1.5rem;
-            color: var(--accent-red);
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
-        
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
         .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
+            margin-bottom: 20px;
         }
-        
+
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-gray);
+            margin-bottom: 8px;
+            color: var(--text-secondary);
         }
-        
+
         .form-group input {
             width: 100%;
-            padding: 1rem;
-            border: 1px solid #444;
-            border-radius: 5px;
+            padding: 12px;
             background: var(--secondary-bg);
-            color: var(--text-white);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
             font-size: 1rem;
         }
-        
-        .close-modal {
-            background: #666;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-        
-        /* Toast Notifications */
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            color: white;
-            z-index: 1001;
-            transform: translateX(400px);
-            transition: transform 0.3s;
-        }
-        
-        .toast.show {
-            transform: translateX(0);
-        }
-        
-        .toast.success {
-            background: #28a745;
-        }
-        
-        .toast.error {
-            background: var(--accent-red);
-        }
-        
-        .toast.info {
-            background: #17a2b8;
-        }
-        
-        /* Loading Animation */
-        .loading {
+
+        .loading-spinner {
             display: none;
             text-align: center;
-            padding: 2rem;
+            padding: 20px;
         }
-        
+
         .spinner {
-            border: 4px solid #333;
-            border-top: 4px solid var(--accent-red);
-            border-radius: 50%;
             width: 40px;
             height: 40px;
+            border: 4px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            margin: 0 auto 15px;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
-        /* Footer */
+
+        .referral-popup {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
         footer {
-            background: var(--secondary-bg);
-            padding: 2rem 0;
             text-align: center;
-            border-top: 1px solid #333;
-            margin-top: 4rem;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
         }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-links a {
-            color: var(--text-gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--accent-red);
-        }
-        
-        /* Responsive */
+
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
             .services-grid {
                 grid-template-columns: 1fr;
             }
             
-            .referral-link-container {
+            .plans {
                 flex-direction: column;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 25px 0;
+            }
+            
+            .logo {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
-            <nav class="navbar">
-                <div class="logo">BERA</div>
-                <div class="nav-links">
-                    <a href="#services">Services</a>
-                    <a href="#referral">Refer & Earn</a>
-                    <a href="#admin" onclick="showAdminLogin()">Admin</a>
-                </div>
-            </nav>
+            <div class="logo">BERA SUBSCRIPTIONS</div>
+            <div class="tagline">Premium Services, Affordable Prices</div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Premium Digital Subscriptions</h1>
-            <p>Access your favorite services at affordable prices. Pay securely with M-PESA and get instant activation.</p>
+    <div class="container">
+        <div class="services-grid" id="servicesGrid">
+            <!-- Services will be populated by JavaScript -->
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2.5rem;">Choose Your Service</h2>
-            <div class="services-grid" id="servicesGrid">
-                <!-- Services will be loaded here -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Referral Section -->
-    <section id="referral" class="referral-section">
-        <div class="container">
-            <div class="referral-card">
-                <h2>Refer & Earn</h2>
-                <p>Share your referral link and earn KSh 10 for every successful subscription!</p>
-                
-                <div class="referral-link-container">
-                    <input type="text" id="referralLink" class="referral-link" readonly>
-                    <button onclick="copyReferralLink()" class="copy-btn">Copy</button>
-                </div>
-                
-                <button onclick="generateReferralLink()" class="subscribe-btn">Generate Referral Link</button>
-                
-                <div style="margin: 2rem 0;">
-                    <h3>Your Earnings</h3>
-                    <div class="earnings-display" id="earningsDisplay">KSh 0</div>
-                    <button onclick="requestPayout()" class="withdraw-btn" id="withdrawBtn" disabled>Withdraw Earnings</button>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- Payment Modal -->
-    <div id="paymentModal" class="modal">
+    <div class="payment-modal" id="paymentModal">
         <div class="modal-content">
-            <h2>Complete Payment</h2>
+            <div class="modal-header">
+                <h3>Complete Payment</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
             <form id="paymentForm">
                 <div class="form-group">
-                    <label for="phone">M-PESA Phone Number</label>
-                    <input type="tel" id="phone" placeholder="e.g., 0712345678" required>
+                    <label for="phoneNumber">M-Pesa Phone Number</label>
+                    <input type="tel" id="phoneNumber" placeholder="07XX XXX XXX" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email (Optional - for receipt)</label>
-                    <input type="email" id="email" placeholder="your@email.com">
+                    <label for="referralCode">Referral Code (Optional)</label>
+                    <input type="text" id="referralCode" placeholder="Enter referral code">
                 </div>
-                <input type="hidden" id="selectedService">
-                <input type="hidden" id="selectedPlan">
-                <input type="hidden" id="selectedAmount">
-                <button type="submit" class="subscribe-btn" id="payButton">Pay with M-PESA</button>
+                <button type="submit" class="pay-button" id="submitPayment">
+                    Pay Now - KSh <span id="paymentAmount">0</span>
+                </button>
             </form>
-            <button onclick="closeModal()" class="close-modal">Cancel</button>
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner"></div>
+                <p>Processing Payment...</p>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Check your phone for STK Push</p>
+            </div>
         </div>
     </div>
 
-    <!-- Loading Animation -->
-    <div id="loading" class="loading">
-        <div class="spinner"></div>
-        <p>Processing Payment...</p>
-        <p>Please check your phone for STK Push</p>
+    <!-- Referral Popup -->
+    <div class="referral-popup" id="referralPopup">
+        🎉 Referral bonus earned!
     </div>
 
-    <!-- Toast Notifications -->
-    <div id="toast" class="toast"></div>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-links">
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#terms">Terms of Service</a>
-                <a href="#contact">Contact Support</a>
-            </div>
-            <p>&copy; 2024 Bera Subscriptions. All rights reserved.</p>
+            <p>Developed by Bruce Bera – Bera Tech</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                Need help? WhatsApp: +254 743 982 206
+            </p>
         </div>
     </footer>
 
@@ -520,67 +347,61 @@
         // Services data
         const services = [
             {
-                id: 'youtube',
-                name: 'YouTube Premium',
-                logo: 'YT',
-                plans: [
-                    { period: 'monthly', amount: 100, text: '1 Month' },
-                    { period: 'yearly', amount: 1000, text: '1 Year' }
-                ]
-            },
-            {
-                id: 'spotify',
-                name: 'Spotify',
-                logo: 'SP',
-                plans: [
-                    { period: 'monthly', amount: 100, text: '1 Month' },
-                    { period: 'yearly', amount: 1000, text: '1 Year' }
-                ]
-            },
-            {
-                id: 'netflix',
                 name: 'Netflix',
-                logo: 'NF',
                 plans: [
-                    { period: 'monthly', amount: 100, text: '1 Month' },
-                    { period: 'yearly', amount: 1000, text: '1 Year' }
-                ]
+                    { name: 'Monthly', price: 100 },
+                    { name: 'Yearly', price: 1000 }
+                ],
+                logo: '🎬'
             },
             {
-                id: 'telegram',
+                name: 'Spotify',
+                plans: [
+                    { name: 'Monthly', price: 100 },
+                    { name: 'Yearly', price: 1000 }
+                ],
+                logo: '🎵'
+            },
+            {
+                name: 'YouTube Premium',
+                plans: [
+                    { name: 'Monthly', price: 100 },
+                    { name: 'Yearly', price: 1000 }
+                ],
+                logo: '📺'
+            },
+            {
                 name: 'Telegram Premium',
-                logo: 'TG',
                 plans: [
-                    { period: 'monthly', amount: 100, text: '1 Month' },
-                    { period: 'yearly', amount: 1000, text: '1 Year' }
-                ]
+                    { name: 'Monthly', price: 100 },
+                    { name: 'Yearly', price: 1000 }
+                ],
+                logo: '✈️'
             },
             {
-                id: 'showmax',
                 name: 'Showmax',
-                logo: 'SM',
                 plans: [
-                    { period: 'monthly', amount: 100, text: '1 Month' },
-                    { period: 'yearly', amount: 1000, text: '1 Year' }
-                ]
+                    { name: 'Monthly', price: 100 },
+                    { name: 'Yearly', price: 1000 }
+                ],
+                logo: '🎭'
             }
         ];
 
-        // State management
-        let currentReferralId = null;
-        let currentEarnings = 0;
+        // Global variables
         let selectedService = null;
         let selectedPlan = null;
+        let currentTransactionId = null;
 
         // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            loadServices();
-            checkReferralFromURL();
-            loadReferralEarnings();
-        });
+        function initializePage() {
+            renderServices();
+            checkReferral();
+            setupEventListeners();
+        }
 
-        // Load services into the grid
-        function loadServices() {
+        // Render services grid
+        function renderServices() {
             const grid = document.getElementById('servicesGrid');
             grid.innerHTML = '';
 
@@ -589,305 +410,180 @@
                 card.className = 'service-card';
                 card.innerHTML = `
                     <div class="service-logo">${service.logo}</div>
-                    <h3 class="service-name">${service.name}</h3>
-                    <div class="pricing" id="pricing-${service.id}">
-                        ${service.plans.map(plan => `
-                            <div class="price-option" onclick="selectPlan('${service.id}', '${plan.period}')" data-service="${service.id}" data-plan="${plan.period}">
-                                <div class="price-amount">KSh ${plan.amount}</div>
-                                <div class="price-period">${plan.text}</div>
+                    <div class="service-name">${service.name}</div>
+                    <div class="plans">
+                        ${service.plans.map((plan, index) => `
+                            <div class="plan-option" data-plan="${plan.name}" data-price="${plan.price}">
+                                <div class="plan-name">${plan.name}</div>
+                                <div class="plan-price">KSh ${plan.price}</div>
                             </div>
                         `).join('')}
                     </div>
-                    <button class="subscribe-btn" onclick="openPaymentModal('${service.id}')" disabled>Subscribe</button>
+                    <button class="pay-button" onclick="openPaymentModal('${service.name}')">
+                        Subscribe Now
+                    </button>
                 `;
                 grid.appendChild(card);
             });
+
+            // Add plan selection handlers
+            document.querySelectorAll('.plan-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const parent = this.parentElement;
+                    parent.querySelectorAll('.plan-option').forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
         }
 
-        // Select a plan
-        function selectPlan(serviceId, planType) {
-            // Remove selected class from all options
-            document.querySelectorAll('.price-option').forEach(option => {
-                option.classList.remove('selected');
-            });
+        // Check for referral parameter
+        function checkReferral() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ref = urlParams.get('ref');
+            if (ref) {
+                localStorage.setItem('referral_code', ref);
+                showReferralPopup();
+            }
+        }
 
-            // Add selected class to clicked option
-            const selectedOption = document.querySelector(`[data-service="${serviceId}"][data-plan="${planType}"]`);
-            selectedOption.classList.add('selected');
-
-            // Enable subscribe button for this service
-            const card = selectedOption.closest('.service-card');
-            const button = card.querySelector('.subscribe-btn');
-            button.disabled = false;
-
-            // Store selection
-            selectedService = serviceId;
-            selectedPlan = planType;
+        // Show referral popup
+        function showReferralPopup() {
+            const popup = document.getElementById('referralPopup');
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 3000);
         }
 
         // Open payment modal
-        function openPaymentModal(serviceId) {
-            if (!selectedService || !selectedPlan) return;
+        function openPaymentModal(serviceName) {
+            selectedService = serviceName;
+            const card = event.target.closest('.service-card');
+            const selectedPlanElement = card.querySelector('.plan-option.selected');
+            
+            if (!selectedPlanElement) {
+                alert('Please select a plan first');
+                return;
+            }
 
-            const service = services.find(s => s.id === serviceId);
-            const plan = service.plans.find(p => p.period === selectedPlan);
+            selectedPlan = selectedPlanElement.dataset.plan;
+            const amount = selectedPlanElement.dataset.price;
 
-            document.getElementById('selectedService').value = serviceId;
-            document.getElementById('selectedPlan').value = selectedPlan;
-            document.getElementById('selectedAmount').value = plan.amount;
-
+            document.getElementById('paymentAmount').textContent = amount;
             document.getElementById('paymentModal').style.display = 'flex';
         }
 
         // Close modal
         function closeModal() {
             document.getElementById('paymentModal').style.display = 'none';
+            document.getElementById('loadingSpinner').style.display = 'none';
+            document.getElementById('paymentForm').style.display = 'block';
+            document.getElementById('paymentForm').reset();
         }
 
-        // Handle payment form submission
-        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+        // Setup event listeners
+        function setupEventListeners() {
+            document.getElementById('paymentForm').addEventListener('submit', handlePayment);
+            
+            // Close modal when clicking outside
+            document.getElementById('paymentModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Handle payment submission
+        async function handlePayment(e) {
             e.preventDefault();
             
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const service = document.getElementById('selectedService').value;
-            const plan = document.getElementById('selectedPlan').value;
-            const amount = document.getElementById('selectedAmount').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const referralCode = document.getElementById('referralCode').value || localStorage.getItem('referral_code');
+            const amount = document.getElementById('paymentAmount').textContent;
 
-            if (!phone) {
-                showToast('Please enter your phone number', 'error');
+            if (!phoneNumber.match(/^(07|01|2547|2541)\d{8}$/)) {
+                alert('Please enter a valid Kenyan phone number');
                 return;
             }
 
-            // Show loading
-            document.getElementById('loading').style.display = 'block';
-            closeModal();
+            // Show loading spinner
+            document.getElementById('paymentForm').style.display = 'none';
+            document.getElementById('loadingSpinner').style.display = 'block';
 
             try {
                 const response = await fetch('/api/pay', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        phone,
-                        service,
-                        plan,
-                        amount,
-                        referralId: currentReferralId,
-                        email
+                        service: selectedService,
+                        plan: selectedPlan,
+                        phone: phoneNumber,
+                        amount: amount,
+                        referral_code: referralCode
                     })
                 });
 
                 const data = await response.json();
 
                 if (data.success) {
-                    showToast('Payment initiated! Check your phone for STK Push', 'success');
-                    // Poll for transaction status
-                    pollTransactionStatus(data.transactionId);
+                    currentTransactionId = data.txnid;
+                    await waitForPaymentConfirmation(data.txnid);
                 } else {
-                    document.getElementById('loading').style.display = 'none';
-                    showToast(data.error || 'Payment failed. Please try again.', 'error');
+                    throw new Error(data.error || 'Payment failed');
                 }
             } catch (error) {
-                document.getElementById('loading').style.display = 'none';
                 console.error('Payment error:', error);
-                showToast('Network error. Please try again.', 'error');
-            }
-        });
-
-        // Poll transaction status
-        async function pollTransactionStatus(transactionId) {
-            let attempts = 0;
-            const maxAttempts = 30; // 3 minutes
-
-            const poll = async () => {
-                attempts++;
-                
-                try {
-                    const response = await fetch(`/api/transaction/${transactionId}`);
-                    const transaction = await response.json();
-
-                    if (transaction.status === 'success') {
-                        document.getElementById('loading').style.display = 'none';
-                        showToast('Payment successful!', 'success');
-                        
-                        // Redirect to WhatsApp
-                        const serviceName = services.find(s => s.id === transaction.service).name;
-                        const message = `Hi! I just paid KSh ${transaction.amount} for ${serviceName} ${transaction.plan}. Transaction ID: ${transaction.mpesaReceiptNumber || transaction.id}.`;
-                        const whatsappUrl = `https://wa.me/254743982206?text=${encodeURIComponent(message)}`;
-                        
-                        setTimeout(() => {
-                            window.open(whatsappUrl, '_blank');
-                        }, 2000);
-                        
-                        // Reload earnings if referral was used
-                        if (currentReferralId) {
-                            loadReferralEarnings();
-                        }
-                        
-                        return;
-                    } else if (transaction.status === 'failed') {
-                        document.getElementById('loading').style.display = 'none';
-                        showToast('Payment failed: ' + (transaction.errorMessage || 'Unknown error'), 'error');
-                        return;
-                    }
-
-                    // Continue polling if still pending
-                    if (attempts < maxAttempts) {
-                        setTimeout(poll, 6000); // Poll every 6 seconds
-                    } else {
-                        document.getElementById('loading').style.display = 'none';
-                        showToast('Payment timeout. Please check your phone or try again.', 'error');
-                    }
-                } catch (error) {
-                    console.error('Polling error:', error);
-                    if (attempts < maxAttempts) {
-                        setTimeout(poll, 6000);
-                    } else {
-                        document.getElementById('loading').style.display = 'none';
-                        showToast('Error checking payment status.', 'error');
-                    }
-                }
-            };
-
-            poll();
-        }
-
-        // Referral system functions
-        function checkReferralFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const ref = urlParams.get('ref');
-            
-            if (ref) {
-                currentReferralId = ref;
-                showToast(`Referral detected: ${ref}`, 'info');
-            }
-        }
-
-        async function generateReferralLink() {
-            try {
-                const response = await fetch('/api/referral/generate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ userId: null }) // Let server generate ID
-                });
-
-                const data = await response.json();
-                
-                if (data.referralId) {
-                    currentReferralId = data.referralId;
-                    document.getElementById('referralLink').value = data.referralLink;
-                    showToast('Referral link generated!', 'success');
-                    loadReferralEarnings();
-                }
-            } catch (error) {
-                console.error('Error generating referral:', error);
-                showToast('Error generating referral link', 'error');
-            }
-        }
-
-        async function loadReferralEarnings() {
-            if (!currentReferralId) return;
-
-            try {
-                const response = await fetch(`/api/referral/${currentReferralId}`);
-                const data = await response.json();
-                
-                currentEarnings = data.earnings || 0;
-                document.getElementById('earningsDisplay').textContent = `KSh ${currentEarnings}`;
-                
-                const withdrawBtn = document.getElementById('withdrawBtn');
-                withdrawBtn.disabled = currentEarnings === 0;
-            } catch (error) {
-                console.error('Error loading earnings:', error);
-            }
-        }
-
-        async function requestPayout() {
-            if (!currentReferralId || currentEarnings === 0) return;
-
-            try {
-                const response = await fetch(`/api/payout/${currentReferralId}`, {
-                    method: 'POST'
-                });
-
-                const data = await response.json();
-                
-                if (data.success) {
-                    window.open(data.whatsappUrl, '_blank');
-                    showToast('WhatsApp opened for withdrawal request', 'success');
-                }
-            } catch (error) {
-                console.error('Error requesting payout:', error);
-                showToast('Error requesting payout', 'error');
-            }
-        }
-
-        function copyReferralLink() {
-            const linkInput = document.getElementById('referralLink');
-            if (!linkInput.value) {
-                showToast('Generate a referral link first', 'error');
-                return;
-            }
-
-            linkInput.select();
-            document.execCommand('copy');
-            showToast('Referral link copied!', 'success');
-        }
-
-        // Toast notification system
-        function showToast(message, type = 'info') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = `toast ${type} show`;
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 5000);
-        }
-
-        // Admin login (basic implementation)
-        function showAdminLogin() {
-            const username = prompt('Admin Username:');
-            const password = prompt('Admin Password:');
-            
-            if (username && password) {
-                fetch('/api/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        showToast('Admin login successful!', 'success');
-                        // In a full implementation, you'd redirect to admin dashboard
-                        setTimeout(() => {
-                            alert('Admin dashboard would open here. Check server logs for transaction data.');
-                        }, 1000);
-                    } else {
-                        showToast('Invalid admin credentials', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Login error:', error);
-                    showToast('Login failed', 'error');
-                });
-            }
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('paymentModal');
-            if (event.target === modal) {
+                alert('Payment failed: ' + error.message);
                 closeModal();
             }
         }
+
+        // Wait for payment confirmation
+        async function waitForPaymentConfirmation(txnid) {
+            let attempts = 0;
+            const maxAttempts = 60; // Wait for 2 minutes maximum
+
+            const checkStatus = async () => {
+                attempts++;
+                
+                try {
+                    const response = await fetch(`/api/payment-status/${txnid}`);
+                    const data = await response.json();
+
+                    if (data.status === 'completed') {
+                        // Payment successful - redirect to WhatsApp
+                        const transaction = data.transaction;
+                        const whatsappMessage = `Hi! I just paid for ${transaction.service} ${transaction.plan} (KSh ${transaction.amount}). Transaction ID: ${transaction.txnid}.`;
+                        const encodedMessage = encodeURIComponent(whatsappMessage);
+                        const whatsappUrl = `https://wa.me/254743982206?text=${encodedMessage}`;
+                        
+                        window.location.href = whatsappUrl;
+                        return;
+                    } else if (data.status === 'failed') {
+                        throw new Error('Payment was declined or failed');
+                    }
+
+                    // If not completed and attempts remain, check again
+                    if (attempts < maxAttempts) {
+                        setTimeout(checkStatus, 2000); // Check every 2 seconds
+                    } else {
+                        throw new Error('Payment timeout - please contact support');
+                    }
+                } catch (error) {
+                    console.error('Status check error:', error);
+                    alert('Payment verification failed: ' + error.message);
+                    closeModal();
+                }
+            };
+
+            // Start checking status
+            checkStatus();
+        }
+
+        // Initialize the page when loaded
+        document.addEventListener('DOMContentLoaded', initializePage);
     </script>
 </body>
 </html>
