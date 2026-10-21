@@ -1,640 +1,1363 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChegeTech Premium | Affordable Digital Subscriptions</title>
-    <meta name="description" content="Get premium subscriptions for Netflix, YouTube, Spotify, and more at affordable prices. One flat rate for all platforms.">
-    <meta name="keywords" content="netflix, youtube premium, spotify, telegram premium, showmax, apple music, amazon prime, disney+, deezer, kenya, mpesa">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b16">
+
+<title>ChegeTech Premium | Digital Subscriptions</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root {
+  --bg: #080b16;
+  --surface: #101626;
+  --primary: #7966ff;
+  --text: #f5f7ff;
+  --muted: #98a3bb;
+  --border: rgba(255,255,255,.1);
+  --success: #20c997;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background:
+    radial-gradient(ellipse at top left, #211746 0%, transparent 40%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input {
+  font: inherit;
+}
+
+.container {
+  width: min(1160px, 92%);
+  margin: auto;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(8,11,22,.95);
+  border-bottom: 1px solid var(--border);
+}
+
+nav {
+  min-height: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.logo span {
+  color: #a99cff;
+}
+
+.nav-links {
+  display: flex;
+  gap: 22px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 17px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  color: white;
+  background: linear-gradient(135deg, #7966ff, #a36aff);
+}
+
+.btn-secondary {
+  color: white;
+  background: #151d30;
+  border: 1px solid var(--border);
+}
+
+.hero {
+  padding: 80px 0 55px;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #c2b7ff;
+  background: #201941;
+  border: 1px solid #443578;
+  padding: 8px 14px;
+  border-radius: 50px;
+  font-size: 11px;
+  margin-bottom: 22px;
+}
+
+h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.12;
+  letter-spacing: -2px;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #a99cff, #72c8ff);
+  color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 620px;
+  margin: auto;
+  font-size: 14px;
+}
+
+.hero-actions {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.trust-row {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.trust-row i {
+  color: var(--success);
+  margin-right: 5px;
+}
+
+section.content {
+  padding: 45px 0 65px;
+}
+
+.section-heading {
+  margin-bottom: 25px;
+}
+
+.section-heading h2 {
+  font-size: clamp(25px, 4vw, 34px);
+  margin-bottom: 7px;
+}
+
+.section-heading p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.plan-card {
+  background: linear-gradient(145deg, #151d30, #0e1423);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  transition: .2s;
+}
+
+.plan-card:hover {
+  transform: translateY(-4px);
+  border-color: #7966ff;
+}
+
+.plan-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #29204c;
+  color: #c2b7ff;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.plan-card h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.plan-description {
+  color: var(--muted);
+  font-size: 11px;
+  min-height: 35px;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin: 18px 0;
+}
+
+.price {
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.price-period {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.plan-features {
+  list-style: none;
+  margin-bottom: 20px;
+  font-size: 11px;
+  color: #c0c8d9;
+}
+
+.plan-features li {
+  margin: 8px 0;
+}
+
+.plan-features i {
+  color: var(--success);
+  margin-right: 6px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.step {
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+}
+
+.step-number {
+  color: #b9acff;
+  background: #29204c;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  font-weight: 800;
+}
+
+.step h3 {
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+.step p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.referral-box {
+  background: linear-gradient(120deg, #1a1738, #101d32);
+  border: 1px solid #39305f;
+  padding: 25px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.referral-box p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.referral-code {
+  padding: 12px;
+  border: 1px dashed #7966ff;
+  border-radius: 10px;
+  font-weight: 800;
+  text-align: center;
+  min-width: 125px;
+}
+
+.faq-item {
+  padding: 17px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  margin-bottom: 10px;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.faq-item p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 25px 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Payment modal */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0,0,0,.8);
+  backdrop-filter: blur(7px);
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal {
+  width: min(440px, 100%);
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 25px;
+  position: relative;
+  background: #101626;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+}
+
+.modal-close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  color: white;
+  background: #20283a;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-heading {
+  margin-bottom: 20px;
+  padding-right: 35px;
+}
+
+.modal-heading h2 {
+  font-size: 22px;
+}
+
+.modal-heading p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.selected-plan {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  margin-bottom: 20px;
+  background: #1c1936;
+  border: 1px solid #38305e;
+  border-radius: 13px;
+}
+
+.selected-plan small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.selected-plan strong {
+  font-size: 14px;
+}
+
+.selected-plan .total {
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 13px;
+  border-radius: 11px;
+  border: 1px solid var(--border);
+  background: #0b1020;
+  color: white;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--primary);
+}
+
+.field-hint {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.payment-method {
+  padding: 13px;
+  border: 1px solid #205947;
+  background: #10251f;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  font-size: 12px;
+}
+
+.payment-method i {
+  color: #4be0a8;
+  margin-right: 8px;
+}
+
+.terms-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 12px;
+}
+
+.payment-status {
+  display: none;
+  text-align: center;
+  padding: 15px 0 0;
+}
+
+.payment-status.active {
+  display: block;
+}
+
+.status-icon {
+  font-size: 28px;
+  margin-bottom: 14px;
+  color: #b9acff;
+}
+
+.payment-status h3 {
+  margin-bottom: 8px;
+}
+
+.payment-status p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.toast {
+  position: fixed;
+  z-index: 200;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #20283a;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 18px;
+  width: max-content;
+  max-width: 90%;
+  font-size: 12px;
+  display: none;
+}
+
+.toast.show {
+  display: block;
+}
+
+@media (max-width: 950px) {
+  .plans-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .nav-links {
+    display: none;
+  }
+
+  .hero {
+    padding: 55px 0 35px;
+  }
+
+  .plans-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+  }
+
+  .plan-card {
+    padding: 14px;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .referral-box {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .referral-code {
+    flex: 1;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 390px) {
+  .container {
+    width: 94%;
+  }
+
+  .nav .btn {
+    padding: 10px;
+    font-size: 11px;
+  }
+
+  .plans-grid {
+    gap: 8px;
+  }
+
+  .plan-card {
+    padding: 11px;
+  }
+
+  .plan-card h3 {
+    font-size: 14px;
+  }
+
+  .price {
+    font-size: 23px;
+  }
+
+  .plan-card .btn {
+    font-size: 11px;
+    padding: 10px 6px;
+  }
+}
+</style>
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">
-                    <div class="logo-icon">C</div>
-                    <div class="logo-text">Chege<span class="logo-accent">Tech</span></div>
-                </a>
-                <nav>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#plans">Plans</a></li>
-                        <li><a href="#referral">Refer & Earn</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
-                <div class="auth-buttons">
-                    <button class="btn btn-secondary" id="login-btn">Login</button>
-                    <button class="btn btn-primary" id="signup-btn">Sign Up</button>
-                </div>
-            </div>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="#" class="logo">
+        <i class="fa-solid fa-bolt"></i>
+        ChegeTech <span>Premium</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#subscriptions">Subscriptions</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#referrals">Referrals</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <a class="btn btn-primary" href="#subscriptions">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="eyebrow">
+        <i class="fa-solid fa-sparkles"></i>
+        YOUR DIGITAL WORLD, UPGRADED
+      </div>
+
+      <h1>
+        Premium experiences.<br>
+        <span class="gradient-text">Simple payments.</span>
+      </h1>
+
+      <p>
+        Discover your favourite digital subscriptions in one place.
+        Pay conveniently with M-Pesa and follow the activation instructions after payment.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#subscriptions" class="btn btn-primary">
+          Explore subscriptions <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="#how-it-works" class="btn btn-secondary">
+          How it works
+        </a>
+      </div>
+
+      <div class="trust-row">
+        <span><i class="fa-solid fa-shield-halved"></i> Payment status checks</span>
+        <span><i class="fa-solid fa-mobile-screen"></i> M-Pesa checkout</span>
+        <span><i class="fa-solid fa-headset"></i> WhatsApp assistance</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="content" id="subscriptions">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Find your subscription</h2>
+        <p>Choose a service and continue to checkout.</p>
+      </div>
+
+      <div class="plans-grid" id="plansGrid"></div>
+    </div>
+  </section>
+
+  <section class="content" id="how-it-works">
+    <div class="container">
+      <div class="section-heading">
+        <h2>How it works</h2>
+        <p>Three simple steps to place your order.</p>
+      </div>
+
+      <div class="steps">
+        <article class="step">
+          <div class="step-number">01</div>
+          <h3>Choose a service</h3>
+          <p>Select the digital subscription you want and review its price.</p>
+        </article>
+
+        <article class="step">
+          <div class="step-number">02</div>
+          <h3>Pay with M-Pesa</h3>
+          <p>Enter your phone number and submit the payment request. Approve the prompt if it arrives.</p>
+        </article>
+
+        <article class="step">
+          <div class="step-number">03</div>
+          <h3>Continue to activation</h3>
+          <p>After payment is confirmed, continue to WhatsApp for order assistance.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="content" id="referrals">
+    <div class="container">
+      <div class="referral-box">
+        <div>
+          <h2>Share ChegeTech Premium</h2>
+          <p>Share your referral link with friends. Referral tracking depends on the backend referral system.</p>
         </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <h1>Premium Subscriptions Made Simple</h1>
-            <p>Access Netflix, YouTube Premium, Spotify, and all your favorite platforms with one simple payment. No hidden fees, no complicated processes.</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary" id="get-started-btn">Get Started Now</button>
-                <button class="btn btn-secondary" id="learn-more-btn">How It Works</button>
-            </div>
+        <div style="display:flex;gap:10px;align-items:center;width:100%;max-width:350px">
+          <div class="referral-code" id="referralCode">Loading...</div>
+          <button class="btn btn-primary" id="copyReferralBtn" type="button">
+            <i class="fa-regular fa-copy"></i> Copy
+          </button>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Subscription Plans -->
-    <section class="plans-section" id="plans">
-        <div class="container">
-            <div class="section-title">
-                <h2>Choose Your Platform</h2>
-                <p>All premium subscriptions available for one flat rate. Select your preferred platform and get instant access.</p>
-            </div>
-            <div class="plans-grid" id="plans-grid">
-                <!-- Plans populated by JavaScript -->
-            </div>
+  <section class="content" id="faq">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Frequently asked questions</h2>
+      </div>
+
+      <details class="faq-item">
+        <summary>How do I pay?</summary>
+        <p>Select a subscription, enter a valid Kenyan M-Pesa number, and submit the payment request. Verify the amount before approving any M-Pesa prompt.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What happens after payment?</summary>
+        <p>The page checks the transaction status through your server. When the server confirms success, you can continue to WhatsApp for activation assistance.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What if the payment prompt does not arrive?</summary>
+        <p>Check that your phone number is correct, your phone can receive M-Pesa prompts, and your network is working. You can try again if no transaction was initiated.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Are subscriptions activated automatically?</summary>
+        <p>Automatic activation requires a separate integration. This page directs successful customers to WhatsApp for assistance; payment confirmation alone does not activate a third-party subscription.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© <span id="year"></span> <strong>ChegeTech Premium</strong>. All rights reserved.</span>
+    <span>Secure checkout powered by your configured payment backend.</span>
+  </div>
+</footer>
+
+<!-- Payment modal -->
+<div class="modal-overlay" id="paymentModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" type="button" id="closeModal" aria-label="Close payment modal">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div id="paymentFormArea">
+      <div class="modal-heading">
+        <h2 id="modalTitle">Complete your order</h2>
+        <p>Enter your details to request an M-Pesa payment.</p>
+      </div>
+
+      <div class="selected-plan">
+        <div>
+          <small>Selected subscription</small>
+          <strong id="selectedPlanName">Subscription</strong>
         </div>
-    </section>
+        <div class="total" id="selectedPlanPrice">KES 100</div>
+      </div>
 
-    <!-- Referral Section -->
-    <section class="referral-section" id="referral">
-        <div class="container">
-            <div class="referral-content">
-                <div class="referral-text">
-                    <h2>Refer Friends & Earn Money</h2>
-                    <p>Share your unique referral link with friends and earn KES 20 for every successful subscription they purchase. It's that simple!</p>
-                    <button class="btn btn-primary" id="get-referral-btn">Get Your Referral Link</button>
-                    
-                    <div class="referral-stats">
-                        <div class="stat">
-                            <div class="stat-number" id="total-earnings">KES 0</div>
-                            <div class="stat-label">Total Earnings</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number" id="total-referrals">0</div>
-                            <div class="stat-label">Successful Referrals</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="referral-visual">
-                    <div class="referral-box">
-                        <div class="referral-icon">
-                            <i class="fas fa-gift"></i>
-                        </div>
-                        <h3>Your Referral Code</h3>
-                        <div class="referral-code" id="referral-code-display">CHTECH-<span id="user-ref-code">LOADING...</span></div>
-                        <p>Share this code with friends to earn KES 20 for each purchase</p>
-                        <button class="btn btn-secondary" id="copy-referral-btn">
-                            <i class="fas fa-copy"></i> Copy Referral Link
-                        </button>
-                    </div>
-                </div>
-            </div>
+      <form id="checkoutForm">
+        <div class="form-group">
+          <label for="customerName">Your name</label>
+          <input
+            class="form-input"
+            id="customerName"
+            name="customerName"
+            type="text"
+            placeholder="Enter your name"
+            autocomplete="name"
+            maxlength="80"
+          >
         </div>
-    </section>
 
-    <!-- Payment Modal -->
-    <div class="modal" id="payment-modal">
-        <div class="modal-content">
-            <span class="close-modal" id="close-modal">&times;</span>
-            
-            <div class="alert alert-success" id="success-alert">
-                <i class="fas fa-check-circle"></i>
-                <span id="success-message">Payment successful! Redirecting to WhatsApp for activation...</span>
-            </div>
-            
-            <div class="alert alert-error" id="error-alert">
-                <i class="fas fa-exclamation-circle"></i>
-                <span id="error-message">Payment failed. Please try again.</span>
-            </div>
-            
-            <div class="alert alert-warning" id="warning-alert">
-                <i class="fas fa-info-circle"></i>
-                <span id="warning-message">Please check your phone and enter your M-Pesa PIN</span>
-            </div>
-
-            <h2 class="modal-title" id="modal-title">Subscribe to Platform</h2>
-            <p class="modal-subtitle" id="modal-subtitle">Complete your subscription with M-Pesa</p>
-            
-            <form id="payment-form">
-                <div class="form-group">
-                    <label for="phone">M-Pesa Phone Number</label>
-                    <input type="tel" id="phone" class="form-control" placeholder="2547XXXXXXXX" required>
-                    <small style="color: var(--text-secondary); margin-top: 5px; display: block;">
-                        Format: 2547XXXXXXXX (e.g., 254712345678)
-                    </small>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email Address (Optional)</label>
-                    <input type="email" id="email" class="form-control" placeholder="your@email.com">
-                </div>
-
-                <div class="loading" id="payment-loading">
-                    <div class="spinner"></div>
-                    <p>Processing your payment...</p>
-                </div>
-                
-                <button type="submit" class="subscribe-btn" id="pay-btn">
-                    <i class="fas fa-lock"></i> Pay KES 100 via M-Pesa
-                </button>
-                
-                <div class="text-center mt-20">
-                    <small style="color: var(--text-secondary);">
-                        <i class="fas fa-shield-alt"></i> Your payment is secure and encrypted
-                    </small>
-                </div>
-            </form>
+        <div class="form-group">
+          <label for="phoneNumber">M-Pesa phone number</label>
+          <input
+            class="form-input"
+            id="phoneNumber"
+            name="phone"
+            type="tel"
+            placeholder="07XXXXXXXX or 2547XXXXXXXX"
+            autocomplete="tel"
+            inputmode="tel"
+            required
+          >
+          <p class="field-hint">Use a Kenyan Safaricom number that can receive an M-Pesa prompt.</p>
         </div>
+
+        <div class="form-group">
+          <label for="referralInput">Referral code (optional)</label>
+          <input
+            class="form-input"
+            id="referralInput"
+            name="referralCode"
+            type="text"
+            placeholder="Enter referral code"
+            maxlength="40"
+          >
+        </div>
+
+        <div class="payment-method">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+          <span>
+            <strong>M-Pesa STK Push</strong><br>
+            Follow the payment prompt on your phone.
+          </span>
+        </div>
+
+        <button class="btn btn-primary btn-block" type="submit" id="payButton">
+          Pay with M-Pesa <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <p class="terms-note">Confirm the amount and recipient on your phone before approving.</p>
+      </form>
     </div>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>ChegeTech Premium</h3>
-                    <p>Your trusted platform for affordable premium subscriptions. Access all your favorite services with one simple payment.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#plans">Subscription Plans</a></li>
-                        <li><a href="#referral">Referral Program</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Refund Policy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Info</h3>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> support@chegetech.com</li>
-                        <li><i class="fas fa-phone"></i> +254 743 982 206</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>Developed by Bera Tech — All Rights Reserved © 2025.</p>
-            </div>
-        </div>
-    </footer>
+    <div class="payment-status" id="paymentStatus">
+      <div class="status-icon" id="statusIcon">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+      </div>
+      <h3 id="statusTitle">Waiting for payment</h3>
+      <p id="statusMessage">Check your phone and approve the M-Pesa prompt if it arrives.</p>
+      <button class="btn btn-secondary btn-block" id="statusClose" type="button">Close</button>
+    </div>
+  </div>
+</div>
 
-    <script>
-        // Subscription plans data
-        const subscriptionPlans = [
-            {
-                id: 'netflix',
-                name: 'Netflix',
-                icon: 'fab fa-netflix',
-                color: '#E50914',
-                description: '1-Month Premium Subscription',
-                features: ['HD & Ultra HD Quality', 'Watch on 4 devices', 'Unlimited movies & TV shows', 'Download for offline viewing']
-            },
-            {
-                id: 'youtube',
-                name: 'YouTube Premium',
-                icon: 'fab fa-youtube',
-                color: '#FF0000',
-                description: '1-Month Premium Subscription',
-                features: ['Ad-free videos', 'Background play', 'Offline downloads', 'YouTube Music included']
-            },
-            {
-                id: 'spotify',
-                name: 'Spotify',
-                icon: 'fab fa-spotify',
-                color: '#1DB954',
-                description: '1-Month Premium Subscription',
-                features: ['Ad-free music', 'Download songs', 'High quality audio', 'Unlimited skips']
-            },
-            {
-                id: 'telegram',
-                name: 'Telegram Premium',
-                icon: 'fab fa-telegram',
-                color: '#0088cc',
-                description: '1-Month Premium Subscription',
-                features: ['4GB file uploads', 'Faster downloads', 'Premium stickers', 'Advanced chat management']
-            },
-            {
-                id: 'showmax',
-                name: 'Showmax',
-                icon: 'fas fa-tv',
-                color: '#FF00FF',
-                description: '1-Month Premium Subscription',
-                features: ['Local & international content', 'Multiple profiles', 'Download to watch offline', 'HD streaming']
-            },
-            {
-                id: 'apple-music',
-                name: 'Apple Music',
-                icon: 'fab fa-apple',
-                color: '#FA243C',
-                description: '1-Month Premium Subscription',
-                features: ['70+ million songs', 'Ad-free listening', 'Download music', 'Spatial Audio']
-            },
-            {
-                id: 'amazon-prime',
-                name: 'Amazon Prime Video',
-                icon: 'fab fa-amazon',
-                color: '#00A8E1',
-                description: '1-Month Premium Subscription',
-                features: ['Thousands of movies & TV shows', 'Award-winning originals', 'Download to watch offline', '4K Ultra HD']
-            },
-            {
-                id: 'disney-plus',
-                name: 'Disney+',
-                icon: 'fas fa-hat-wizard',
-                color: '#0063E5',
-                description: '1-Month Premium Subscription',
-                features: ['Disney, Pixar, Marvel, Star Wars', 'Exclusive originals', '4K UHD & HDR', 'GroupWatch feature']
-            },
-            {
-                id: 'deezer',
-                name: 'Deezer',
-                icon: 'fas fa-music',
-                color: '#A0D9EF',
-                description: '1-Month Premium Subscription',
-                features: ['73+ million tracks', 'High Fidelity sound', 'Offline mode', 'Personalized recommendations']
-            }
-        ];
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-        // DOM Elements
-        const plansGrid = document.getElementById('plans-grid');
-        const paymentModal = document.getElementById('payment-modal');
-        const closeModal = document.getElementById('close-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalSubtitle = document.getElementById('modal-subtitle');
-        const paymentForm = document.getElementById('payment-form');
-        const phoneInput = document.getElementById('phone');
-        const payBtn = document.getElementById('pay-btn');
-        const paymentLoading = document.getElementById('payment-loading');
-        const successAlert = document.getElementById('success-alert');
-        const errorAlert = document.getElementById('error-alert');
-        const warningAlert = document.getElementById('warning-alert');
-        const successMessage = document.getElementById('success-message');
-        const errorMessage = document.getElementById('error-message');
-        const warningMessage = document.getElementById('warning-message');
-        const referralCodeDisplay = document.getElementById('user-ref-code');
-        const copyReferralBtn = document.getElementById('copy-referral-btn');
-        const getReferralBtn = document.getElementById('get-referral-btn');
+<script>
+"use strict";
 
-        // Global variables
-        let currentPlan = null;
-        let currentTransactionRef = null;
-        let statusCheckInterval = null;
-        let userReferralCode = '';
+const API_BASE = window.location.origin;
+const WHATSAPP_NUMBER = "254743982206";
 
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeApp();
-        });
+const plans = [
+  {
+    id: "netflix",
+    name: "Netflix",
+    description: "Movies, series and documentaries.",
+    icon: "fa-film",
+    price: 100
+  },
+  {
+    id: "youtube-premium",
+    name: "YouTube Premium",
+    description: "Enjoy videos with fewer interruptions.",
+    icon: "fa-brands fa-youtube",
+    price: 100
+  },
+  {
+    id: "spotify",
+    name: "Spotify Premium",
+    description: "Your music, your way.",
+    icon: "fa-brands fa-spotify",
+    price: 100
+  },
+  {
+    id: "telegram-premium",
+    name: "Telegram Premium",
+    description: "More features for messaging.",
+    icon: "fa-brands fa-telegram",
+    price: 100
+  },
+  {
+    id: "showmax",
+    name: "Showmax",
+    description: "Explore entertainment and series.",
+    icon: "fa-solid fa-tv",
+    price: 100
+  },
+  {
+    id: "apple-music",
+    name: "Apple Music",
+    description: "Discover music and playlists.",
+    icon: "fa-brands fa-apple",
+    price: 100
+  },
+  {
+    id: "amazon-prime",
+    name: "Amazon Prime Video",
+    description: "Explore movies and TV shows.",
+    icon: "fa-brands fa-amazon",
+    price: 100
+  },
+  {
+    id: "disney-plus",
+    name: "Disney+",
+    description: "Entertainment for every mood.",
+    icon: "fa-solid fa-wand-magic-sparkles",
+    price: 100
+  },
+  {
+    id: "deezer",
+    name: "Deezer",
+    description: "Listen to music and discover artists.",
+    icon: "fa-solid fa-headphones",
+    price: 100
+  }
+];
 
-        async function initializeApp() {
-            renderPlans();
-            setupReferralSystem();
-            setupEventListeners();
-            await generateUserReferralCode();
-        }
+let selectedPlan = null;
+let pollTimer = null;
+let pollDeadline = null;
+let currentTransactionRef = null;
 
-        function renderPlans() {
-            plansGrid.innerHTML = '';
-            
-            subscriptionPlans.forEach(plan => {
-                const planCard = document.createElement('div');
-                planCard.className = 'plan-card fade-in';
-                planCard.innerHTML = `
-                    <div class="plan-header">
-                        <div class="plan-icon" style="color: ${plan.color}">
-                            <i class="${plan.icon}"></i>
-                        </div>
-                        <h3 class="plan-name">${plan.name}</h3>
-                        <p class="plan-description">${plan.description}</p>
-                    </div>
-                    <div class="plan-price">
-                        <div class="price-amount">KES 100</div>
-                        <div class="price-period">per month • One-time payment</div>
-                    </div>
-                    <div class="plan-features">
-                        <ul>
-                            ${plan.features.map(feature => `
-                                <li>
-                                    <i class="fas fa-check" style="color: ${plan.color}"></i>
-                                    ${feature}
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                    <div class="plan-actions">
-                        <button class="subscribe-btn" data-plan="${plan.id}" style="background: linear-gradient(135deg, ${plan.color} 0%, ${plan.color}99 100%)">
-                            Subscribe to ${plan.name}
-                        </button>
-                    </div>
-                `;
-                
-                plansGrid.appendChild(planCard);
-            });
-        }
+const plansGrid = document.getElementById("plansGrid");
+const modal = document.getElementById("paymentModal");
+const checkoutForm = document.getElementById("checkoutForm");
+const payButton = document.getElementById("payButton");
+const paymentFormArea = document.getElementById("paymentFormArea");
+const paymentStatus = document.getElementById("paymentStatus");
+const toast = document.getElementById("toast");
 
-        function setupEventListeners() {
-            // Subscribe button clicks
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('subscribe-btn')) {
-                    const planId = e.target.getAttribute('data-plan');
-                    openPaymentModal(planId);
-                }
-            });
-            
-            // Modal controls
-            closeModal.addEventListener('click', closePaymentModal);
-            window.addEventListener('click', function(e) {
-                if (e.target === paymentModal) {
-                    closePaymentModal();
-                }
-            });
-            
-            // Form submission
-            paymentForm.addEventListener('submit', processPayment);
-            
-            // Phone number formatting
-            phoneInput.addEventListener('input', formatPhoneNumber);
-            
-            // Referral system
-            copyReferralBtn.addEventListener('click', copyReferralLink);
-            getReferralBtn.addEventListener('click', generateNewReferralCode);
-            
-            // Navigation buttons
-            document.getElementById('get-started-btn').addEventListener('click', () => {
-                document.getElementById('plans').scrollIntoView({ behavior: 'smooth' });
-            });
-        }
+document.getElementById("year").textContent = new Date().getFullYear();
 
-        function setupReferralSystem() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const refCode = urlParams.get('ref');
-            
-            if (refCode) {
-                // Store referral code for use during payment
-                localStorage.setItem('referralCode', refCode);
-                console.log(`Referral detected: ${refCode}`);
-                
-                // Show notification
-                showTemporaryAlert(`You were referred by ${refCode}! You'll earn KES 20 when you complete your purchase.`, 'success');
-            }
-        }
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
 
-        async function generateUserReferralCode() {
-            try {
-                // In a real app, this would come from your backend based on user auth
-                // For demo, we'll generate a random one
-                const randomCode = `USER${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
-                userReferralCode = randomCode;
-                referralCodeDisplay.textContent = randomCode;
-                
-                // Store in localStorage for persistence
-                localStorage.setItem('userReferralCode', randomCode);
-            } catch (error) {
-                console.error('Error generating referral code:', error);
-                // Fallback to localStorage or generate random
-                userReferralCode = localStorage.getItem('userReferralCode') || 
-                                 `USER${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
-                referralCodeDisplay.textContent = userReferralCode;
-            }
-        }
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3500);
+}
 
-        function generateNewReferralCode() {
-            generateUserReferralCode();
-            showTemporaryAlert('New referral code generated!', 'success');
-        }
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
 
-        function copyReferralLink() {
-            const referralLink = `${window.location.origin}${window.location.pathname}?ref=${userReferralCode}`;
-            
-            navigator.clipboard.writeText(referralLink).then(() => {
-                showTemporaryAlert('Referral link copied to clipboard!', 'success');
-            }).catch(() => {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = referralLink;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showTemporaryAlert('Referral link copied to clipboard!', 'success');
-            });
-        }
+function renderPlans() {
+  plansGrid.innerHTML = plans.map(plan => `
+    <article class="plan-card">
+      <div class="plan-icon">
+        <i class="${escapeHTML(plan.icon)}"></i>
+      </div>
 
-        function openPaymentModal(planId) {
-            currentPlan = subscriptionPlans.find(plan => plan.id === planId);
-            
-            if (currentPlan) {
-                modalTitle.textContent = `Subscribe to ${currentPlan.name}`;
-                modalSubtitle.textContent = `Get instant access to ${currentPlan.name} Premium for 1 month`;
-                paymentModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-                
-                // Reset form and alerts
-                paymentForm.reset();
-                hideAlerts();
-            }
-        }
+      <h3>${escapeHTML(plan.name)}</h3>
+      <p class="plan-description">${escapeHTML(plan.description)}</p>
 
-        function closePaymentModal() {
-            paymentModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            currentPlan = null;
-            currentTransactionRef = null;
-            
-            // Clear any existing status checks
-            if (statusCheckInterval) {
-                clearInterval(statusCheckInterval);
-                statusCheckInterval = null;
-            }
-        }
+      <div class="price-row">
+        <span class="price">KES ${plan.price}</span>
+        <span class="price-period">/ order</span>
+      </div>
 
-        function formatPhoneNumber() {
-            let value = phoneInput.value.replace(/\D/g, '');
-            
-            if (value.startsWith('0')) {
-                value = '254' + value.substring(1);
-            } else if (value.startsWith('7')) {
-                value = '254' + value;
-            } else if (value.startsWith('1')) {
-                value = '254' + value;
-            }
-            
-            phoneInput.value = value;
-        }
+      <ul class="plan-features">
+        <li><i class="fa-solid fa-check"></i> M-Pesa checkout</li>
+        <li><i class="fa-solid fa-check"></i> Payment status check</li>
+        <li><i class="fa-solid fa-check"></i> WhatsApp assistance</li>
+      </ul>
 
-        function hideAlerts() {
-            successAlert.style.display = 'none';
-            errorAlert.style.display = 'none';
-            warningAlert.style.display = 'none';
-        }
+      <button
+        class="btn btn-primary btn-block"
+        type="button"
+        data-plan="${escapeHTML(plan.id)}"
+      >
+        Choose plan <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </article>
+  `).join("");
+}
 
-        function showTemporaryAlert(message, type) {
-            // Create a temporary alert element
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type}`;
-            alert.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                z-index: 3000;
-                max-width: 300px;
-            `;
-            alert.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i>
-                ${message}
-            `;
-            
-            document.body.appendChild(alert);
-            
-            // Remove after 5 seconds
-            setTimeout(() => {
-                alert.remove();
-            }, 5000);
-        }
+function openPayment(planId) {
+  selectedPlan = plans.find(plan => plan.id === planId);
 
-        async function processPayment(e) {
-            e.preventDefault();
-            
-            const phone = phoneInput.value.trim();
-            const email = document.getElementById('email').value.trim();
-            const referralCode = localStorage.getItem('referralCode');
-            
-            // Validate phone number
-            if (!phone || !/^2547\d{8}$/.test(phone)) {
-                errorMessage.textContent = 'Please enter a valid M-Pesa phone number (2547XXXXXXXX)';
-                errorAlert.style.display = 'flex';
-                return;
-            }
+  if (!selectedPlan) {
+    showToast("Please select a valid subscription.");
+    return;
+  }
 
-            // Disable form and show loading
-            payBtn.disabled = true;
-            paymentLoading.style.display = 'block';
-            hideAlerts();
+  document.getElementById("selectedPlanName").textContent = selectedPlan.name;
+  document.getElementById("selectedPlanPrice").textContent =
+    "KES " + selectedPlan.price;
 
-            try {
-                // Initiate STK Push
-                const response = await fetch('/api/payhero/stkpush', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        phone: phone,
-                        plan: currentPlan.id,
-                        referralCode: referralCode,
-                        email: email
-                    })
-                });
+  document.getElementById("referralInput").value =
+    new URLSearchParams(window.location.search).get("ref") ||
+    localStorage.getItem("chegetech_referral") ||
+    "";
 
-                const result = await response.json();
+  paymentFormArea.style.display = "block";
+  paymentStatus.classList.remove("active");
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-                if (result.success) {
-                    currentTransactionRef = result.transactionRef;
-                    
-                    // Show waiting message
-                    warningMessage.textContent = result.message;
-                    warningAlert.style.display = 'flex';
-                    
-                    // Start polling for transaction status
-                    startStatusPolling(result.transactionRef);
-                } else {
-                    throw new Error(result.message || 'Failed to initiate payment');
-                }
-            } catch (error) {
-                console.error('Payment Error:', error);
-                errorMessage.textContent = error.message;
-                errorAlert.style.display = 'flex';
-                
-                // Re-enable form
-                payBtn.disabled = false;
-                paymentLoading.style.display = 'none';
-            }
-        }
+function stopPolling() {
+  if (pollTimer) {
+    clearTimeout(pollTimer);
+    pollTimer = null;
+  }
+}
 
-        function startStatusPolling(transactionRef) {
-            // Check status every 3 seconds
-            statusCheckInterval = setInterval(async () => {
-                try {
-                    const response = await fetch(`/api/transaction/${transactionRef}/status`);
-                    const result = await response.json();
-                    
-                    if (result.success) {
-                        if (result.status === 'completed') {
-                            // Payment successful
-                            clearInterval(statusCheckInterval);
-                            paymentSuccess();
-                        } else if (result.status === 'failed' || result.status === 'cancelled') {
-                            // Payment failed
-                            clearInterval(statusCheckInterval);
-                            paymentFailed('Payment was cancelled or failed. Please try again.');
-                        }
-                        // If still pending, continue polling
-                    }
-                } catch (error) {
-                    console.error('Status check error:', error);
-                }
-            }, 3000);
+function closePayment() {
+  stopPolling();
+  modal.classList.remove("active");
+  document.body.style.overflow = "";
+  payButton.disabled = false;
+  payButton.innerHTML =
+    'Pay with M-Pesa <i class="fa-solid fa-arrow-right"></i>';
+}
 
-            // Timeout after 2 minutes
-            setTimeout(() => {
-                if (statusCheckInterval) {
-                    clearInterval(statusCheckInterval);
-                    paymentFailed('Payment timeout. Please try again.');
-                }
-            }, 120000);
-        }
+function showPaymentStatus(title, message, iconClass, isError = false) {
+  paymentFormArea.style.display = "none";
+  paymentStatus.classList.add("active");
 
-        function paymentSuccess() {
-            // Show success message
-            successMessage.textContent = 'Payment successful! Redirecting to WhatsApp for activation...';
-            successAlert.style.display = 'flex';
-            warningAlert.style.display = 'none';
-            paymentLoading.style.display = 'none';
-            
-            // Clear referral code from localStorage after successful payment
-            localStorage.removeItem('referralCode');
-            
-            // Redirect to WhatsApp after 3 seconds
-            setTimeout(() => {
-                window.location.href = 'https://wa.me/254743982206';
-            }, 3000);
-        }
+  document.getElementById("statusTitle").textContent = title;
+  document.getElementById("statusMessage").textContent = message;
 
-        function paymentFailed(message) {
-            errorMessage.textContent = message;
-            errorAlert.style.display = 'flex';
-            warningAlert.style.display = 'none';
-            paymentLoading.style.display = 'none';
-            payBtn.disabled = false;
-        }
+  const icon = document.getElementById("statusIcon");
+  icon.className = "status-icon" + (isError ? " error" : "");
+  icon.innerHTML = `<i class="${iconClass}"></i>`;
+}
 
-        // Export functions for global access (if needed)
-        window.ChegeTechApp = {
-            openPaymentModal,
-            closePaymentModal,
-            generateNewReferralCode
-        };
-    </script>
+function normalizeKenyanPhone(value) {
+  let phone = value.replace(/[\s\-()+]/g, "");
+
+  if (phone.startsWith("0")) {
+    phone = "254" + phone.slice(1);
+  } else if (phone.startsWith("+")) {
+    phone = phone.slice(1);
+  }
+
+  if (!/^2547\d{8}$/.test(phone)) {
+    return null;
+  }
+
+  return phone;
+}
+
+async function requestJSON(url, options = {}) {
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {})
+    }
+  });
+
+  let data;
+
+  try {
+    data = await response.json();
+  } catch {
+    throw new Error("The server returned an invalid response.");
+  }
+
+  if (!response.ok) {
+    throw new Error(data.message || data.error || "Request failed.");
+  }
+
+  return data;
+}
+
+checkoutForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!selectedPlan) {
+    showToast("Please choose a subscription first.");
+    return;
+  }
+
+  const phone = normalizeKenyanPhone(
+    document.getElementById("phoneNumber").value.trim()
+  );
+
+  if (!phone) {
+    showToast("Enter a valid Kenyan number, for example 0712345678.");
+    return;
+  }
+
+  const customerName =
+    document.getElementById("customerName").value.trim();
+
+  const referralCode =
+    document.getElementById("referralInput").value.trim();
+
+  payButton.disabled = true;
+  payButton.innerHTML = '<span class="spinner"></span> Requesting payment...';
+
+  try {
+    const result = await requestJSON(
+      `${API_BASE}/api/payhero/stkpush`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          phone,
+          amount: selectedPlan.price,
+          plan: selectedPlan.id,
+          planName: selectedPlan.name,
+          customerName,
+          referralCode
+        })
+      }
+    );
+
+    if (result.success === false) {
+      throw new Error(result.message || "The payment request failed.");
+    }
+
+    currentTransactionRef =
+      result.transactionRef ||
+      result.transaction_ref ||
+      result.checkout_request_id ||
+      result.reference ||
+      result.id;
+
+    if (!currentTransactionRef) {
+      throw new Error(
+        "The server did not return a transaction reference. Check your backend response."
+      );
+    }
+
+    showPaymentStatus(
+      "Check your phone",
+      "If an M-Pesa prompt arrived, verify the amount and approve it. Waiting for payment confirmation...",
+      "fa-solid fa-mobile-screen-button"
+    );
+
+    pollDeadline = Date.now() + 120000;
+    pollPaymentStatus();
+
+  } catch (error) {
+    showToast(error.message || "Unable to start payment.");
+    payButton.disabled = false;
+    payButton.innerHTML =
+      'Pay with M-Pesa <i class="fa-solid fa-arrow-right"></i>';
+  }
+});
+
+async function pollPaymentStatus() {
+  if (!currentTransactionRef) return;
+
+  if (Date.now() >= pollDeadline) {
+    stopPolling();
+
+    showPaymentStatus(
+      "Still waiting for confirmation",
+      "The page stopped checking automatically. If you paid, contact support before trying another payment.",
+      "fa-solid fa-clock",
+      true
+    );
+    return;
+  }
+
+  try {
+    const ref = encodeURIComponent(currentTransactionRef);
+
+    const data = await requestJSON(
+      `${API_BASE}/api/transaction/${ref}/status`,
+      { method: "GET", headers: {} }
+    );
+
+    const status = String(
+      data.status ||
+      data.transactionStatus ||
+      data.payment_status ||
+      data.result ||
+      ""
+    ).toLowerCase();
+
+    if (
+      data.success === true &&
+      (
+        status.includes("success") ||
+        status.includes("complete") ||
+        status.includes("paid")
+      )
+    ) {
+      stopPolling();
+
+      showPaymentStatus(
+        "Payment confirmed!",
+        "Your payment has been confirmed. Continue to WhatsApp for assistance with your order.",
+        "fa-solid fa-circle-check"
+      );
+
+      const message = encodeURIComponent(
+        `Hello ChegeTech Premium, my payment was confirmed. ` +
+        `Subscription: ${selectedPlan.name}. ` +
+        `Transaction reference: ${currentTransactionRef}.`
+      );
+
+      const whatsappButton = document.createElement("a");
+      whatsappButton.className = "btn btn-primary btn-block";
+      whatsappButton.href =
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+      whatsappButton.target = "_blank";
+      whatsappButton.rel = "noopener noreferrer";
+      whatsappButton.innerHTML =
+        'Continue to WhatsApp <i class="fa-brands fa-whatsapp"></i>';
+
+      paymentStatus.insertBefore(
+        whatsappButton,
+        document.getElementById("statusClose")
+      );
+
+      document.getElementById("statusClose").textContent = "Close";
+      return;
+    }
+
+    if (
+      status.includes("failed") ||
+      status.includes("cancel") ||
+      status.includes("reject") ||
+      status.includes("expired")
+    ) {
+      stopPolling();
+
+      showPaymentStatus(
+        "Payment was not completed",
+        data.message || "The transaction failed or was cancelled. You can close this window and try again.",
+        "fa-solid fa-circle-xmark",
+        true
+      );
+
+      return;
+    }
+
+  } catch (error) {
+    // A temporary status-check error should not immediately cancel payment.
+    console.warn("Payment status check failed:", error.message);
+  }
+
+  pollTimer = setTimeout(pollPaymentStatus, 3000);
+}
+
+plansGrid.addEventListener("click", event => {
+  const button = event.target.closest("[data-plan]");
+  if (!button) return;
+
+  openPayment(button.dataset.plan);
+});
+
+document.getElementById("closeModal").addEventListener("click", closePayment);
+document.getElementById("statusClose").addEventListener("click", closePayment);
+
+modal.addEventListener("click", event => {
+  if (event.target === modal) closePayment();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && modal.classList.contains("active")) {
+    closePayment();
+  }
+});
+
+document.getElementById("copyReferralBtn").addEventListener("click", async () => {
+  const link = document.getElementById("referralCode").dataset.link;
+
+  if (!link) {
+    showToast("Your referral link is not ready yet.");
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(link);
+    showToast("Referral link copied!");
+  } catch {
+    showToast("Copy was blocked by your browser. Open the link and copy it manually.");
+  }
+});
+
+async function initializeReferral() {
+  const params = new URLSearchParams(window.location.search);
+  const incomingRef = params.get("ref");
+
+  if (incomingRef) {
+    localStorage.setItem("chegetech_referral", incomingRef);
+  }
+
+  const userIdKey = "chegetech_referral_user";
+  let userId = localStorage.getItem(userIdKey);
+
+  if (!userId) {
+    userId = "customer-" + (
+      window.crypto && crypto.randomUUID
+        ? crypto.randomUUID()
+        : Date.now() + "-" + Math.random().toString(36).slice(2)
+    );
+
+    localStorage.setItem(userIdKey, userId);
+  }
+
+  let code = null;
+
+  try {
+    const data = await requestJSON(
+      `${API_BASE}/api/referral/generate`,
+      {
+        method: "POST",
+        body: JSON.stringify({ userId })
+      }
+    );
+
+    code = data.referralCode || data.code || data.referral?.code || null;
+  } catch (error) {
+    console.warn("Referral generation endpoint unavailable:", error.message);
+  }
+
+  if (!code) {
+    code = "CT" + userId.replace(/[^a-z0-9]/gi, "").slice(-8).toUpperCase();
+  }
+
+  const link = new URL(window.location.pathname, window.location.origin);
+  link.searchParams.set("ref", code);
+
+  const codeElement = document.getElementById("referralCode");
+  codeElement.textContent = code;
+  codeElement.dataset.link = link.href;
+}
+
+renderPlans();
+initializeReferral();
+</script>
+
 </body>
-  </html>
+</html>
