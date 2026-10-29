@@ -1,1363 +1,709 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b16">
-
-<title>ChegeTech Premium | Digital Subscriptions</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<style>
-:root {
-  --bg: #080b16;
-  --surface: #101626;
-  --primary: #7966ff;
-  --text: #f5f7ff;
-  --muted: #98a3bb;
-  --border: rgba(255,255,255,.1);
-  --success: #20c997;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  background:
-    radial-gradient(ellipse at top left, #211746 0%, transparent 40%),
-    var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.6;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button, input {
-  font: inherit;
-}
-
-.container {
-  width: min(1160px, 92%);
-  margin: auto;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(8,11,22,.95);
-  border-bottom: 1px solid var(--border);
-}
-
-nav {
-  min-height: 75px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-}
-
-.logo {
-  font-size: 19px;
-  font-weight: 900;
-}
-
-.logo span {
-  color: #a99cff;
-}
-
-.nav-links {
-  display: flex;
-  gap: 22px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 17px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 700;
-  transition: .2s;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-}
-
-.btn-primary {
-  color: white;
-  background: linear-gradient(135deg, #7966ff, #a36aff);
-}
-
-.btn-secondary {
-  color: white;
-  background: #151d30;
-  border: 1px solid var(--border);
-}
-
-.hero {
-  padding: 80px 0 55px;
-  text-align: center;
-}
-
-.eyebrow {
-  display: inline-block;
-  color: #c2b7ff;
-  background: #201941;
-  border: 1px solid #443578;
-  padding: 8px 14px;
-  border-radius: 50px;
-  font-size: 11px;
-  margin-bottom: 22px;
-}
-
-h1 {
-  font-size: clamp(36px, 6vw, 64px);
-  line-height: 1.12;
-  letter-spacing: -2px;
-  font-weight: 900;
-  margin-bottom: 20px;
-}
-
-.gradient-text {
-  background: linear-gradient(90deg, #a99cff, #72c8ff);
-  color: transparent;
-  background-clip: text;
-}
-
-.hero p {
-  color: var(--muted);
-  max-width: 620px;
-  margin: auto;
-  font-size: 14px;
-}
-
-.hero-actions {
-  margin-top: 28px;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.trust-row {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  font-size: 11px;
-  color: var(--muted);
-}
-
-.trust-row i {
-  color: var(--success);
-  margin-right: 5px;
-}
-
-section.content {
-  padding: 45px 0 65px;
-}
-
-.section-heading {
-  margin-bottom: 25px;
-}
-
-.section-heading h2 {
-  font-size: clamp(25px, 4vw, 34px);
-  margin-bottom: 7px;
-}
-
-.section-heading p {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.plans-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.plan-card {
-  background: linear-gradient(145deg, #151d30, #0e1423);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 20px;
-  transition: .2s;
-}
-
-.plan-card:hover {
-  transform: translateY(-4px);
-  border-color: #7966ff;
-}
-
-.plan-icon {
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  border-radius: 14px;
-  background: #29204c;
-  color: #c2b7ff;
-  font-size: 22px;
-  margin-bottom: 16px;
-}
-
-.plan-card h3 {
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-
-.plan-description {
-  color: var(--muted);
-  font-size: 11px;
-  min-height: 35px;
-}
-
-.price-row {
-  display: flex;
-  align-items: baseline;
-  gap: 5px;
-  margin: 18px 0;
-}
-
-.price {
-  font-size: 27px;
-  font-weight: 900;
-}
-
-.price-period {
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.plan-features {
-  list-style: none;
-  margin-bottom: 20px;
-  font-size: 11px;
-  color: #c0c8d9;
-}
-
-.plan-features li {
-  margin: 8px 0;
-}
-
-.plan-features i {
-  color: var(--success);
-  margin-right: 6px;
-}
-
-.btn-block {
-  width: 100%;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.step {
-  padding: 22px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 17px;
-}
-
-.step-number {
-  color: #b9acff;
-  background: #29204c;
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  margin-bottom: 14px;
-  font-weight: 800;
-}
-
-.step h3 {
-  font-size: 15px;
-  margin-bottom: 7px;
-}
-
-.step p {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.referral-box {
-  background: linear-gradient(120deg, #1a1738, #101d32);
-  border: 1px solid #39305f;
-  padding: 25px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.referral-box p {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.referral-code {
-  padding: 12px;
-  border: 1px dashed #7966ff;
-  border-radius: 10px;
-  font-weight: 800;
-  text-align: center;
-  min-width: 125px;
-}
-
-.faq-item {
-  padding: 17px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  margin-bottom: 10px;
-}
-
-.faq-item summary {
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.faq-item p {
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 10px;
-}
-
-footer {
-  border-top: 1px solid var(--border);
-  padding: 25px 0;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-/* Payment modal */
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  background: rgba(0,0,0,.8);
-  backdrop-filter: blur(7px);
-}
-
-.modal-overlay.active {
-  display: flex;
-}
-
-.modal {
-  width: min(440px, 100%);
-  max-height: 92vh;
-  overflow-y: auto;
-  padding: 25px;
-  position: relative;
-  background: #101626;
-  border: 1px solid var(--border);
-  border-radius: 22px;
-}
-
-.modal-close {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  color: white;
-  background: #20283a;
-  border: none;
-  cursor: pointer;
-}
-
-.modal-heading {
-  margin-bottom: 20px;
-  padding-right: 35px;
-}
-
-.modal-heading h2 {
-  font-size: 22px;
-}
-
-.modal-heading p {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.selected-plan {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  padding: 14px;
-  margin-bottom: 20px;
-  background: #1c1936;
-  border: 1px solid #38305e;
-  border-radius: 13px;
-}
-
-.selected-plan small {
-  display: block;
-  color: var(--muted);
-  font-size: 10px;
-}
-
-.selected-plan strong {
-  font-size: 14px;
-}
-
-.selected-plan .total {
-  font-size: 21px;
-  font-weight: 900;
-}
-
-.form-group {
-  margin-bottom: 16px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 7px;
-}
-
-.form-input {
-  width: 100%;
-  padding: 13px;
-  border-radius: 11px;
-  border: 1px solid var(--border);
-  background: #0b1020;
-  color: white;
-  outline: none;
-}
-
-.form-input:focus {
-  border-color: var(--primary);
-}
-
-.field-hint {
-  font-size: 10px;
-  color: var(--muted);
-  margin-top: 6px;
-}
-
-.payment-method {
-  padding: 13px;
-  border: 1px solid #205947;
-  background: #10251f;
-  border-radius: 12px;
-  margin-bottom: 18px;
-  font-size: 12px;
-}
-
-.payment-method i {
-  color: #4be0a8;
-  margin-right: 8px;
-}
-
-.terms-note {
-  text-align: center;
-  color: var(--muted);
-  font-size: 10px;
-  margin-top: 12px;
-}
-
-.payment-status {
-  display: none;
-  text-align: center;
-  padding: 15px 0 0;
-}
-
-.payment-status.active {
-  display: block;
-}
-
-.status-icon {
-  font-size: 28px;
-  margin-bottom: 14px;
-  color: #b9acff;
-}
-
-.payment-status h3 {
-  margin-bottom: 8px;
-}
-
-.payment-status p {
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-
-.toast {
-  position: fixed;
-  z-index: 200;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #20283a;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 13px 18px;
-  width: max-content;
-  max-width: 90%;
-  font-size: 12px;
-  display: none;
-}
-
-.toast.show {
-  display: block;
-}
-
-@media (max-width: 950px) {
-  .plans-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 720px) {
-  .nav-links {
-    display: none;
-  }
-
-  .hero {
-    padding: 55px 0 35px;
-  }
-
-  .plans-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 11px;
-  }
-
-  .plan-card {
-    padding: 14px;
-  }
-
-  .steps {
-    grid-template-columns: 1fr;
-  }
-
-  .referral-box {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .referral-code {
-    flex: 1;
-  }
-
-  .footer-inner {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 390px) {
-  .container {
-    width: 94%;
-  }
-
-  .nav .btn {
-    padding: 10px;
-    font-size: 11px;
-  }
-
-  .plans-grid {
-    gap: 8px;
-  }
-
-  .plan-card {
-    padding: 11px;
-  }
-
-  .plan-card h3 {
-    font-size: 14px;
-  }
-
-  .price {
-    font-size: 23px;
-  }
-
-  .plan-card .btn {
-    font-size: 11px;
-    padding: 10px 6px;
-  }
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>BERAFLIX by Bera Tech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: { gold: '#F5B82E', ink: '#07070A', panel: '#15151D' },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
+  <style>
+    body {
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(245, 184, 46, 0.22), transparent 45%),
+        radial-gradient(ellipse at 90% 10%, rgba(245, 184, 46, 0.12), transparent 40%),
+        #07070a;
+      background-attachment: fixed;
+    }
+    .no-scrollbar { scrollbar-width: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .gold-text {
+      background: linear-gradient(180deg, #ffe08a 0%, #f5b82e 55%, #b97a0c 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    input[type='range'] { accent-color: #f5b82e; }
+  </style>
 </head>
+<body class="min-h-screen font-sans text-white antialiased">
 
-<body>
-
-<header>
-  <div class="container">
-    <nav>
-      <a href="#" class="logo">
-        <i class="fa-solid fa-bolt"></i>
-        ChegeTech <span>Premium</span>
+  <header class="sticky top-0 z-40 border-b border-white/5 bg-ink/90 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
+      <a href="#/" class="flex items-center gap-2">
+        <span class="grid h-9 w-9 place-items-center rounded-md bg-gold text-xl font-black text-black">B</span>
+        <span class="leading-none">
+          <span class="block text-lg font-black tracking-tight text-gold">BERAFLIX</span>
+          <span class="block text-[8px] tracking-[0.35em] text-gold/70">BY BERA TECH</span>
+        </span>
       </a>
-
-      <div class="nav-links">
-        <a href="#subscriptions">Subscriptions</a>
-        <a href="#how-it-works">How it works</a>
-        <a href="#referrals">Referrals</a>
-        <a href="#faq">FAQ</a>
-      </div>
-
-      <a class="btn btn-primary" href="#subscriptions">Get started</a>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <section class="hero">
-    <div class="container">
-      <div class="eyebrow">
-        <i class="fa-solid fa-sparkles"></i>
-        YOUR DIGITAL WORLD, UPGRADED
-      </div>
-
-      <h1>
-        Premium experiences.<br>
-        <span class="gradient-text">Simple payments.</span>
-      </h1>
-
-      <p>
-        Discover your favourite digital subscriptions in one place.
-        Pay conveniently with M-Pesa and follow the activation instructions after payment.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#subscriptions" class="btn btn-primary">
-          Explore subscriptions <i class="fa-solid fa-arrow-right"></i>
-        </a>
-        <a href="#how-it-works" class="btn btn-secondary">
-          How it works
-        </a>
-      </div>
-
-      <div class="trust-row">
-        <span><i class="fa-solid fa-shield-halved"></i> Payment status checks</span>
-        <span><i class="fa-solid fa-mobile-screen"></i> M-Pesa checkout</span>
-        <span><i class="fa-solid fa-headset"></i> WhatsApp assistance</span>
+      <nav id="top-nav" class="ml-10 hidden gap-8 sm:flex"></nav>
+      <div class="ml-auto flex items-center gap-2">
+        <button id="search-btn" class="p-2 text-white/80" aria-label="Search"></button>
+        <span class="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-amber-300 to-amber-700 text-sm font-bold text-black">B</span>
       </div>
     </div>
-  </section>
-
-  <section class="content" id="subscriptions">
-    <div class="container">
-      <div class="section-heading">
-        <h2>Find your subscription</h2>
-        <p>Choose a service and continue to checkout.</p>
-      </div>
-
-      <div class="plans-grid" id="plansGrid"></div>
-    </div>
-  </section>
-
-  <section class="content" id="how-it-works">
-    <div class="container">
-      <div class="section-heading">
-        <h2>How it works</h2>
-        <p>Three simple steps to place your order.</p>
-      </div>
-
-      <div class="steps">
-        <article class="step">
-          <div class="step-number">01</div>
-          <h3>Choose a service</h3>
-          <p>Select the digital subscription you want and review its price.</p>
-        </article>
-
-        <article class="step">
-          <div class="step-number">02</div>
-          <h3>Pay with M-Pesa</h3>
-          <p>Enter your phone number and submit the payment request. Approve the prompt if it arrives.</p>
-        </article>
-
-        <article class="step">
-          <div class="step-number">03</div>
-          <h3>Continue to activation</h3>
-          <p>After payment is confirmed, continue to WhatsApp for order assistance.</p>
-        </article>
+    <div id="search-bar" class="hidden border-t border-white/5">
+      <div class="mx-auto max-w-7xl px-4 py-3">
+        <input id="search" type="search" placeholder="Search titles"
+          class="w-full rounded-full border border-white/10 bg-panel px-4 py-2.5 text-sm outline-none placeholder:text-white/40 focus:border-gold" />
       </div>
     </div>
-  </section>
+  </header>
 
-  <section class="content" id="referrals">
-    <div class="container">
-      <div class="referral-box">
-        <div>
-          <h2>Share ChegeTech Premium</h2>
-          <p>Share your referral link with friends. Referral tracking depends on the backend referral system.</p>
+  <main id="app" class="mx-auto max-w-7xl px-4 py-6 pb-28 sm:pb-12">
+    <p class="py-20 text-center text-white/50">Loading catalog…</p>
+  </main>
+
+  <footer class="pb-28 pt-10 text-center sm:pb-10">
+    <p class="text-3xl font-black tracking-tight gold-text">BERAFLIX</p>
+    <p class="mt-1 text-[10px] tracking-[0.35em] text-gold/70">BY BERA TECH</p>
+    <p class="mt-5 text-xs tracking-[0.4em] text-white/70">STREAM • EXPLORE • ENJOY</p>
+    <p class="mt-4 text-sm italic text-gold/80">Your Next Favorite Movie Is Here…</p>
+    <p class="mt-6 text-[11px] text-white/30">Catalog data provided by TECH SPACE KE API.</p>
+  </footer>
+
+  <nav id="bottom-nav" class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-white/5 bg-ink/95 backdrop-blur sm:hidden"></nav>
+
+  <script>
+    // ---------- Icons ----------
+    const I = {
+      home: '<path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z"/>',
+      compass: '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+      bookmark: '<path d="M6 3h12v18l-6-4-6 4z"/>',
+      play: '<path d="M7 4v16l13-8z" fill="currentColor"/>',
+      pause: '<rect x="6" y="5" width="4" height="14" fill="currentColor"/><rect x="14" y="5" width="4" height="14" fill="currentColor"/>',
+      check: '<path d="m5 12 5 5 9-10"/>',
+      bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+      phone: '<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>',
+      shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+      playCircle: '<circle cx="12" cy="12" r="9"/><path d="m10 8.5 5 3.5-5 3.5z" fill="currentColor"/>',
+      back: '<path d="m15 18-6-6 6-6"/>',
+      gear: '<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/>',
+      more: '<circle cx="12" cy="5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/>',
+      rewind: '<path d="M11 19 2 12l9-7z" fill="currentColor"/><path d="M22 19l-9-7 9-7z" fill="currentColor"/>',
+      forward: '<path d="m13 19 9-7-9-7z" fill="currentColor"/><path d="m2 19 9-7-9-7z" fill="currentColor"/>',
+      download: '<path d="M12 3v12m-5-5 5 5 5-5M4 21h16"/>',
+      plus: '<path d="M12 5v14M5 12h14"/>',
+      search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+    };
+    const svg = (name, cls = 'h-5 w-5') =>
+      `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[name]}</svg>`;
+
+    // ---------- Helpers ----------
+    const $ = (id) => document.getElementById(id);
+    const app = $('app');
+    const enc = encodeURIComponent;
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    const store = {
+      get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+      set(k, v) { localStorage.setItem(k, JSON.stringify(v)); },
+    };
+
+    const fmtTime = (s) => {
+      if (!isFinite(s) || s < 0) s = 0;
+      const h = Math.floor(s / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = String(Math.floor(s % 60)).padStart(2, '0');
+      return h ? `${h}:${String(m).padStart(2, '0')}:${sec}` : `${m}:${sec}`;
+    };
+    const fmtRuntime = (min) => {
+      const h = Math.floor(min / 60), m = min % 60;
+      return h ? `${h}h ${m}m` : `${m}m`;
+    };
+
+    // ---------- State ----------
+    let catalog = [];
+    let banners = [];
+    let bannerIndex = 0;
+    let bannerTimer = null;
+    let watchlist = store.get('bf-watchlist', []);
+    let history = store.get('bf-history', []);
+    let genreFilter = '';
+    let typeFilter = 'all';
+    let shelfTab = 'watchlist';
+    let play = null;
+    let hls = null;
+
+    const bySlug = (slug) => catalog.find((m) => m.slug === slug);
+    const q = () => $('search').value.trim().toLowerCase();
+    const filtered = () => {
+      let list = catalog;
+      if (typeFilter === 'movie') list = list.filter((m) => m.type === 'Movie');
+      if (typeFilter === 'series') list = list.filter((m) => m.type === 'Series');
+      if (typeFilter === 'trending') list = [...list].sort((a, b) => b.ratingCount - a.ratingCount).slice(0, 40);
+      if (genreFilter) list = list.filter((m) => m.genre.includes(genreFilter));
+      return list;
+    };
+    const topGenres = (n) => {
+      const counts = {};
+      for (const m of catalog) for (const g of m.genre) counts[g] = (counts[g] || 0) + 1;
+      return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, n).map(([g]) => g);
+    };
+    const recordHistory = (slug) => {
+      history = [slug, ...history.filter((s) => s !== slug)].slice(0, 30);
+      store.set('bf-history', history);
+    };
+
+    // ---------- Components ----------
+    const chip = (label, on, attrs) =>
+      `<button ${attrs} class="shrink-0 rounded-full px-4 py-1.5 text-xs ${on
+        ? 'bg-gold font-semibold text-black'
+        : 'border border-white/10 bg-panel text-white/80'}">${esc(label)}</button>`;
+
+    const card = (m, extra = '') => `
+      <a href="#/title/${enc(m.slug)}" class="group block ${extra}">
+        <div class="relative aspect-[2/3] overflow-hidden rounded-xl bg-panel ring-1 ring-white/5 transition group-hover:ring-gold/60">
+          <img src="${esc(m.cover)}" alt="" loading="lazy" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
+          ${m.rating !== null ? `<span class="absolute right-2 top-2 rounded bg-black/70 px-1.5 py-0.5 text-[11px] font-semibold text-gold">★ ${m.rating.toFixed(1)}</span>` : ''}
         </div>
+        <h3 class="mt-2 truncate text-sm font-medium">${esc(m.title)}</h3>
+        <p class="truncate text-xs text-white/50">${esc([m.year, m.genre[0]].filter(Boolean).join(' · '))}</p>
+      </a>`;
 
-        <div style="display:flex;gap:10px;align-items:center;width:100%;max-width:350px">
-          <div class="referral-code" id="referralCode">Loading...</div>
-          <button class="btn btn-primary" id="copyReferralBtn" type="button">
-            <i class="fa-regular fa-copy"></i> Copy
+    const row = (title, items, href = '') => !items.length ? '' : `
+      <section class="mb-10">
+        <div class="mb-3 flex items-center justify-between">
+          <h2 class="text-lg font-bold">${esc(title)}</h2>
+          ${href ? `<a href="${href}" class="text-xs font-semibold text-gold">See All ›</a>` : ''}
+        </div>
+        <div class="no-scrollbar -mx-4 flex gap-4 overflow-x-auto px-4 pb-2">
+          ${items.map((m) => card(m, 'w-36 shrink-0 sm:w-44')).join('')}
+        </div>
+      </section>`;
+
+    const grid = (items) => `
+      <div class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        ${items.map((m) => card(m)).join('')}
+      </div>`;
+
+    const empty = (msg) => `<p class="py-16 text-center text-white/50">${esc(msg)}</p>`;
+
+    const listRow = (m, list) => `
+      <div class="flex items-center gap-4 border-b border-white/5 py-3">
+        <a href="#/title/${enc(m.slug)}" class="h-20 w-14 shrink-0 overflow-hidden rounded-md bg-panel">
+          <img src="${esc(m.cover)}" alt="" loading="lazy" class="h-full w-full object-cover" />
+        </a>
+        <div class="min-w-0 flex-1">
+          <p class="truncate font-semibold">${esc(m.title)}</p>
+          <p class="text-xs text-white/50">${esc([m.year, m.durationMin ? fmtRuntime(m.durationMin) : ''].filter(Boolean).join(' · '))}</p>
+        </div>
+        <button data-act="remove" data-v="${esc(list)}|${esc(m.slug)}" class="p-2 text-white/50 hover:text-gold" aria-label="Remove">${svg('more')}</button>
+      </div>`;
+
+    function brandHero() {
+      const feat = (icon, label) => `
+        <div class="flex flex-col items-center gap-2 text-center text-xs text-white/80 sm:text-sm">
+          <span class="text-gold">${svg(icon, 'h-7 w-7')}</span>${label}
+        </div>`;
+      return `
+        <section class="mb-10 text-center">
+          <div class="inline-flex items-center gap-3">
+            <span class="grid h-14 w-14 place-items-center rounded-lg bg-gold text-3xl font-black text-black">B</span>
+            <span class="text-5xl font-black leading-none tracking-tight gold-text sm:text-6xl">BERAFLIX</span>
+          </div>
+          <p class="mt-2 text-xs tracking-[0.4em] text-gold/80">BY BERA TECH</p>
+          <p class="mt-8 text-sm font-semibold tracking-[0.2em] sm:text-base">
+            <span class="text-gold">MORE</span> MOVIES. <span class="text-gold">MORE</span> EMOTIONS.
+          </p>
+          <p class="mt-1 text-sm tracking-[0.2em] text-white/80">ALL IN ONE PLACE.</p>
+          <div class="mt-8 grid grid-cols-2 gap-6 border-y border-white/10 py-6 sm:grid-cols-4">
+            ${feat('playCircle', 'HD / 4K Streaming')}
+            ${feat('bolt', 'Fast &amp; Smooth Playback')}
+            ${feat('phone', 'Mobile First Experience')}
+            ${feat('shield', 'Safe &amp; Secure Streaming')}
+          </div>
+        </section>`;
+    }
+
+    function heroBanner() {
+      if (!banners.length) return '';
+      const b = banners[bannerIndex];
+      const meta = [b.year, b.genre.join(' · ')].filter(Boolean).join(' · ');
+      return `
+        <section id="hero" class="relative mb-10 overflow-hidden rounded-2xl bg-panel">
+          <img src="${esc(b.image)}" alt="" class="absolute inset-0 h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+          <div class="relative flex min-h-[300px] flex-col justify-end p-5 sm:min-h-[400px] sm:p-10">
+            <h2 class="max-w-md text-4xl font-black sm:text-6xl">${esc(b.title)}</h2>
+            <p class="mt-2 text-sm text-white/70">${esc(meta)}</p>
+            <a href="#/play/${enc(b.slug)}" class="mt-5 w-fit rounded-full bg-gold px-7 py-2.5 text-sm font-semibold text-black">Watch Now</a>
+            <div class="mt-6 flex gap-1.5">
+              ${banners.map((_, i) => `<button data-act="dot" data-v="${i}" aria-label="Slide ${i + 1}"
+                class="h-1.5 rounded-full transition-all ${i === bannerIndex ? 'w-6 bg-gold' : 'w-1.5 bg-white/30'}"></button>`).join('')}
+            </div>
+          </div>
+        </section>`;
+    }
+
+    function startRotation() {
+      clearInterval(bannerTimer);
+      if (banners.length < 2) return;
+      bannerTimer = setInterval(() => {
+        bannerIndex = (bannerIndex + 1) % banners.length;
+        const h = $('hero');
+        if (h) h.outerHTML = heroBanner();
+      }, 6000);
+    }
+
+    // ---------- Pages ----------
+    function notFound() {
+      app.innerHTML = `<div class="py-24 text-center">
+        <h1 class="text-2xl font-bold">Title not found</h1>
+        <a href="#/" class="mt-4 inline-block text-gold">Back to Discover</a></div>`;
+    }
+
+    function renderDiscover(query) {
+      clearInterval(bannerTimer);
+      if (query) {
+        const results = catalog.filter((m) => m.title.toLowerCase().includes(query));
+        app.innerHTML = `<h1 class="mb-5 text-2xl font-bold">Results for “${esc(query)}”</h1>
+          ${results.length ? grid(results) : empty('No titles match your search.')}`;
+        return;
+      }
+      const byVotes = (list) => [...list].sort((a, b) => b.ratingCount - a.ratingCount);
+      app.innerHTML = brandHero()
+        + heroBanner()
+        + row('Trending Movies', byVotes(catalog.filter((m) => m.type === 'Movie')).slice(0, 12), '#/explore')
+        + row('Popular TV Shows', byVotes(catalog.filter((m) => m.type === 'Series')).slice(0, 12), '#/explore');
+      startRotation();
+    }
+
+    function renderExplore() {
+      const chips = [['all', 'All'], ['movie', 'Movies'], ['series', 'TV Shows'], ['trending', 'Trending']];
+      const tiles = topGenres(9).map((g) => {
+        const sample = catalog.find((m) => m.genre.includes(g));
+        const on = genreFilter === g;
+        return `
+          <button data-act="genre" data-v="${esc(g)}"
+            class="group relative aspect-[4/3] overflow-hidden rounded-xl bg-panel ring-1 ${on ? 'ring-gold' : 'ring-white/5'}">
+            <img src="${esc(sample?.cover || '')}" alt="" loading="lazy"
+              class="h-full w-full object-cover opacity-70 transition duration-300 group-hover:scale-105 group-hover:opacity-90" />
+            <span class="absolute inset-0 grid place-items-center bg-black/35 text-sm font-bold">${esc(g)}</span>
+          </button>`;
+      }).join('');
+      const list = filtered();
+      const topRated = [...list].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 12);
+
+      app.innerHTML = `
+        <h1 class="mb-4 text-2xl font-bold">Explore</h1>
+        <div class="no-scrollbar mb-6 flex gap-2 overflow-x-auto">
+          ${chips.map(([v, l]) => chip(l, typeFilter === v, `data-act="type" data-v="${v}"`)).join('')}
+        </div>
+        <div class="mb-10 grid grid-cols-3 gap-3 md:grid-cols-5">${tiles}</div>
+        ${genreFilter
+          ? `<h2 class="mb-4 text-lg font-bold">${esc(genreFilter)} <span class="text-sm font-normal text-white/40">${list.length} titles</span></h2>${grid(list)}`
+          : row('Top Rated', topRated)}`;
+    }
+
+    function renderShelf() {
+      const tabs = [['watchlist', 'Watchlist'], ['downloads', 'Downloads'], ['history', 'History']];
+      let body;
+
+      if (shelfTab === 'watchlist') {
+        const list = watchlist.map(bySlug).filter(Boolean);
+        body = list.length ? list.map((m) => listRow(m, 'watchlist')).join('')
+          : empty('Titles you add to My Shelf appear here.');
+      } else if (shelfTab === 'history') {
+        const list = history.map(bySlug).filter(Boolean);
+        body = list.length ? list.map((m) => listRow(m, 'history')).join('')
+          : empty('Titles you open appear here.');
+      } else {
+        const dls = store.get('bf-downloads', []).filter((d) => bySlug(d.slug));
+        body = dls.length ? dls.map((d) => {
+          const m = bySlug(d.slug);
+          return `
+            <div class="flex items-center gap-4 border-b border-white/5 py-3">
+              <a href="#/title/${enc(m.slug)}" class="h-20 w-14 shrink-0 overflow-hidden rounded-md bg-panel">
+                <img src="${esc(m.cover)}" alt="" loading="lazy" class="h-full w-full object-cover" />
+              </a>
+              <div class="min-w-0 flex-1">
+                <p class="truncate font-semibold">${esc(m.title)}</p>
+                <p class="text-xs text-white/50">${esc(d.label)}</p>
+              </div>
+              <a href="${esc(d.url)}" download class="rounded-full border border-white/15 bg-panel px-4 py-2 text-xs">Download</a>
+            </div>`;
+        }).join('') : empty('Titles you download from the player appear here.');
+      }
+
+      app.innerHTML = `
+        <h1 class="mb-5 text-2xl font-bold">My Shelf</h1>
+        <div class="no-scrollbar mb-4 flex gap-2 overflow-x-auto">
+          ${tabs.map(([v, l]) => chip(l, shelfTab === v, `data-act="shelf" data-v="${v}"`)).join('')}
+        </div>
+        <div>${body}</div>`;
+    }
+
+    function renderDetail(slug) {
+      const m = bySlug(slug);
+      if (!m) return notFound();
+
+      const backdrop = banners.find((b) => b.slug === slug)?.image || m.cover;
+      const inList = watchlist.includes(slug);
+
+      app.innerHTML = `
+        <section class="relative -mx-4 -mt-6 h-[340px] overflow-hidden sm:mx-0 sm:mt-0 sm:h-[460px] sm:rounded-2xl">
+          <img src="${esc(backdrop)}" alt="" class="h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent"></div>
+          <a href="#/" class="absolute left-4 top-4 rounded-full bg-black/50 p-2" aria-label="Back">${svg('back')}</a>
+        </section>
+
+        <div class="relative -mt-24 px-1 sm:-mt-32">
+          <h1 class="text-3xl font-black sm:text-5xl">${esc(m.title)}</h1>
+          <p class="mt-2 flex flex-wrap items-center gap-2 text-sm text-white/70">
+            ${m.rating !== null ? `<span class="text-gold">★ ${m.rating.toFixed(1)}</span><span>·</span>` : ''}
+            ${m.year ? `<span>${esc(m.year)}</span>` : ''}
+            ${m.durationMin ? `<span>·</span><span>${fmtRuntime(m.durationMin)}</span>` : `<span>·</span><span>${esc(m.type)}</span>`}
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            ${m.genre.map((g) => `<span class="rounded-full border border-white/10 bg-panel px-3 py-1 text-xs">${esc(g)}</span>`).join('')}
+          </div>
+
+          <a href="#/play/${enc(m.slug)}"
+            class="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gold py-3.5 font-bold text-black">
+            ${svg('play', 'h-4 w-4')} Play Now
+          </a>
+          <button data-act="watch" data-v="${esc(m.slug)}"
+            class="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-panel py-3.5 font-semibold">
+            ${svg(inList ? 'check' : 'plus', 'h-4 w-4')} ${inList ? 'On My Shelf' : 'Add to My Shelf'}
           </button>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="content" id="faq">
-    <div class="container">
-      <div class="section-heading">
-        <h2>Frequently asked questions</h2>
-      </div>
-
-      <details class="faq-item">
-        <summary>How do I pay?</summary>
-        <p>Select a subscription, enter a valid Kenyan M-Pesa number, and submit the payment request. Verify the amount before approving any M-Pesa prompt.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>What happens after payment?</summary>
-        <p>The page checks the transaction status through your server. When the server confirms success, you can continue to WhatsApp for activation assistance.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>What if the payment prompt does not arrive?</summary>
-        <p>Check that your phone number is correct, your phone can receive M-Pesa prompts, and your network is working. You can try again if no transaction was initiated.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>Are subscriptions activated automatically?</summary>
-        <p>Automatic activation requires a separate integration. This page directs successful customers to WhatsApp for assistance; payment confirmation alone does not activate a third-party subscription.</p>
-      </details>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="container footer-inner">
-    <span>© <span id="year"></span> <strong>ChegeTech Premium</strong>. All rights reserved.</span>
-    <span>Secure checkout powered by your configured payment backend.</span>
-  </div>
-</footer>
-
-<!-- Payment modal -->
-<div class="modal-overlay" id="paymentModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modal">
-    <button class="modal-close" type="button" id="closeModal" aria-label="Close payment modal">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-
-    <div id="paymentFormArea">
-      <div class="modal-heading">
-        <h2 id="modalTitle">Complete your order</h2>
-        <p>Enter your details to request an M-Pesa payment.</p>
-      </div>
-
-      <div class="selected-plan">
-        <div>
-          <small>Selected subscription</small>
-          <strong id="selectedPlanName">Subscription</strong>
-        </div>
-        <div class="total" id="selectedPlanPrice">KES 100</div>
-      </div>
-
-      <form id="checkoutForm">
-        <div class="form-group">
-          <label for="customerName">Your name</label>
-          <input
-            class="form-input"
-            id="customerName"
-            name="customerName"
-            type="text"
-            placeholder="Enter your name"
-            autocomplete="name"
-            maxlength="80"
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="phoneNumber">M-Pesa phone number</label>
-          <input
-            class="form-input"
-            id="phoneNumber"
-            name="phone"
-            type="tel"
-            placeholder="07XXXXXXXX or 2547XXXXXXXX"
-            autocomplete="tel"
-            inputmode="tel"
-            required
-          >
-          <p class="field-hint">Use a Kenyan Safaricom number that can receive an M-Pesa prompt.</p>
-        </div>
-
-        <div class="form-group">
-          <label for="referralInput">Referral code (optional)</label>
-          <input
-            class="form-input"
-            id="referralInput"
-            name="referralCode"
-            type="text"
-            placeholder="Enter referral code"
-            maxlength="40"
-          >
-        </div>
-
-        <div class="payment-method">
-          <i class="fa-solid fa-mobile-screen-button"></i>
-          <span>
-            <strong>M-Pesa STK Push</strong><br>
-            Follow the payment prompt on your phone.
-          </span>
-        </div>
-
-        <button class="btn btn-primary btn-block" type="submit" id="payButton">
-          Pay with M-Pesa <i class="fa-solid fa-arrow-right"></i>
-        </button>
-
-        <p class="terms-note">Confirm the amount and recipient on your phone before approving.</p>
-      </form>
-    </div>
-
-    <div class="payment-status" id="paymentStatus">
-      <div class="status-icon" id="statusIcon">
-        <i class="fa-solid fa-mobile-screen-button"></i>
-      </div>
-      <h3 id="statusTitle">Waiting for payment</h3>
-      <p id="statusMessage">Check your phone and approve the M-Pesa prompt if it arrives.</p>
-      <button class="btn btn-secondary btn-block" id="statusClose" type="button">Close</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script>
-"use strict";
-
-const API_BASE = window.location.origin;
-const WHATSAPP_NUMBER = "254743982206";
-
-const plans = [
-  {
-    id: "netflix",
-    name: "Netflix",
-    description: "Movies, series and documentaries.",
-    icon: "fa-film",
-    price: 100
-  },
-  {
-    id: "youtube-premium",
-    name: "YouTube Premium",
-    description: "Enjoy videos with fewer interruptions.",
-    icon: "fa-brands fa-youtube",
-    price: 100
-  },
-  {
-    id: "spotify",
-    name: "Spotify Premium",
-    description: "Your music, your way.",
-    icon: "fa-brands fa-spotify",
-    price: 100
-  },
-  {
-    id: "telegram-premium",
-    name: "Telegram Premium",
-    description: "More features for messaging.",
-    icon: "fa-brands fa-telegram",
-    price: 100
-  },
-  {
-    id: "showmax",
-    name: "Showmax",
-    description: "Explore entertainment and series.",
-    icon: "fa-solid fa-tv",
-    price: 100
-  },
-  {
-    id: "apple-music",
-    name: "Apple Music",
-    description: "Discover music and playlists.",
-    icon: "fa-brands fa-apple",
-    price: 100
-  },
-  {
-    id: "amazon-prime",
-    name: "Amazon Prime Video",
-    description: "Explore movies and TV shows.",
-    icon: "fa-brands fa-amazon",
-    price: 100
-  },
-  {
-    id: "disney-plus",
-    name: "Disney+",
-    description: "Entertainment for every mood.",
-    icon: "fa-solid fa-wand-magic-sparkles",
-    price: 100
-  },
-  {
-    id: "deezer",
-    name: "Deezer",
-    description: "Listen to music and discover artists.",
-    icon: "fa-solid fa-headphones",
-    price: 100
-  }
-];
-
-let selectedPlan = null;
-let pollTimer = null;
-let pollDeadline = null;
-let currentTransactionRef = null;
-
-const plansGrid = document.getElementById("plansGrid");
-const modal = document.getElementById("paymentModal");
-const checkoutForm = document.getElementById("checkoutForm");
-const payButton = document.getElementById("payButton");
-const paymentFormArea = document.getElementById("paymentFormArea");
-const paymentStatus = document.getElementById("paymentStatus");
-const toast = document.getElementById("toast");
-
-document.getElementById("year").textContent = new Date().getFullYear();
-
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add("show");
-
-  clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => {
-    toast.classList.remove("show");
-  }, 3500);
-}
-
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
-}
-
-function renderPlans() {
-  plansGrid.innerHTML = plans.map(plan => `
-    <article class="plan-card">
-      <div class="plan-icon">
-        <i class="${escapeHTML(plan.icon)}"></i>
-      </div>
-
-      <h3>${escapeHTML(plan.name)}</h3>
-      <p class="plan-description">${escapeHTML(plan.description)}</p>
-
-      <div class="price-row">
-        <span class="price">KES ${plan.price}</span>
-        <span class="price-period">/ order</span>
-      </div>
-
-      <ul class="plan-features">
-        <li><i class="fa-solid fa-check"></i> M-Pesa checkout</li>
-        <li><i class="fa-solid fa-check"></i> Payment status check</li>
-        <li><i class="fa-solid fa-check"></i> WhatsApp assistance</li>
-      </ul>
-
-      <button
-        class="btn btn-primary btn-block"
-        type="button"
-        data-plan="${escapeHTML(plan.id)}"
-      >
-        Choose plan <i class="fa-solid fa-arrow-right"></i>
-      </button>
-    </article>
-  `).join("");
-}
-
-function openPayment(planId) {
-  selectedPlan = plans.find(plan => plan.id === planId);
-
-  if (!selectedPlan) {
-    showToast("Please select a valid subscription.");
-    return;
-  }
-
-  document.getElementById("selectedPlanName").textContent = selectedPlan.name;
-  document.getElementById("selectedPlanPrice").textContent =
-    "KES " + selectedPlan.price;
-
-  document.getElementById("referralInput").value =
-    new URLSearchParams(window.location.search).get("ref") ||
-    localStorage.getItem("chegetech_referral") ||
-    "";
-
-  paymentFormArea.style.display = "block";
-  paymentStatus.classList.remove("active");
-  modal.classList.add("active");
-  document.body.style.overflow = "hidden";
-}
-
-function stopPolling() {
-  if (pollTimer) {
-    clearTimeout(pollTimer);
-    pollTimer = null;
-  }
-}
-
-function closePayment() {
-  stopPolling();
-  modal.classList.remove("active");
-  document.body.style.overflow = "";
-  payButton.disabled = false;
-  payButton.innerHTML =
-    'Pay with M-Pesa <i class="fa-solid fa-arrow-right"></i>';
-}
-
-function showPaymentStatus(title, message, iconClass, isError = false) {
-  paymentFormArea.style.display = "none";
-  paymentStatus.classList.add("active");
-
-  document.getElementById("statusTitle").textContent = title;
-  document.getElementById("statusMessage").textContent = message;
-
-  const icon = document.getElementById("statusIcon");
-  icon.className = "status-icon" + (isError ? " error" : "");
-  icon.innerHTML = `<i class="${iconClass}"></i>`;
-}
-
-function normalizeKenyanPhone(value) {
-  let phone = value.replace(/[\s\-()+]/g, "");
-
-  if (phone.startsWith("0")) {
-    phone = "254" + phone.slice(1);
-  } else if (phone.startsWith("+")) {
-    phone = phone.slice(1);
-  }
-
-  if (!/^2547\d{8}$/.test(phone)) {
-    return null;
-  }
-
-  return phone;
-}
-
-async function requestJSON(url, options = {}) {
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {})
+          <h2 class="mt-8 text-lg font-bold">Synopsis</h2>
+          <p class="mt-2 leading-relaxed text-white/75">${esc(m.description) || 'No synopsis available from the source.'}</p>
+          ${m.ratingCount ? `<p class="mt-3 text-xs text-white/40">Based on ${m.ratingCount.toLocaleString()} IMDb ratings</p>` : ''}
+        </div>`;
+      recordHistory(slug);
     }
-  });
 
-  let data;
+    function renderPlayer(slug) {
+      const m = bySlug(slug);
+      if (!m) return notFound();
+      recordHistory(slug);
+      play = { slug, sources: [], subs: [{ label: 'Off', url: '' }], src: -1, sub: 0 };
 
-  try {
-    data = await response.json();
-  } catch {
-    throw new Error("The server returned an invalid response.");
-  }
+      app.innerHTML = `
+        <section class="-mx-4 -mt-6 bg-black sm:mx-0 sm:mt-0 sm:overflow-hidden sm:rounded-2xl">
+          <div class="relative aspect-video w-full bg-black">
+            <video id="video" playsinline class="h-full w-full bg-black"></video>
+            <div id="status" class="pointer-events-none absolute inset-0 grid place-items-center text-sm text-white/70"></div>
+            <a href="#/title/${enc(slug)}" class="absolute left-3 top-3 rounded-full bg-black/50 p-2" aria-label="Back">${svg('back')}</a>
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent px-4 pb-3 pt-10">
+              <input id="seek" type="range" min="0" max="1000" value="0" class="w-full" />
+              <div class="mt-1 flex justify-between text-[11px] text-white/70">
+                <span id="now">0:00</span><span id="dur">0:00</span>
+              </div>
+              <div class="mt-2 flex items-center justify-between">
+                <span class="w-6"></span>
+                <div class="flex items-center gap-10">
+                  <button data-act="back10" class="text-white" aria-label="Back 10 seconds">${svg('rewind', 'h-7 w-7')}</button>
+                  <button id="toggle" data-act="toggle" class="rounded-full bg-gold p-2.5 text-black" aria-label="Play or pause">${svg('play', 'h-6 w-6')}</button>
+                  <button data-act="fwd10" class="text-white" aria-label="Forward 10 seconds">${svg('forward', 'h-7 w-7')}</button>
+                </div>
+                <button data-act="gear" class="text-white" aria-label="Settings">${svg('gear', 'h-6 w-6')}</button>
+              </div>
+            </div>
+          </div>
+        </section>
 
-  if (!response.ok) {
-    throw new Error(data.message || data.error || "Request failed.");
-  }
+        <section class="px-1 pt-5">
+          <h1 class="text-2xl font-black sm:text-3xl">${esc(m.title)}</h1>
+          <div class="mt-2 flex flex-wrap items-center gap-3 text-sm text-white/70">
+            ${m.rating !== null ? `<span class="text-gold">★ ${m.rating.toFixed(1)}</span>` : ''}
+            ${m.year ? `<span>${esc(m.year)}</span>` : ''}
+            ${m.durationMin ? `<span>${fmtRuntime(m.durationMin)}</span>` : ''}
+            <span id="cc" class="hidden rounded bg-gold px-1.5 py-0.5 text-[10px] font-bold text-black">CC</span>
+          </div>
 
-  return data;
-}
+          <div id="settings" class="mt-6 space-y-6">
+            <div>
+              <h2 class="mb-2 text-sm font-semibold">Subtitles</h2>
+              <div id="subs-list" class="overflow-hidden rounded-xl border border-white/10 bg-panel"></div>
+            </div>
+            <div>
+              <h2 class="mb-2 text-sm font-semibold">Sources</h2>
+              <div id="src-list" class="overflow-hidden rounded-xl border border-white/10 bg-panel"></div>
+            </div>
+            <div>
+              <h2 class="mb-2 text-sm font-semibold">Download</h2>
+              <div id="dl-list" class="overflow-hidden rounded-xl border border-white/10 bg-panel"></div>
+            </div>
+          </div>
+        </section>`;
 
-checkoutForm.addEventListener("submit", async event => {
-  event.preventDefault();
+      bindPlayer();
+      loadPlay(slug);
+    }
 
-  if (!selectedPlan) {
-    showToast("Please choose a subscription first.");
-    return;
-  }
+    // ---------- Player ----------
+    function setStatus(text) {
+      const el = $('status');
+      if (el) el.textContent = text;
+    }
 
-  const phone = normalizeKenyanPhone(
-    document.getElementById("phoneNumber").value.trim()
-  );
+    function destroyHls() {
+      if (hls) { hls.destroy(); hls = null; }
+    }
 
-  if (!phone) {
-    showToast("Enter a valid Kenyan number, for example 0712345678.");
-    return;
-  }
+    function bindPlayer() {
+      const v = $('video');
+      if (!v) return;
+      const toggle = $('toggle');
+      const seek = $('seek');
 
-  const customerName =
-    document.getElementById("customerName").value.trim();
+      v.addEventListener('click', () => (v.paused ? v.play() : v.pause()));
+      v.addEventListener('play', () => { toggle.innerHTML = svg('pause', 'h-6 w-6'); setStatus(''); });
+      v.addEventListener('pause', () => { toggle.innerHTML = svg('play', 'h-6 w-6'); });
+      v.addEventListener('waiting', () => setStatus('Buffering…'));
+      v.addEventListener('playing', () => setStatus(''));
+      v.addEventListener('error', () => setStatus('This stream could not be played.'));
+      v.addEventListener('loadedmetadata', () => { $('dur').textContent = fmtTime(v.duration); });
+      v.addEventListener('timeupdate', () => {
+        const d = v.duration || 0;
+        seek.value = d ? Math.round((v.currentTime / d) * 1000) : 0;
+        $('now').textContent = fmtTime(v.currentTime);
+      });
+    }
 
-  const referralCode =
-    document.getElementById("referralInput").value.trim();
+    function playSource(i) {
+      const v = $('video');
+      if (!v || !play || !play.sources.length) return;
+      const src = play.sources[Math.max(0, i)];
+      const resumeAt = v.currentTime || 0;
+      destroyHls();
 
-  payButton.disabled = true;
-  payButton.innerHTML = '<span class="spinner"></span> Requesting payment...';
-
-  try {
-    const result = await requestJSON(
-      `${API_BASE}/api/payhero/stkpush`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          phone,
-          amount: selectedPlan.price,
-          plan: selectedPlan.id,
-          planName: selectedPlan.name,
-          customerName,
-          referralCode
-        })
+      if (src.url.includes('.m3u8') && window.Hls && Hls.isSupported()) {
+        hls = new Hls();
+        hls.loadSource(src.url);
+        hls.attachMedia(v);
+      } else {
+        v.src = src.url;
       }
-    );
-
-    if (result.success === false) {
-      throw new Error(result.message || "The payment request failed.");
+      if (resumeAt > 0) v.addEventListener('loadedmetadata', () => { v.currentTime = resumeAt; }, { once: true });
+      v.play().catch(() => {});
     }
 
-    currentTransactionRef =
-      result.transactionRef ||
-      result.transaction_ref ||
-      result.checkout_request_id ||
-      result.reference ||
-      result.id;
-
-    if (!currentTransactionRef) {
-      throw new Error(
-        "The server did not return a transaction reference. Check your backend response."
-      );
-    }
-
-    showPaymentStatus(
-      "Check your phone",
-      "If an M-Pesa prompt arrived, verify the amount and approve it. Waiting for payment confirmation...",
-      "fa-solid fa-mobile-screen-button"
-    );
-
-    pollDeadline = Date.now() + 120000;
-    pollPaymentStatus();
-
-  } catch (error) {
-    showToast(error.message || "Unable to start payment.");
-    payButton.disabled = false;
-    payButton.innerHTML =
-      'Pay with M-Pesa <i class="fa-solid fa-arrow-right"></i>';
-  }
-});
-
-async function pollPaymentStatus() {
-  if (!currentTransactionRef) return;
-
-  if (Date.now() >= pollDeadline) {
-    stopPolling();
-
-    showPaymentStatus(
-      "Still waiting for confirmation",
-      "The page stopped checking automatically. If you paid, contact support before trying another payment.",
-      "fa-solid fa-clock",
-      true
-    );
-    return;
-  }
-
-  try {
-    const ref = encodeURIComponent(currentTransactionRef);
-
-    const data = await requestJSON(
-      `${API_BASE}/api/transaction/${ref}/status`,
-      { method: "GET", headers: {} }
-    );
-
-    const status = String(
-      data.status ||
-      data.transactionStatus ||
-      data.payment_status ||
-      data.result ||
-      ""
-    ).toLowerCase();
-
-    if (
-      data.success === true &&
-      (
-        status.includes("success") ||
-        status.includes("complete") ||
-        status.includes("paid")
-      )
-    ) {
-      stopPolling();
-
-      showPaymentStatus(
-        "Payment confirmed!",
-        "Your payment has been confirmed. Continue to WhatsApp for assistance with your order.",
-        "fa-solid fa-circle-check"
-      );
-
-      const message = encodeURIComponent(
-        `Hello ChegeTech Premium, my payment was confirmed. ` +
-        `Subscription: ${selectedPlan.name}. ` +
-        `Transaction reference: ${currentTransactionRef}.`
-      );
-
-      const whatsappButton = document.createElement("a");
-      whatsappButton.className = "btn btn-primary btn-block";
-      whatsappButton.href =
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
-      whatsappButton.target = "_blank";
-      whatsappButton.rel = "noopener noreferrer";
-      whatsappButton.innerHTML =
-        'Continue to WhatsApp <i class="fa-brands fa-whatsapp"></i>';
-
-      paymentStatus.insertBefore(
-        whatsappButton,
-        document.getElementById("statusClose")
-      );
-
-      document.getElementById("statusClose").textContent = "Close";
-      return;
-    }
-
-    if (
-      status.includes("failed") ||
-      status.includes("cancel") ||
-      status.includes("reject") ||
-      status.includes("expired")
-    ) {
-      stopPolling();
-
-      showPaymentStatus(
-        "Payment was not completed",
-        data.message || "The transaction failed or was cancelled. You can close this window and try again.",
-        "fa-solid fa-circle-xmark",
-        true
-      );
-
-      return;
-    }
-
-  } catch (error) {
-    // A temporary status-check error should not immediately cancel payment.
-    console.warn("Payment status check failed:", error.message);
-  }
-
-  pollTimer = setTimeout(pollPaymentStatus, 3000);
-}
-
-plansGrid.addEventListener("click", event => {
-  const button = event.target.closest("[data-plan]");
-  if (!button) return;
-
-  openPayment(button.dataset.plan);
-});
-
-document.getElementById("closeModal").addEventListener("click", closePayment);
-document.getElementById("statusClose").addEventListener("click", closePayment);
-
-modal.addEventListener("click", event => {
-  if (event.target === modal) closePayment();
-});
-
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape" && modal.classList.contains("active")) {
-    closePayment();
-  }
-});
-
-document.getElementById("copyReferralBtn").addEventListener("click", async () => {
-  const link = document.getElementById("referralCode").dataset.link;
-
-  if (!link) {
-    showToast("Your referral link is not ready yet.");
-    return;
-  }
-
-  try {
-    await navigator.clipboard.writeText(link);
-    showToast("Referral link copied!");
-  } catch {
-    showToast("Copy was blocked by your browser. Open the link and copy it manually.");
-  }
-});
-
-async function initializeReferral() {
-  const params = new URLSearchParams(window.location.search);
-  const incomingRef = params.get("ref");
-
-  if (incomingRef) {
-    localStorage.setItem("chegetech_referral", incomingRef);
-  }
-
-  const userIdKey = "chegetech_referral_user";
-  let userId = localStorage.getItem(userIdKey);
-
-  if (!userId) {
-    userId = "customer-" + (
-      window.crypto && crypto.randomUUID
-        ? crypto.randomUUID()
-        : Date.now() + "-" + Math.random().toString(36).slice(2)
-    );
-
-    localStorage.setItem(userIdKey, userId);
-  }
-
-  let code = null;
-
-  try {
-    const data = await requestJSON(
-      `${API_BASE}/api/referral/generate`,
-      {
-        method: "POST",
-        body: JSON.stringify({ userId })
+    function setSub(i) {
+      const v = $('video');
+      if (!v || !play) return;
+      play.sub = i;
+      v.querySelectorAll('track').forEach((t) => t.remove());
+      const s = play.subs[i];
+      if (s && s.url) {
+        const tr = document.createElement('track');
+        tr.kind = 'subtitles';
+        tr.label = s.label;
+        tr.srclang = s.lang || 'en';
+        tr.src = s.url;
+        tr.default = true;
+        v.appendChild(tr);
+        tr.track.mode = 'showing';
       }
-    );
+      renderOptions();
+    }
 
-    code = data.referralCode || data.code || data.referral?.code || null;
-  } catch (error) {
-    console.warn("Referral generation endpoint unavailable:", error.message);
-  }
+    function renderOptions() {
+      const subs = $('subs-list');
+      if (!subs || !play) return;
+      const check = svg('check', 'h-4 w-4 text-gold');
+      const optRow = (label, on, attrs) => `
+        <button ${attrs} class="flex w-full items-center justify-between border-b border-white/5 px-4 py-3 text-left last:border-0 hover:bg-white/5">
+          <span class="flex items-center gap-3 ${on ? 'text-gold' : 'text-white/90'}"><span class="text-white/40">›</span>${esc(label)}</span>
+          ${on ? check : ''}
+        </button>`;
 
-  if (!code) {
-    code = "CT" + userId.replace(/[^a-z0-9]/gi, "").slice(-8).toUpperCase();
-  }
+      subs.innerHTML = play.subs.map((s, i) => optRow(s.label, i === play.sub, `data-act="sub" data-v="${i}"`)).join('');
+      $('src-list').innerHTML =
+        optRow('Auto', play.src === -1, 'data-act="src" data-v="-1"') +
+        play.sources.map((s, i) => optRow(s.label, i === play.src, `data-act="src" data-v="${i}"`)).join('');
+      $('dl-list').innerHTML = play.sources.length
+        ? play.sources.map((s, i) => `
+            <a href="${esc(s.downloadUrl)}" download data-act="dl" data-v="${i}"
+              class="flex w-full items-center justify-between border-b border-white/5 px-4 py-3 last:border-0 hover:bg-white/5">
+              <span class="flex items-center gap-3"><span class="text-white/40">›</span>${esc(s.label)}</span>
+              ${svg('download', 'h-4 w-4 text-white/60')}
+            </a>`).join('')
+        : '<p class="px-4 py-3 text-sm text-white/40">Not available yet</p>';
 
-  const link = new URL(window.location.pathname, window.location.origin);
-  link.searchParams.set("ref", code);
+      const cc = $('cc');
+      if (cc) cc.classList.toggle('hidden', play.sub === 0);
+    }
 
-  const codeElement = document.getElementById("referralCode");
-  codeElement.textContent = code;
-  codeElement.dataset.link = link.href;
-}
+    async function loadPlay(slug) {
+      const m = bySlug(slug);
+      if (!m) return setStatus('Title not found.');
+      setStatus('Loading…');
+      try {
+        const res = await fetch(`/api/play?subjectId=${enc(m.id)}&detailPath=${enc(m.slug)}`);
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        if (!play || play.slug !== slug) return;
 
-renderPlans();
-initializeReferral();
-</script>
+        play.sources = data.qualities || [];
+        play.subs = [{ label: 'Off', url: '' }, ...(data.subtitles || [])];
+        if (!play.sources.length) return setStatus('No stream available for this title.');
 
+        const en = play.subs.findIndex((s, i) => i > 0 && s.lang === 'en');
+        play.src = -1;
+        playSource(0);
+        setSub(en > 0 ? en : 0);
+        setStatus('');
+      } catch {
+        setStatus('This title could not be played right now.');
+      }
+    }
+
+    // ---------- Routing ----------
+    function setActiveTab(key) {
+      document.querySelectorAll('.tab').forEach((a) => {
+        const on = a.dataset.tab === key;
+        a.classList.toggle('text-gold', on);
+        a.classList.toggle('text-white/60', !on);
+      });
+    }
+
+    function route() {
+      clearInterval(bannerTimer);
+      const old = $('video');
+      if (old) old.pause();
+      destroyHls();
+
+      const [page = '', ...rest] = location.hash.replace(/^#\/?/, '').split('/');
+      const slug = decodeURIComponent(rest.join('/'));
+      if (page !== 'play') play = null;
+
+      setActiveTab(page === 'explore' || page === 'shelf' ? page : (page === '' || page === 'discover' ? 'discover' : ''));
+
+      if (page === 'title') renderDetail(slug);
+      else if (page === 'play') renderPlayer(slug);
+      else if (page === 'explore') renderExplore();
+      else if (page === 'shelf') renderShelf();
+      else renderDiscover(q());
+      window.scrollTo(0, 0);
+    }
+
+    // ---------- Events ----------
+    app.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-act]');
+      if (!el) return;
+      const act = el.dataset.act;
+      const v = el.dataset.v;
+
+      if (act === 'dot') {
+        bannerIndex = +v;
+        const h = $('hero');
+        if (h) h.outerHTML = heroBanner();
+      } else if (act === 'genre') {
+        genreFilter = genreFilter === v ? '' : v;
+        renderExplore();
+      } else if (act === 'type') {
+        typeFilter = v;
+        renderExplore();
+      } else if (act === 'shelf') {
+        shelfTab = v;
+        renderShelf();
+      } else if (act === 'remove') {
+        const [list, slug] = v.split('|');
+        if (list === 'watchlist') {
+          watchlist = watchlist.filter((s) => s !== slug);
+          store.set('bf-watchlist', watchlist);
+        } else {
+          history = history.filter((s) => s !== slug);
+          store.set('bf-history', history);
+        }
+        renderShelf();
+      } else if (act === 'watch') {
+        watchlist = watchlist.includes(v) ? watchlist.filter((s) => s !== v) : [...watchlist, v];
+        store.set('bf-watchlist', watchlist);
+        renderDetail(v);
+      } else if (act === 'toggle') {
+        const vid = $('video');
+        if (vid) (vid.paused ? vid.play() : vid.pause());
+      } else if (act === 'back10') {
+        const vid = $('video');
+        if (vid) vid.currentTime = Math.max(0, vid.currentTime - 10);
+      } else if (act === 'fwd10') {
+        const vid = $('video');
+        if (vid) vid.currentTime = Math.min(vid.duration || 0, vid.currentTime + 10);
+      } else if (act === 'gear') {
+        $('settings')?.scrollIntoView({ behavior: 'smooth' });
+      } else if (act === 'src') {
+        if (!play) return;
+        play.src = +v;
+        playSource(play.src);
+        renderOptions();
+      } else if (act === 'sub') {
+        if (play) setSub(+v);
+      } else if (act === 'dl') {
+        // Records the download, then the anchor's own download attribute runs.
+        if (!play) return;
+        const s = play.sources[+v];
+        const list = store.get('bf-downloads', []);
+        store.set('bf-downloads', [
+          { slug: play.slug, label: s.label, url: s.downloadUrl, at: Date.now() },
+          ...list.filter((d) => !(d.slug === play.slug && d.label === s.label)),
+        ].slice(0, 50));
+      }
+    });
+
+    app.addEventListener('input', (e) => {
+      if (e.target.id !== 'seek') return;
+      const vid = $('video');
+      if (vid && vid.duration) vid.currentTime = (e.target.value / 1000) * vid.duration;
+    });
+
+    $('search-btn').innerHTML = svg('search', 'h-5 w-5');
+    $('search-btn').addEventListener('click', () => {
+      const bar = $('search-bar');
+      bar.classList.toggle('hidden');
+      if (!bar.classList.contains('hidden')) $('search').focus();
+    });
+
+    $('search').addEventListener('input', () => {
+      if (location.hash && location.hash !== '#/') location.hash = '#/';
+      else renderDiscover(q());
+    });
+
+    const navItems = [
+      ['discover', '#/', 'home', 'Discover'],
+      ['explore', '#/explore', 'compass', 'Explore'],
+      ['shelf', '#/shelf', 'bookmark', 'My Shelf'],
+    ];
+
+    async function init() {
+      $('top-nav').innerHTML = navItems.map(([key, href, icon, label]) => `
+        <a href="${href}" data-tab="${key}" class="tab flex items-center gap-2 py-4 text-sm text-white/60">${svg(icon, 'h-4 w-4')}${label}</a>`).join('');
+      $('bottom-nav').innerHTML = navItems.map(([key, href, icon, label]) => `
+        <a href="${href}" data-tab="${key}" class="tab flex flex-col items-center gap-1 py-3 text-[11px] text-white/60">${svg(icon, 'h-5 w-5')}${label}</a>`).join('');
+
+      app.innerHTML = '<p class="py-20 text-center text-white/50">Loading catalog…</p>';
+      try {
+        const res = await fetch('/api/home');
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        catalog = data.items || [];
+        banners = data.banners || [];
+        window.addEventListener('hashchange', route);
+        route();
+      } catch {
+        app.innerHTML = `<p class="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
+          Could not load the catalog. Please try again shortly.</p>`;
+      }
+    }
+    init();
+  </script>
 </body>
 </html>
